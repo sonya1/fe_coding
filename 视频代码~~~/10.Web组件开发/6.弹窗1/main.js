@@ -24,9 +24,22 @@ require(['jquery','window'],function($,window){
 				});
 				
 			},
+			/*只能绑定一个函数，执行一个操作，第二个就会被覆盖
+			handler4CloseBtn:function(){
+				alert("您即将关闭窗口！");
+			},*/
 			title:"提示",
 			hasCloseBtn:true,
-			skinClassName:"pink"
+			skinClassName:"pink",
+			isDraggable:true   //可拖拽
+
+		});
+
+		win.on('close',function(){
+				alert("您即将关闭窗口111！");
+		});
+		win.on('close',function(){
+				alert("您即将关闭窗口222！");
 		});
 	});
 });
