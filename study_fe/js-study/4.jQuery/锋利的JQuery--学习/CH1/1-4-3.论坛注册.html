@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="checkbox" id="sr">
+	<label for="sr">我已经阅读了上面制度。</label>
+
+	<script type="text/javascript" src="../jquery.min.js"></script>
+	<script>
+		$(function(){
+			$("#sr").on("click",function(){
+				//$ischecked = $("#sr").prop("checked");  //true  false 建议使用prop().
+				
+				//$ischecked = $("#sr").attr("checked");  //checked  undefined
+
+				//alert($ischecked);
+				/*if($ischecked){
+					alert("OK!");
+				}*/
+
+				/*if($(this).is(":checked")){  //is 判断选择器，jq对象，dom对象，返回boolean值
+					alert("OK!");
+				}*/
+
+				var  sr = $("#sr")[0];  //DOM方式
+				if(sr.checked){  //.checked属性
+					alert("OK!!");
+				}
+			});
+			
+		});
+
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+无缝滚动  视频DOM 11、12
+
+获取浏览器宽、高：document.documentElement.clientWidth、document.documentElement.clientHeight
+
+自定义滚动条：文字向上滚动的高度 =  -（文字整体高度 - 框的高度）* （滚动条鼠标所在高度/整个滚动条） + “px”；
+
+
+锋利的JQuery：
+6.ajax
+7.插件
+8.购物网站
+9.jquery mobile h5??
+
+闭包：外部函数内部声明内部函数，内部函数使用外部函数中的临时变量，当外部函数调用完毕后，这个变量不会释放。
+
+闭包（老师）：外部函数内部声明内部函数，内部函数引用外部函数中的局部变量，这样当外部函数执行完以后，局部变量不释放
+
+
+js书：javascript第三版 电子版
+	javascript权威指南 第六版+  （小孩 红书）
+
+外边距合并（ie的问题。父元素里面有子元素，子元素margin-top父元素，结果子元素和父元素都margin-top 上面的元素了，父子元素挨上了）：父元素加边框（最优选择） 或定位都可以，子元素浮动也可以。
+
+浮动元素 margin:0 auto不好使
+
+php数据类型：
+	四个标量类型：int float string bool
+	两个复合类型：array Object
+	两个特殊类型：NULL resource
+php,c,c++,java是同步的
+nodejs 、ajax是异步的
+
+php中function是被提前编译的.
+
+
+PHP MVC
+	M:model V:view C:controller
+
+	V->C通讯（http:get post put delete）
+	(1)GET :  url?键名=键值   <a href="url?键名=键值">
+
+	1.http://localhost/index.php?name=sonya
+	2.restful(CI 直接把参数传递给参数)
+
+	V->C提交数据
+	1.http://localhost/项目名/index.php/控制器名/方法名/参数1/参数2
+	2.http://localhost/项目名/index.php/控制器名/方法名？参数1 （原生方法）
+	3.Ajax GET $.get('<?php echo site_url('控制名/方法名')?>','name=sonya',function(data){
+	//回调函数
+	},text);  ---text,xml,json  json_encode($str) //从数据库取回来的str 打包成json，原生ajax不支持json，jQ下ajax支持json
+	4.PHP curl （不经浏览器，从服务器到服务器  e.g微信公众号）
+	
+	C接收V数据
+	1.$_GET['name']  (原生方法)
+	2.$this->input->get();
+	3.$this->uri->segment(n) n叫段数 $this->uri->segment(3) //取参数值
+
+
+
+（2）POST
+V-C发送：1.<form action="<?php echo site_url('控制器名/方法名')?>"
+
+e.g	function login($a,$b){
+
+	}
+
+	aa(1,2);
+
+	2.Ajax post $.post('url','data',function(data){},text);
+	3.PHP curl
+
+C_V接收数据
+1. $_POST[''];
+2.$this->input->post()
+
+
+----------------------------------------------------------------------------------------------
+C-V发送数据（页面展示出来，要把展示的数据传给这个页面）
+$this->load->view('视图PHP文件名');
+$this->load->view('视图PHP文件名',$data,);  //$data类型是array
+
+$this->load->vars('视图PHP文件名',变量名);  //$data类型是array
+
+----------------------------------------------------------------------------------------------
+C-M （Cotrollor调用Model下的方法）
+有一张表 建一个控制器
+ 
+
+1.php(控制器.php)
+class User extends CI_Controller{
+	public function login(){
+		$user = $this->input->post('name');
+		$pass = $this->input->post('pass');
+
+		$this->load->model('User_model'); //加载这个User_model类
+		$this->User_model->get_name($user,$pass); //加载User_model类下的get_name方法
+	}
+}
+
+2.php(模型.php)
+class User_model extends CI_Model{
+	public function get_name($name,$pass){
+		//mysql_query()  :面向过程的
+		$query = $this->db->query("select * from user where name='$name' and pass='pass'");
+		return $query->row();
+	}
+}
+
+
+----------------------------------------------------------------------------------------------
+CI:
+1.欢迎页面
+index.php--->application contronlers welcome.php->views welcome_message.php(欢迎页面)
+2.配置autoload.php
+application config autoload.php
+
+	database.session.url
+
+
+-----------------------------------------------JQuery插件编写------------------------------------------
+;(funtion ($){  //函数立即调用
+	
+})(jQuery);   
+
+
+
+;(funtion (){  //函数立即调用
+	
+})();
+第一种方法的好处是：防止其他js的插件中$函数，查找$速度快。
+
+
+------------------------------------------------------------
+合并对象
+var user1 = {
+	name:"lisi",
+	age:25
+}
+var user2 = {
+	name:"wangwu",
+	sex:"male"
+}
+
+for(var p in user2){
+	//console.log(p);  user2的属性 name，sex
+	
+	user1[p] = user2[p];
+	
+}
+
+----------------------------------------------------------------------------------------------1.项目中前台可重用代码，提出来，单独存一个文件，可重用
+左面、上面，到时候php include加在合适的位置就行了
+2.提交数据 不刷新 ----ajax
+
+
+----------------------------------------------------------------------------------------------富文本编辑插件 kindeditor
+模板插件 underscore.js 后端 放在assets/js文件夹中
+
+-----------------
+服务器：aliyun
+github   githubsetup.exe
+
+
+
+

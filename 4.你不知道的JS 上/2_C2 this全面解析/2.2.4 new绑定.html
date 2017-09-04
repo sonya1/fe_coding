@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2.2.4 new绑定</title>
+</head>
+<body>
+	<ol>使用new来调用函数，或者说发生构造函数调用时，会自动执行下面的操作：
+		<li>创建（或者说构造）一个全新的对象</li>
+		<li>这个新对象会被执行[[原型]]连接</li>
+		<li>这个新对象会绑定到函数调用的this</li>
+		<li>如果函数没有返回其他对象，那么new表达式中的函数调用会自动返回这个新对象</li>
+	</ol>
+	<script>
+		function foo(a){
+			this.a = a;
+		}
+		var bar = new foo(2);
+		console.log(bar.a);  //2
+	</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		str = "  ab c  ";
+		function trim(str){  //g 表示全局搜索
+			return str.replace(/^\s+|\s+$/g,"");
+		}
+		console.log(trim(str).length);
+      
+        var net = "http://www.qq.com";
+		var reg = /(http:\/\/)(w{3})\.(.+)/g;
+		console.log(reg.exec(net));
+
+
+	</script>
+</body>
+</html>

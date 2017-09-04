@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		div{
+			width: 100px;
+			height: 100px;
+			background: red;
+			color: #ccc;
+		}
+		div:hover{
+			-webkit-animation:wobble 5s ease 0.1s;
+			animation:wobble 5s ease 0.1s;  /*infinate 一直动画  reverse反着来*/
+		}
+		@keyframes wobble{
+			0%{   /*from*/
+				margin-left: 100px;
+				background: green;
+			}
+			40%{
+				margin-left: 150px;
+				background: orange;
+			}
+			60%{
+				margin-left: 75px;
+				background: blue;
+			}
+			100%{  /*to*/
+				margin-left: 100px;
+				background: red;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div>hover me</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{
+			background: #000;
+		}
+		canvas{
+			background: #fff;
+			width: 400px;
+			height: 400px;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="cvs" ></canvas>
+	
+	<script>
+		var cvs = document.getElementById("cvs");
+		var context = cvs.getContext('2d');
+
+		context.beginPath();
+		context.strokeStyle = "#f00";
+		context.lineWidth = 2;
+		context.moveTo(0,0);  //起点
+		context.lineTo(0,100);   //终点
+		context.lineTo(100,100); 
+		//context.lineTo(0,0); 
+		context.closePath();  
+
+		context.rect(5,5,200,200);
+
+		context.stroke();  //描边
+	</script>
+</body>
+</html>

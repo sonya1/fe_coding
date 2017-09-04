@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>5.1原型属性</title>
+</head>
+<body>
+	<p>	
+	在JS中，函数本身也是一个包含了方法和属性的对象。经过之前的学习，相信我们对它的一些方法（call（）、apply（）【参数为数组】）及属性（length【形参的个数】、constructor【function Function() { [native code] }】）已经不会感到陌生了。接下来，我们要介绍的是函数对象的另一个属性——prototype。
+
+	众所周知，只要我们像下面这样简单的定义一个函数foo（），就可以像访问其他对象一样访问该函数的属性：
+
+	而这些（在函数定义时被创建的）属性中就包括有prototype属性，它的初始值是一个“空”对象：
+
+	当然，我们也可以自己添加该属性，就像这样：
+
+	而且我们还可以赋予这个空对象一些方法和属性，这并不会对foo函数本身造成什么影响；因为只有当foo（）做为构造器使用时，这些属性才会起作用。
+	</p>
+	<script>
+		function foo(a,b){
+			return a*b;
+		}
+		foo.length;  //2
+		foo.constructor;  //function Function() { [native code] }
+
+		typeof foo.prototype;  //"object"
+		foo.prototype; //Object {}
+
+		foo.prototype = {};
+	</script>
+
+
+	<h2>5.1.1 利用原型添加方法和属性</h2>
+	<p>
+		在上一章中，我们已经学会了如何定义构造器函数，并用它来新建（构造）对象。这种做法的主要意图是通过new操作符来调用函数，已达到访问对象this值的目的。然后，通过this我们就可以访问构造器所返回的对象了。这样，我们就有了一种赋予新建对象一定功能（即为其添加属性和方法）的方法。
+
+		下面，我们来构建一个具体的构造器函数Gadget(),看看他究竟是如何在新建对象时为其添加属性和方法的。
+	
+		当然，添加属性和方法还有另外一种方式，即通过构造器函数的prototype属性来增加该构造器所能提供的功能。下面就让我们为上面的构造器增加两个属性（price和rating）和一个方法（getInfo（））吧。由于prototype属性包含的是一个对象，所以您可以这样：
+	
+		如果您不想将它们逐一添加到原型对象中去，也可以另外定义一个对象，然后将其覆盖到之前的原型上。
+	</p>
+	<script>
+		function Gadget(name,color){
+			this.name = name;
+			this.color = color;
+			this.whatAreYou = function(){
+				return "I am a "+this.color+" " +this.name;
+			};
+		}
+
+		Gadget.prototype.price = 100;
+		Gadget.prototype.rating = 3;
+		Gadget.prototype.getInfo = function(){
+			return "Rating:"+this.rating + ",price: "+this.price;
+		};
+
+		/*Gadget.prototype = {
+			price:100,
+			rating :3
+		};*/
+		</script>
+
+	<h2>5.1.2 使用原型的方法与属性</h2>
+	<p>
+		在向prototype属性中添加完所有的方法和属性后，我们就可以直接用该构造器来新建对象了。例如在下面的代码中，我们用构造器Gadget（）新建了一个newtoy对象，然后你就可以访问之前所定义的那些属性和方法了。
+		
+		对于原型来说，最重要的一点是要理解它的“实时性”。由于在JS中，几乎所有对象都是通过传引用的方式来传递的，因此我们所创建的每个新对象实体中并没有一份属于自己原型副本。这也就意味着我们可以随时修改prototype属性，并且由同一构造器创建的所有对象的pototype属性也都会同时改变（甚至还会影响在修改之前就已经创建了的那些对象）。
+
+		下面继续之前的例子，让我们再向原型中添加一个新方法：
+
+		然后您就会看到，即便newtoy对象在get（）方法之前就已经被创建了，但我们依然可以在该对象中访问新增的方法：
+	</p>
+	<script>
+		var newtoy = new Gadget("webcam","black");
+		newtoy.name;  //"webcam"
+		newtoy.color;  //"black"
+		newtoy.whatAreYou();  //"I am a black webcam"
+		newtoy.price;  //100
+		newtoy.rating;  //3
+		newtoy.getInfo();  //"Rating:3,price: 100"
+
+		Gadget.prototype.get = function(what){
+			//return this.what;   //undefined
+			return this[what];
+		};
+
+		newtoy.get("price");  //100   this["price"]
+		newtoy.get("color");  //"black"
+	</script>
+
+	<h2>5.1.3 自身属性与原型属性</h2>
+	<p>
+		在之前关于getInfo（）的那个示例中，我们是使用this指针来完成对象访问的，但其实直接引用Gadget.prototype也可以完成同样的操作:
+
+		这之间会有什么不同么？想要回答这个问题，我们就必须要更深入的理解原型的工作原理。
+		下面，让我们再回到之前的那个newtoy对象上来：
+
+		当我们访问newtoy的某个属性，例如newtoy.name时，JS引擎会遍历该对象的所有属性，并查找出name属性。如果找到了就会立即返回其值。
+	
+		那么，如果我们访问rating属性又会发生什么呢？JS引擎依然会查询newtoy对象的所有属性，但这一回他找不到一个叫rating的属性了。接下来，脚本引擎就回去查询用于创建当前对象的构造器函数的原型（等价于我们直接访问newtoy.constructor.prototype）。如果在原型中找到了该属性，就立即使用该属性。
+
+		这种方式与直接访问原型属性是一样的。每个对象都有属于自己的构造器属性，其所引用的就是用于创建该对象的那个函数，所以在这里：
+
+		现在，让我们再仔细回顾一下整个过程：首先我们知道每个对象都会有一个构造器，而原型本身也是一个对象，这意味着它必然也有一个构造器，而这个构造器又会有自己的原型。于是这种结构可能会一直不断的持续下去，并最终取决于原型链的长度，但其最后一环肯定是Object内建对象，因为他是最高级的父级对象。事实上，如果您试着调用一下newtoy.toString()的话，由于newtoy对象及其原型都不存在toString方法。最后我们能调用的也就只有Object对象的toString（）方法了：
+
+		</p>
+	<script>
+		Gadget.prototype.getInfo = function(){
+			return "Rating: "+Gadget.prototype.rating + ",price: "+Gadget.prototype.price;
+		};
+
+		var newtoy = new Gadget("webcam","black");
+
+		newtoy.name;  //"webcam"
+
+		newtoy.rating;  //3
+
+		newtoy.constructor === Gadget;  //true
+		newtoy.constructor.prototype.rating;  //3
+
+		newtoy.toString();  //"[object Object]"
+	</script>
+
+	<h2>5.1.4 利用自身属性重写原型属性</h2>
+	<p>
+		通过上面的讨论，我们知道如果在一个对象自身属性中没有找到指定的属性，就会使用（如果存在的话）圆形脸中查找到的属性。但是，如果遇上对象的自身属性与原型属性同名又该怎么办呢？答案是对象自身属性的优先级高于原型属性。
+
+		让我们来看一个具体的示例，即同一个属性名同时出现在对象的自身属性和原形属性中：
+		
+		然后我们新建一个对象，并访问该对象自身的name属性：
+
+		我们可以通过hasOwnProperty()方法来判断一个属性是自身属性还是原型属性：
+
+		这时候，如果我们删除这个属性，同名的原型属性就会“浮出水面”：
+
+		当然，我们可以随时重建这个对象的自身属性：
+
+		如何判断一个对象的某个原型属性到底是原型链中的那个原型的属性呢？答案仍然是使用hasOwnProperty（）属性。例如，我们想知道toString属性来自哪里：
+	</p>
+	<script>
+		function Gadget(name){
+			this.name = name;
+		}
+		Gadget.prototype.name = "mirror";
+
+		var toy = new Gadget("camera");
+		toy.name;  //"camera"
+
+		toy.hasOwnProperty("name");  //true  自身属性为true
+
+		delete toy.name;  //true
+
+		toy.name;  //"mirror"
+
+		toy.hasOwnProperty("name");  //false  原型属性为false
+
+		toy.name = "camera";
+		toy.name;  //"camera"
+		toy.hasOwnProperty("name");  //true  自身属性为true
+
+		toy.toString(); //"[object Object]"
+		toy.hasOwnProperty("toString"); //false
+		toy.constructor.hasOwnProperty("toString");  //false
+		toy.constructor.prototype.hasOwnProperty("toString");  //false
+
+		Object.hasOwnProperty("toString");  //false
+		Object.prototype.hasOwnProperty("toString");  //true
+	</script>
+	<h3>枚举属性</h3>
+	<p>
+		如果想获得某个对象所有属性的列表，我们可以使用for—in循环。在第二章中，我们已经知道了如何使用该循环遍历数组中的所有元素。当时我们提到，for更适合数组而for-in更适合对象。让我们以构造字符串为例：	
+	</p>
+	<ul>在这里，有些细节需要注意：
+		<li>并不是所有的属性都会在for-in循环中显示。例如（数组的）length属性和constructor属性就不会被显示。那些会显示的属性被称为可枚举的，我们可以通过各个对象所提供的propertyIsEnumerable()方法来判断对象的某个属性是否可枚举。在ES5中，我们可以具体指定哪些属性可枚举，而在ES3中没有这个功能。</li>
+		<li>原型链中的各个属性也会被显示出来，当然前提是他们是可枚举的。我们可以通过对象的hasOwnProperty()方法来判断一个属性是对象自身属性还是原型属性。</li>
+		<li>对于所有的原型属性，propertyIsEnumerable()都会返回false，包括那些在for-in中可枚举的属性。</li>
+		下面来看看这些方法具体是如何使用的。首先，我们来定义一个简化版的Gadget（）：
+
+		然后新建一个对象：
+
+		现在，如果对他执行for-in循环，就会列出该对象中的所有属性，包括原型中的属性：
+
+		其结果甚至包括该对象的方法（因为方法本质上也可以被视为是函数类型的属性）：
+
+		如果要对对象属性和原型属性做一个划分，就需要调用hasOwnProperty（）方法，我们来试一下：
+
+		下卖弄我们再来循环一次，不过这次只显示对象的自身属性：
+
+		现在我们来试试PropertyIsEnumerable（），该方法会对所有的非内建对象属性返回true：
+
+		但是需要注意的是,如果propertyIsEnumerable()的调用是来自原型链上的某个对象，那么该对象中的属性是可枚举的。！！！！！
+	</ul>
+	<script>
+		var params = {
+			productid:666,
+			section:"products"
+		};
+
+		var url = "http://example.org/page.php?",
+			i,
+			query = [];
+
+		for(i in params){
+			query.push(i+"="+params[i]);
+		}
+		url += query.join("&");
+
+		url; //"http://example.org/page.php?productid=666&section=products"
+
+
+		var a = [1,2,3];
+		for(var i in a){
+			console.log(i+"="+a[i]);
+		}
+	  /*0=1
+		1=2
+		2=3*/
+
+		function Gadget(name,color){
+			this.name = name;
+			this.color = color;
+			this.getName = function(){
+				return this.name;
+			};
+		}
+		Gadget.prototype.price = 300;
+		Gadget.prototype.rating = 3;
+
+		var newtoy = new Gadget("webcam","balck");
+
+		for(var prop in newtoy){
+			console.log(prop+"="+newtoy[prop]);
+		}
+
+		/*
+		name=webcam
+		color=balck
+		getName=function (){
+						return this.name;
+					}
+		price=300
+		rating=3
+
+		 */
+		
+		newtoy.hasOwnProperty("name") ; //true
+		newtoy.hasOwnProperty("price");  //false
+
+		for(var prop in newtoy){
+			if(newtoy.hasOwnProperty(prop)){
+				console.log(prop+"="+newtoy[prop]);
+			}
+		}
+		/*
+		name=webcam
+ 		color=balck
+ 		getName=function (){
+				return this.name;
+			}
+		 */
+		 newtoy.propertyIsEnumerable("name");  //true
+		 //而对于内建属性和方法来说，他们大部分都是不可枚举的：
+		 newtoy.propertyIsEnumerable("constructor");  //flase
+		 //另外，任何来自原型链中的属性也是不可枚举的
+		 newtoy.propertyIsEnumerable("price");  //false
+
+		 newtoy.constructor.prototype.propertyIsEnumerable("price"); //true
+		 newtoy.constructor;  /*function Gadget(name,color){
+			this.name = name;
+			this.color = color;
+			this.getName = function(){
+				return this.name;
+			};
+		}*/
+		newtoy.constructor.prototype; //Object {price: 300, rating: 3}
+
+
+	</script>
+
+	<h2>5.1.5 isPrototypeOf()方法</h2>
+	<p>
+		每个对象中都会有一个isPrototypeOf()方法，这个方法会告诉我们当前对象是否是另一个对象的原型。
+
+		让我们先来定义一个简单的对象monkey：
+
+		然后，我们再创建一个叫做Human（）的构造器函数，并将其原型属性设置为指向monkey:
+
+		现在，如果我们新建一个叫做george的Human对象，并提问“monkey是george的原型么？”答案是true。
+
+		需要注意的是，我们在这里是预先知道了monkey可能是george的原型，才提出了问题“monkey是您的原型么？”，然后获得一个布尔值作为回应。那么，是否能在不知道某个对象原型是什么的情况下，获得对象的原型呢？答案是：大多数浏览器可以。因为大多数浏览器都实现了ES5的Object.getPrototypeOf()方法。
+
+		而对于另一部分实现了ES5部分功能，却没有实现getPrototypeOf（）方法的浏览器，我们可以使用特殊属性__proto__。
+	</p>
+	<script>
+		var monkey = {
+			hair:true,
+			feeds:"bananas",
+			breathes:"air"
+		};
+
+		function Human(name){
+			this.name = name;
+		}
+		Human.prototype = monkey;
+
+		var george = new Human('george');
+		monkey.isPrototypeOf(george);  //true
+
+		Object.getPrototypeOf(george).feeds;  //"bananas"
+		Object.getPrototypeOf(george) === monkey;  //true
+		Object.getPrototypeOf(george);  //Object {hair: true, feeds: "bananas", breathes: "air"}
+	</script>
+
+	<h2>5.1.6 神秘的__proto__属性</h2>
+	<p>
+		现在，我们已经了解了当我们访问一个在当前对象中不存在的属性时，相关的原型属性就会被纳入查询范围。
+
+		下面让我们改写一下那个用monkey对象作原型的Humen（）对象构造器。
+		这次，我们来创建一个developer对象，并赋予他一些属性：
+		接着，我们来访问一些属性，例如developer对象的hacks属性：
+		当然，feeds也一样可以在该对象中找到：
+		但breaches在developer对象自身的属性中是不存在的，所以就得去原型中查询，就好像其中有一个神秘的链接，或者秘密通道指向了相关的原型对象。
+
+		在现代JS环境中，对象中确实存在一个指向相关原型的链接，这个神秘的链接被叫做__proto__属性。
+
+		当然，出于学习的目的来调用这种神秘的属性是无可厚非的，但如果在实际的脚本编写中，这并不是一个好主意。因为该属性在IE之类的浏览器中是不存在的，因此脚本就不能实现跨平台了。
+
+		另外需要提示的是，__proto__与prototype并不是等价的。__proto__实际上是某个实例对象的属性，而prototype则是属于构造器函数的属性。
+
+		千万要记住，__proto__只能在学习或调试的环境下使用。或者如果你的代码碰巧只需要在复合ES5标准的环境中使用的话，你也可以使用Object.getPrototypeOf()方法。
+
+	</p>
+	<script>
+		var monkey = {
+			feeds:"bananas",
+			breathes:"air"
+		};
+
+		function Human(){}
+		Human.prototype = monkey;
+
+		var developer = new Human();
+		developer.feeds = "pizza";
+		developer.hacks = "JavaScript";
+
+		developer.hacks;  //"JavaScript"
+		developer.feeds;  //"pizza"
+
+		developer.breathes;  //"air"
+
+		developer.__proto__ === monkey;  //true
+
+		developer.__proto__;   //Object {feeds: "bananas", breathes: "air"}
+
+
+		developer.__proto__ ; //Object {feeds: "bananas", breathes: "air"}
+		Human.prototype; //Object {feeds: "bananas", breathes: "air"}
+
+		Human.__proto__;  //function () {}
+		developer.prototype;  //undefined
+	</script>
+</body>
+</html>

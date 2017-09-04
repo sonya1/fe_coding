@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js基础</title>
+
+	<script type="text/javascript">
+		document.write("<h1>sonya</h1>");
+		document.write("<p>sonya bangbangbang!!!</p>");
+
+		function write(){
+			document.write("change!!");
+			alert("qqq");
+		}
+
+		function changeVal(){
+			var oP1 = document.getElementById("p1");
+			oP1.innerHTML = "内容被改变";
+		}
+
+		function changeImg(){
+			var oImg = document.getElementById("img");
+			if(oImg.src.match('pic0')){
+				oImg.src="pic1.jpg";
+			}else{
+				oImg.src="pic0.jpg";
+			}
+			
+		}
+	</script>
+</head>
+<body>	
+		document.write()<br/>
+		<button onclick="write()">click 会 覆盖!</button>
+		<p>
+			您只能在 HTML 输出流中使用 <strong>document.write</strong>。
+			如果您在文档已加载后使用它（比如在函数中），会覆盖整个文档。
+		</p>
+		<hr>
+
+	
+		对事件作出反应
+		<button type="button" onclick="alert('Welcome!')">welcome</button>
+		<hr>
+		
+		<p id="p1">改变 HTML 元素的内容</p>
+		<button type="button" onclick="changeVal()">change value</button>
+		<hr>
+	
+		改变 HTML 图像
+		<img src="pic0.jpg" alt="pic0" id="img">
+		<button type="button" onclick="changeImg()">change Img</button>
+
+</body>
+</html>

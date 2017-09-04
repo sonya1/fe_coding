@@ -1,0 +1,18 @@
+.autocomplete-list{
+	width: 200px;
+	border:1px solid #ccc;
+	position: absolute;
+}
+.autocomplete-list li{
+	height: 30px;
+	line-height: 30px;
+	text-indent: 20px;
+	cursor: pointer;
+}
+.autocomplete-list li:hover{
+	background: #ccc;
+}
+.autocomplete-list li.selected{
+	background: #ccc;
+}
+

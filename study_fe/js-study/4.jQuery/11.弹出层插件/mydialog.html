@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="mydialog.css">
+</head>
+<body>
+	<button id="btn">open</button>
+	<script type="text/javascript" src="../jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="jquery.mydialog-1.0.js"></script>
+	<script>
+		$("#btn").on("click",function(){
+			$(document.body).mydialog({
+				title:'创建客户',
+				content:"aaaaaaaaaa",
+				width:400,
+				height:300,
+				isDragable:true
+			});
+		});
+		
+
+	</script>
+</body>
+</html>

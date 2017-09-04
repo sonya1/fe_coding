@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function Person(name,age){
+			this.name = name;
+			this.age = age;
+			this.sayName() = function(){  //浪费内存
+				alert(this.name);
+			};
+		}
+		var p1 = new Person("lisi",20);
+		var p2 = new Person("wuwu",30);
+
+	</script>
+</body>
+</html>

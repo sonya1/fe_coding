@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		#container{
+			width: 533px;
+			height: 300px;
+			margin: 50px auto;
+			position: relative;
+			/*overflow: hidden;*/
+		}
+		#tab{
+			width: 80px;
+			height: 10px;
+			position: absolute;
+			right:10px;
+			bottom:10px;
+			z-index: 100;
+		}
+		#tab li{
+			width: 10px;
+			height: 10px;
+			border-radius: 5px;
+			background: blue;
+			float: left;
+			margin-right: 10px;
+			cursor: pointer;
+			
+		}
+		#tab .selected{
+			background: #fff;
+		}
+		#imgs{
+			height: 300px;
+			position: absolute;
+		}
+		#imgs img{
+			width: 533px;
+			height: 300px;
+			float: left;
+			/*display: none;*/
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<ul id="tab">
+			<li class="selected"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<div id="imgs">
+			<img src="pic0.jpg" alt="">
+			<img src="pic1.jpg" alt="">
+			<img src="pic2.jpg" alt="">
+			<img src="pic3.jpg" alt="">			
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src="js/mylib.js"></script>
+	<script type="text/javascript">
+		//animate();
+		
+		var oImgs = document.getElementById("imgs");
+		var aImg = oImgs.getElementsByTagName("img");
+
+		var speed = 2;
+		var timer;
+
+		oImgs.appendChild(aImg[0].cloneNode());  //复制第一个 图片  先克隆，再追加
+		oImgs.style.width = aImg.length * aImg[0].offsetWidth + "px";  // +"px"
+
+		function play(){
+			timer = setInterval(function(){
+				if(oImgs.offsetLeft <= -oImgs.offsetWidth/2){
+					oImgs.style.left = 0;
+				}
+				oImgs.style.left = oImgs.offsetLeft - speed + "px";
+			},30);
+		}
+alert(oImgs.style.width);
+alert(oImgs.offsetWidth/2);
+alert(oImgs.offsetLeft);		
+
+
+		var oTab = document.getElementById("tab");
+		var aLi = oTab.getElementsByTagName("li");
+		for(var i=0;i<aLi.length;i++){
+			aLi[i].index = i;
+			aLi[i].onmouseover = function(){
+				oImgs.style.left = -this.index * aImg[0].offsetWidth + "px";
+				//animate(oImgs,{left:-this.index * aImg[0].offsetWidth});
+				for(var j=0;j<aLi.length;j++){
+					aLi[j].className = "";
+				}
+				this.className = "selected";
+			};
+		}
+
+		var oContainer = document.getElementById("container");
+		oContainer.onmouseover = function(){
+			clearInterval(timer);
+		};
+		oContainer.onmouseout = function(){
+			play();
+		};
+		play();
+	</script>
+</body>
+</html>

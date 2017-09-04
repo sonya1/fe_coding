@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#ul1{
+			list-style: none;
+			display: -webkit-box;
+			-webkit-box-orient:horizental;  /*水平显示*/
+			-webkit-box-orient:vertical;  /*垂直显示*/
+
+			/*-webkit-box-direction:reverse; */  /*reverse：将内容反转  normal：正常 */
+
+		}
+		#ul1 li{
+			width: 100px;
+			height: 100px;
+			background: red;
+			border: 1px solid #000;
+		}
+		/*#ul1 li:nth-child(1){
+			-webkit-box-ordinal-group:2;   /*换顺序 第一个 到第四个的位置了*/
+		}
+		#ul1 li:nth-child(2){
+			-webkit-box-ordinal-group:4;
+		}
+		#ul1 li:nth-child(3){
+			-webkit-box-ordinal-group:3;
+		}
+		#ul1 li:nth-child(4){
+			-webkit-box-ordinal-group:1;
+		}*/
+	</style>
+</head>
+<body>
+	<ul id="ul1">
+		<li>11</li>
+		<li>22</li>
+		<li>33</li>
+		<li>44</li>
+	</ul>
+</body>
+</html>

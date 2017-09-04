@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		#menu > li{  /*直接子元素*/
+			float: left;
+			height: 30px;
+			line-height: 30px;
+			width: 120px;
+			text-align: center;
+			margin-right: 3px;
+			background: #ccc;
+			border: 1px solid #ccc;
+			cursor: pointer;
+		}
+		#menu .submenu{
+			border: 1px solid #222;
+			border-top: none;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<ul id="menu">
+		<li>menu 1
+			<ul class="submenu">
+				<li>submenu 1</li>
+				<li>submenu 2</li>
+				<li>submenu 3</li>
+				<li>submenu 4</li>
+			</ul>
+		</li>
+		<li>menu 2
+			<ul class="submenu">
+				<li>submenu 1</li>
+				<li>submenu 2</li>
+				<li>submenu 3</li>
+				<li>submenu 4</li>
+			</ul>
+		</li>
+		<li>menu 3
+			<ul class="submenu">
+				<li>submenu 1</li>
+				<li>submenu 2</li>
+				<li>submenu 3</li>
+				<li>submenu 4</li>
+			</ul>
+		</li>
+		<li>menu 4
+			<ul class="submenu">
+				<li>submenu 1</li>
+				<li>submenu 2</li>
+				<li>submenu 3</li>
+				<li>submenu 4</li>
+			</ul>
+		</li>
+	</ul>
+
+	<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+	<script>
+		$(function(){
+			$("#menu > li").hover(function(){
+				$(this).children(".submenu").stop().slideDown();
+			},function(){
+				$(this).children(".submenu").stop().slideUp();
+			});
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="n"></div>
+	<script src="../jquery.min.js" type="text/javascript"></script>
+	<script>
+		$(function(){
+			$(document).mousemove(function(e){
+				$("#n").html("X:"+e.pageX+"|Y:"+e.pageY); //jq方式
+				//$("#n").html("X:"+e.clientX+"|Y:"+e.clientY);  //js方式
+			});
+		});
+	</script>	
+</body>
+</html>

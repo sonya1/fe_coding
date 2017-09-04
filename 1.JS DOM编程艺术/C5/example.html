@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<a href="http://www.example.com/">example</a>
+	<script>
+		window.onload = function(){
+			var as = document.getElementsByTagName("a");
+			var a = as[0];
+			a.onclick = function(){
+				window.open(a.href,"popUp","width=300,height=500");
+				return false;
+			}
+		}
+	</script>
+</body>
+</html>

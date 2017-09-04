@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2.3基本数据类型</title>
+</head>
+<body>
+	<p>我们在程序中所使用的任何值都是有类型的。JS仅有以下几大基本数据类型。</p>
+	<ol>
+		<li>数字——包括浮点数与整数，例如这些都属于数字：1、100、3.14</li>
+		<li>字符串——包括由任意数量字符组成的序列，例如：“a”、“one”、“one2three”</li>
+		<li>布尔值——包括true和false</li>
+		<li>undefined——当我们试图访问一个不存在的变量时，就会得到一个特殊值：undefined。除此之外，使用已声明却未赋值的变量也会如此。因为JS会自动将变量在初始化之前的值设定为undefined。而undefined类型的值只有一个——undefined。</li>
+		<li>null——这是另一种只包含一个值的特殊数据类型。所谓的null值，通常是指没有值或空值，不代表任何东西。null与undefined最大的不同在于，被赋予null的变量通常被认为是已经定义了的，只不过它不代表任何东西。关于这一点，我们稍后会通过一些具体的示例来解释。</li>
+	</ol>
+	<p>任何不属于上述五种基本类型的值都会被认为是一个对象。甚至有时候我们也会将null视为对象，这听起来有些尴尬——这是一个不代表任何东西的对象（东西）。我们将会在第四章：对象中深入阐述对象的概念，现在我们还只需要记住一点，JS中的数据类型主要分为以下两个部分:</p>
+	<ul>
+		<li>基本类型（上面列出的五种类型）</li>
+		<li>非基本类型（即对象）</li>
+	</ul>
+
+	<h2>2.3.1查看类型操作符——typeof</h2>
+	<p>如果我们想知道某个变量或值的类型是什么，可以调用特殊操作符typeof。该操作符会返回一个代表数据类型的字符串，以下是其可能返回的结果：</p>
+	<ul>
+		<li>“number”</li>
+		<li>“string”</li>
+		<li>“boolean”</li>
+		<li>“undefined”</li>
+		<li>“object”  //null返回object</li>   
+		<li>“function”</li>
+	</ul>
+	<p>在接下来的几节中，我们将会在例子中逐一对五种基本数据类型使用typeof操作。</p>
+
+	<h2>2.3.2数字</h2>
+	<p>最简单的数字类型当然就是整数了。如果我们将一个变量赋值为1，并对其调用typeof操作符，控制台就会返回字符串“number”：</p>
+	<script>
+		var a=1;
+		typeof a
+		"number"
+		n=1234;
+		typeof a
+		"number"
+	</script>
+	<p>该例中有一点值得注意，即当您第二次设置某变量的值时，就无需再用到var语句了。</p>
+	<p>浮点数（即含小数部分的数字）显然也是Number类型的一种。当然，我们也可以直接对一个数值调用typeof，并非一定得要事先赋值给变量。</p>
+	<script>
+		var n=1.23
+		typeof n
+		"number"
+		typeof 112
+		"number"
+	</script>
+
+	<h3>2.3.2.1八进制与十六进制</h3>
+	<p>当一个数字以0开头时，就表示这是一个八进制数。例如，八进制数0377所代表的就是十进制数255。</p>
+	<script>
+		var n=0377;
+		typeof n
+		"number"
+		n
+		255
+	</script>
+	<p>如您所见，例子中最后一行所输出的就是该八进制数的十进制表示形式。</p>
+	<p>或许您对八进制数还不太熟悉，但十六进制您应该不会感到陌生，因为CSS样式表中的颜色值在大多数情况下就是用十六进制定义的。</p>
+	<p>在CSS中，我们有好几种方式定义颜色，其中的两种如下所示。</p>
+	<ul>
+		<li>使用十进制数分别指定R（红）G（绿）B（蓝）的值，取值范围都是0~255。例如rgb（0,0,0）代表黑色，rgb（255,0,0）代表红色</li>
+		<li>使用十六进制数，两个数位代表一种色值，依次是R、G、B。例如#000000代表黑色、#ff0000代表红色，因为十六进制的ff就等于255。</li>
+	</ul>
+	<p>在JS中，我们会用0x前缀来表示一个十六进制值。</p>
+	<script>
+		var n=0x00;
+		typeof n
+		"number"
+		n
+		0
+		var n=0xff;
+		typeof n
+		"number"
+		n
+		255
+	</script>
+
+	<h3>2.3.2.2指数表示法</h3>
+	<p>一个数字可以表示成1e1（或者1e+1、1E1、1E+1）这样的指数形式，意思是在数字1后面加1个0，也就是10。同理，2e+3的意思就是在数字2后面加3个0，也就是2000。此外，我们也可以将2e+3理解为将数字2的小数点向右移三位。依照同理，2e-3也就能被理解将数字2的小数点左移3位。</p>
+	<script>
+		1e1
+		10
+		1e+1
+		10
+		2e+3
+		2000
+		typeof 2e+3
+		"number"
+
+		2e-3
+		0.002
+		123.456E-3
+		0.123456
+		typeof 2e-3
+		"number"
+	</script>
+
+	<h3>2.3.2.3 Infinity</h3>
+	<p>在JS中，还有一种叫做Infinity的特殊值。他所代表的是超出了JS处理范围的数值。但Infinity依然是一个数字，我们可以在控制台使用typeof来测试Infinity。当我们输入1e308时，一切正常，但一旦将后面的308改成09就出界了。实践证明，JS所能处理的最大值是1.79769313486157e+308，而最小值是5e-324。</p>
+	<p>另外，任何数除以0结果也为Infinity。</p>
+	<p>Infinity表示的是最大数（或者比最大数还要大的数），那么最小数该如何表示呢？答案是在Infinity之前加一个负号。</p>
+	<p>这是不是意味着我们可以得到双倍的Infinity呢？——毕竟我们可以从0加到Infinity，也可以从0减到-Infinity。事实上这是不可能的，因为即便将正负Infinity相加，我们也不会得到0，而是会得到一个叫做NaN（Not A Number的缩写，即不是数字）的东西。</p>
+	<p>另外，Infinity与其他任何操作数执行任何算术运算的结果也都等于Infinity。</p>
+	<script>
+		Infinity
+		Infinity
+		typeof Infinity
+		"number"
+		1e309
+		Infinity
+		1e308
+		1e+308
+		5/0
+		Infinity
+		-Infinity
+		-Infinity
+		typeof -Infinity
+		"number"
+		Infinity-Infinity
+		NaN
+		-Infinity+Infinity
+		NaN
+		Infinity-20
+		Infinity
+		-Infinity*3
+		-Infinity
+		Infinity/2
+		Infinity
+		Infinity-9999999999999999999999999999999999999
+		Infinity
+	</script>
+
+	<h3>2.3.2.4 NaN</h3>
+	<p>还记得之前见过的那个NaN么？尽管该值的名字叫做“不是数字”，但事实上他依然属于数字类型，只不过是一种特殊的数字罢了。</p>
+	<p>如果我们在算术运算中使用了不恰当的操作数，导致运算失败，该运算就会返回NaN。例如当我们试图让数字10与字符“f”相乘时，结果就会为NaN，因为“f”显然是不支持乘法运算的。</p>
+	<p>而且NaN是有传染性的，只要我们的算术运算中存在一个MaN，整个运算就会失败。</p>
+	<script>
+		typeof NaN
+		"number"
+		var a=10*"f";
+		a
+		NaN
+		1+2+NaN
+		NaN
+	</script>
+
+	<h3>2.3.3字符串</h3>
+	<p>字符串通常指的是某种用于表示文本的字符序列。在JS中，一对双引号或单引号之间的任何值都会被视为一个字符串。也就是说，如果说1是一个数字的话，那么“1”就是一个字符串了。在一个字符串前使用typeof操作符会返回“string”。</p>
+	<p>字符串中可以包含数字。</p>
+	<p>如果引号之间没有任何东西，他所表示的依然是一个字符串（即空字符串）。</p>
+	<p>在上一小节中，当我们在两个数字之间使用加号时，所执行的是加法运算。但在字符串中，这是一个字符串拼接操作，他返回的是两个字符串拼接之后的结果。</p>
+	<p>像+这样的双功能操作符可能会带来一些错误。因此，我们如果想知性拼接操作的话，最好确保其所有的操作符都是字符串。同样的，在执行数字相加时，我们也确保其所有的操作数都是数字。至于如何做到这一点，我们将会在后续章节中详细讨论。</p>
+	<script>
+		var s="some"
+		typeof s;
+		"string"
+		var s='aa nn ss';
+		typeof s;
+		"string"
+		var s='1'
+		typeof s
+		"string"
+		var s="";
+		typeof s;
+		"string"
+		var s1="web";
+		var s2="site";
+		var s=s1+s2;
+		s
+		"website"
+		typeof s
+		"string"
+	</script>
+
+	<h3>2.3.3.1 字符串转换</h3>
+	<p>当我们将一个数字字符串用于算术运算中的操作数时，该字符串会在运算中被当做数字类型来使用。（由于加法操作符的歧义性，这条规则不适用于加法运算。）</p>
+	<script>
+		var s='1'
+		s=3*s
+		typeof s
+		"number"
+		s
+		3
+
+		var s='1'
+		s++
+		typeof s
+		"number"
+		s
+		2
+	</script>
+
+	<p>于是，将数字字符串转换为数字就有了一种偷懒的方法：只需将该字符串与1相乘即可。（当然，更好的选择时调用parseInt（）函数，关于这点，我们将会在下一章中介绍。）</p>
+	<p>如果转换操作失败了，我们就会得到一个NaN值。</p>
+	<p>此外，将其他类型转换为字符串也有一种偷懒的方法，只需要将其与空字符串相加即可。</p>
+	<script>
+		var s="100";typeof s;
+		"string"
+		s=s*1;
+		100
+		typeof s
+		"number"
+
+		var movie='101 daaaa';movie*=1;
+		NaN
+		movie
+		NaN
+
+		var n=1;
+		typeof n
+		"number"
+		n=""+n;
+		"1"
+		typeof n
+		"string"
+	</script>
+
+<h3>2.3.3.2特殊字符串</h3>
+<p>\\  \'  \''  转义字符</p>
+
+<h2>2.3.4 布尔值</h2>
+<p>布尔类型中只有两种值：true和false。他们使用时不需要加引号。如果true或false在引号内，他就是一个字符串。</p>
+
+<h3>2.3.4.1 逻辑运算符</h3>
+<p>JS中有三种逻辑运算符，他们都属于布尔运算。分别是：</p>
+<ul>
+	<li>!——逻辑非（取反）</li>
+	<li>&&——逻辑与</li>
+	<li>||逻辑或</li>
+</ul>
+
+<p>在JS中，如果我们想描述某事物的非真状态，就可以考虑使用逻辑非运算符。
+	而如果我们对true执行两次逻辑非运算的话，其结果应该就等于原值。
+	如果我们对一个非布尔值执行逻辑运算，那么该值就会在计算过程中被转换为布尔值。
+	借助双重取反操作，我们可以很轻易地将任何值转换为相应的布尔值。理解各种类型的值转换为相应布尔值的规则非常重要。除了下面所列出特定值意外（他们将被转换为false），其余大部分只在转换为布尔值时都为true。
+</p>
+<ul>
+	<li>空字符串“”</li>
+	<li>null</li>
+	<li>undefined</li>
+	<li>数字0</li>
+	<li>数字NaN</li>
+	<li>布尔值false</li>
+</ul>
+<p>这6个值</p>
+
+<script>
+	var b=true;typeof b
+	"boolean"
+	var b=false;typeof b
+	"boolean"
+	var b="true";typeof b
+	"string"
+	var b=!true;b
+	false
+	var b=!!true;b
+	true
+	var b="one";!b
+	false
+	var b="one";!!b
+	true
+	var b1=true,b2=false;
+	b1||b2
+	true
+	b1&&b2
+	false
+	true&&true&&false&&true
+	false
+	false||true||false
+	true
+	false&&false||true&&true
+	true
+	false&&(false||true)&&true
+	false
+</script>
+
+<h3>2.3.4.2操作符优先级</h3>
+<p>	您可能会想知道，为什么上例中的第一个表达式（false && false ||true&&true）结果为true。答案在于操作符优先级。这看上去有点像数学。</p>
+<p>	逻辑运算符也一样，！的优先级最高，因此在没有括号限定的情况下他将会被最先执行。接下来的优先顺序是&&，最后才是||。也就是说：false && false ||true&&true与（false && false） ||（true&&true）等效。</p>
+<h3>最佳实践</h3>
+<p>尽量使用括号，而不是依靠操作符优先级来设定代码的执行顺序，这样我们的代码才能有更好的可读性。</p>
+<p>尽管ECMAScript标准的确对运算符的优先级做了相应的定义，而且记住所有运算符的优先级也算是一种很好的脑力练习，单本书并不打算提供这个优先级列表。因为首先，就算您记住了这些顺序，以后也有可能忘记。其次，即使您永远不会忘记，您也不应该依赖他，因为别人不一定会记得，这样做会给他们的代码阅读与维护带来困难。</p>
+
+<h3>2.3.4.3惰性求值</h3>
+<p>如果在一个连续的逻辑操作中，操作结果在最后一个操作完成之前就已经明确了的话，那么该操作往往就不必再继续执行了，因为这已经不会对最终结果产生任何影响。例如，在下面这种情况下：</p>
+<code>	
+	true||false||true||false||true
+	true
+</code>
+<p>在这里，所有的逻辑或运算符优先级都是相同的，只要其中任何一个操作数为true，该表达式的结果就为true。因而当第一个操作数被求值之后，无论后面的值是什么，结果都已经被确定了。于是我们可以允许JS引擎偷个懒（好吧，这也是为了提高效率，）在不影响最终结果的情况下省略一些不必要的求值操作。为此，我们可以在控制台中做个试验：</p>
+<script>	
+	var b=5;
+	true||(b=6);
+	true
+	b
+	5
+	true&&(b=6);
+	6
+	b
+	6
+	var a=true&&(b=6);
+	a
+	6
+</script>
+<p>除此之外，上面的例子还向我们显示了另一个有趣的事情——如果JS引擎在一个逻辑表达式中遇到一个非布尔类型的操作数，那么该操作数的值就会成为该表达式所返回的结果。例如：</p>
+<script>
+	true||"something"
+	true
+	true&&"something"
+	"something"
+	true&&"something"&&true
+	true
+</script>
+
+<p>
+	通常情况下，这种行为应该尽量避免，因为他会使我们的代码变得难以理解。但在某些时候这样做也是有用的。例如，当我们不能确定某个变量是否已经被定义时，就可以像下面这样，即如果变量mynumber已经被定义了，就保留原有值。否则就将他初始化为10。
+
+	这种做法简单而优雅，但是请注意，这也不是绝对安全的。如果这里的mynumber之前被初始化为0（或者是那6个falsy值中的任何一个），这段代码就不太可能如我们所愿了。
+</p>
+<script>
+	var mynumber=mynumber||10
+	mynumber
+	10
+
+	var mynumber=0;
+	var mynumber=mynumber||10;
+	mynumber
+	10
+</script>
+
+<h3>2.3.4.4比较运算符</h3>
+<p>
+	NaN ！= NaN true
+</p>
+
+<h2>2.3.5 undefined与null</h2>
+<p>当我们尝试使用一个不存在的变量时，控制台中就会产生以下错误：</p>
+<script>
+	foo
+	VM333:1 Uncaught ReferenceError: foo is not defined
+    at <anonymous>:1:1
+	(anonymous) @ VM333:1
+	typeof foo
+	"undefined"
+	var some;
+	some
+	undefined
+	typeof some
+	"undefined"
+	var somevar;
+	somevar===undefined
+	true
+	var somevar=null;
+	undefined
+	somevar
+	null
+	typeof somevar
+	"object"
+	var i=1+undefined;
+	i
+	NaN
+	var i=1+null;
+	i
+	1
+</script>
+<p>但当对不存在的变量使用typeof操作符时则不会出现这样的错误，而是会返回一个字符串“undefined”。
+如果我们在声明一个变量时没有对其进行赋值，调用该变量时并不会出错，但typeof操作符依然会返回“undefined”。这是因为当我们声明而不初始化一个变量时，JS会自动使用undefined值来初始化这个变量。
+但null值就完全是另一回事了。他不能由JS自动赋值，只能交由我们的代码来完成。
+尽管undefined和null之间的差别微乎其微，但有时候也很重要。例如，当我们对其分别执行某种算术运算时，结果就会截然不同。
+
+
+这是因为null和undefined在被转换为其他基本类型时，方法存在一定的区别，下面我们给出一些可能的转换类型。
+
+undefined--->NaN
+null-->0
+
+</p>
+</body>
+</html>

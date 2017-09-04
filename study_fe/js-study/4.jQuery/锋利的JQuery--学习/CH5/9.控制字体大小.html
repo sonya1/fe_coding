@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		span{
+			float: left;
+			padding: 5px;
+			margin-right: 3px;
+			background: #898989;
+			color: #fff;
+			cursor: pointer;
+		}
+		#con{
+			width: 300px;
+			clear: both;			
+		}
+	</style>
+</head>
+<body>
+	<span id="bigger">放大</span><span id="smaller">缩小</span>
+	<div id="con">
+		This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text.
+	</div>
+	<script type="text/javascript" src="../jquery.min.js"></script>
+	<script>
+		$(function(){
+			var $size = $("#con").css("font-size");
+			//alert($size);  16px
+			var $unit = $size.slice(-2);
+			//alert($unit);   px
+			var $thisSize = parseInt($size);  //16
+
+			$("span").click(function(){
+				if(this.id == "bigger"){
+					if($thisSize <= 22){
+						$thisSize += 2;
+					}					
+					//alert($thisSize);
+					
+				}else{
+					if($thisSize >= 12){
+						$thisSize -= 2;
+					}
+					
+				}
+				$("#con").css("font-size",$thisSize+$unit);
+			});
+		});
+
+		
+	</script>
+</body>
+</html>

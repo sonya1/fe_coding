@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function createPerson(name,age){  //分不清 原型，constructor
+			var o = new Object();
+			o.name = name;
+			o.age = age;
+			return o;
+		}
+		var p1 = createPerson("lisi",20);
+		var p2 = createPerson("wuwu",30);
+
+	</script>
+</body>
+</html>

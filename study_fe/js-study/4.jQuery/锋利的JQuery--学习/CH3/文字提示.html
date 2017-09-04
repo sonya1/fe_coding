@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#tooltip{
+			position:absolute;
+			border:1px solid #333;
+			background:#f7f5d1;
+			padding:1px;
+			color:#333;
+			display:none;
+		}
+	</style>
+</head>
+<body>
+	<p><a href="" title="这是提示1" class="tooltip">提示1</a></p>
+	<p><a href="" title="这是提示2" class="tooltip">提示2</a></p>
+	<p><a href="" title="这是自带提示1">自带提示1</a></p>
+	<p><a href="" title="这是自带提示2">自带提示2</a></p>
+
+	<script type="text/javascript" src="../jquery.min.js"></script>
+	<script>
+		$(function(){
+			var x = 10;
+			var y = 10;
+			$("a.tooltip").mouseover(function(e){			
+				this.mytitle = this.title;
+				this.title = "";
+				//$(this).removeClass("title");
+				var myTip = $("<div id='tooltip'>"+this.mytitle+"<\/div>");
+				$("body").append(myTip);
+				$("#tooltip").css({
+						"left":(x + e.pageX )+ "px",
+						"top":(y + e.pageY) + "px"
+					}).show("fast");
+
+			}).mouseout(function(e){
+				this.title = this.mytitle;
+				$("#tooltip").remove();
+			}).mousemove(function(e){
+				$("#tooltip").css({
+						"top": (e.pageY+y) + "px",
+						"left": (e.pageX+x)  + "px"
+					});
+			});
+		});
+
+		
+	</script>
+</body>
+</html>

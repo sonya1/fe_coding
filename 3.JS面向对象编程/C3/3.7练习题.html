@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3.7练习题</title>
+</head>
+<body>
+	<ol>
+		<li>1.编写一个将十六进制值转换为颜色的函数，以蓝色为例，#0000FF应被表示成rgb(0,0,255)的形式。然后将函数命名为getRGB(),并用以下代码进行测试。提示：可以将字符串视为数组，这个数组的元素为字符。</p>
+		</li>
+		<li>执行以下代码。</li>
+		<li>执行代码。</li>
+		<li>解释原因。</li>
+	</ol>
+
+	<script>
+		//1.
+		function getRGB(color){
+			var res="";
+			var one = color[1]+color[2];
+			var two = color[3]+color[4];
+			var three = color[5]+color[6];
+			console.log(one+two+three);
+			one = parseInt(one,16);
+			two = parseInt(two,16);
+			three = parseInt(three,16);
+			console.log(one+two+three);
+			res += "rgb("+one+","+two+","+three+")";
+			return res;
+		}
+
+		var a = getRGB("#00FF00");
+		a  //rgb(0,255,0)
+
+
+		//2
+		parseInt(1e1);  //！！！！
+		10
+		parseInt("1e1");  //！！！
+		1
+		parseFloat("1e1");  //！！！
+		10
+		isFinite(0/10)
+		true
+		isFinite(20/0)
+		false
+		isNaN(parseInt(NaN));
+		true
+
+		//3
+		var a=1;
+		function f(){
+			function n(){
+				alert(a);
+			}
+			var a=2;
+			n();
+		}
+
+		f();  //2
+
+
+		//4.1
+		var f = alert;
+		eval("f('Boo!')");
+
+		//4.2
+		var e;
+		var f = alert;
+		eval('e=f')('Boo!');
+
+		//4.3
+		(function(){
+			return alert;
+		})()("Boo!");
+	</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+		function isIpad(){
+			return navigator.userAgent.indexOf("iPad") != -1;
+		}
+		function isMobile(){
+			return navigator.userAgent.indexOf("Mobile") != -1;
+		}
+		if(isIpad()){
+			alert("this is ipad");
+		}
+		if(isMobile()){
+			//alert("mobile");
+			location.href = "20.mobile.html";
+		}
+	</script>
+</head>
+<body>
+	this is pc.
+</body>
+</html>

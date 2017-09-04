@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="text">
+	<script src="../jquery.min.js" type="text/javascript"></script>
+	<script>
+		$(function(){
+			$("input").val("enter your search text here");
+			textFill($("input"));			
+		});
+
+		function textFill(input){
+				var originalvalue = input.val();
+				input.focus(function(){
+					if($.trim(input.val()) == originalvalue){
+						input.val("");
+					}
+				}).blur(function(){
+					if($.trim(input.val()) == ""){
+						input.val(originalvalue);
+					}
+				});
+		}
+	</script>	
+</body>
+</html>

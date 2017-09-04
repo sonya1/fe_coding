@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>水平，垂直居中</title>
+	<style>
+		*{
+			margin:0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+			/*以下两条： 水平居中*/
+			width: 300px;
+			height: 100px;
+			position: absolute;
+			top:50%;
+			left:50%;
+			margin-top:-50px;
+			margin-left:-150px; 
+		}
+		#content{
+			background: red;
+			/*padding: 50px;  /*1.*/
+			
+
+		}
+		ul li{
+			float: left;
+			margin-left: 10px;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="content">
+		<ul>
+			<li>home</li>
+			<li>blog</li>
+			<li>photo</li>
+			<li>sonya</li>
+		</ul>
+	</div>
+</body>
+</html>

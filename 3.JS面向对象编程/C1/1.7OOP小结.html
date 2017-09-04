@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>1.7 OOP小结</title>
+</head>
+<body>
+	<p>下面，让我们再来回顾一下这些概念。</p>
+	<table border="1">
+		<thead>
+			<tr>
+			<th>特征描述</th>
+			<th>相应概念</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+			<td>Bob是一个男人（后者是一个对象）</td>
+			<td>对象</td>
+			</tr>
+
+			<tr>
+				<td>Bob出生于1980年6月1日，男性，黑头发</td>
+				<td>属性</td>
+			</tr>
+			<tr>
+				<td>Bob能吃饭、睡觉、喝水、做梦，以及记录自己的年龄</td>
+				<td>方法</td>
+			</tr>
+			<tr>
+				<td>Bob是Programmer类的一个实例</td>
+				<td>传统OOP中的类</td>
+			</tr>
+			<tr>
+				<td>Bob是一个由Programmer对象扩展而来的新对象</td>
+				<td>基于原型OOP中的原型对象</td>
+			</tr>
+			<tr>
+				<td>Bob对象中包含了数据（例如出生日期）和基于这些数据的方法（例如记录年龄）</td>
+				<td>封装</td>
+			</tr>
+			<tr>
+				<td>我们并不需要知道其记录年龄的方法是如何实现的。对象通常都可以拥有一些私有数据，例如对闰年二月的天数，我们就不知道，而且也不会想知道</td>
+				<td>信息隐藏</td>
+			</tr>
+			<tr>
+				<td>Bob只是是整个Web开发团队对象的一部分，此外开发对象还包括了一个Designer对象Jill，以及一个ProjectManager对象Jack</td>
+				<td>聚合、组合</td>
+			</tr>
+			<tr>
+				<td>Designer、Projectmanager、Programmer都是分别扩展自Person对象的新对象</td>
+				<td>继承</td>
+			</tr>
+			<tr>
+				<td>我们可以随时调用Bob、Jill和jack这三个对象各自的talk方法，他们都可以正常工作，尽管这些方法会产生不同的结果（如Bob可能谈的更多的是代码的性能，Jill更更倾向于谈代码的优雅性，而jack强调的是最后期限）。总之，每个对象都可以重新自定义他们的继承方法talk</td>
+				<td>多态、方法覆写</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

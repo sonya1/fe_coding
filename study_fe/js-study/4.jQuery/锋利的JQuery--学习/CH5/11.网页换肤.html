@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#change{
+			border: 1px #ccc solid;
+			list-style: none;
+			width: 200px;
+			height: 30px;
+			line-height: 30px;
+			padding-top:12px;
+		}
+		#change li{
+			float: left;
+			margin-right: 5px;
+			height: 15px;
+			width: 15px;		
+			border-radius: 2px;
+			text-indent: -999px;
+			background: url(img/theme.gif);
+		}
+		#change li.grey{
+			background-position:0 0 ;
+		}
+		#change li.red{
+			background-position:-79px 0 ;
+		}
+		#change li.pink{
+			background-position:-100px 0 ;
+		}
+		#change li.blue{
+			background-position:-60px 0 ;
+		}
+		#change li.green{
+			background-position:-19px 0 ;
+		}
+		#change li.orange{
+			background-position:-39px 0 ;
+		}
+		#change li.grey.selected{
+			background-position:0 -15px ;
+		}
+		#change li.pink.selected{
+			background-position:-100px -15px ;
+		}
+		#change li.red.selected{
+			background-position:-79px -15px ;
+		}
+		#change li.orange.selected{
+			background-position:-39px -15px ;
+		}
+		#change li.blue.selected{
+			background-position:-60px -15px ;
+		}
+		#change li.green.selected{
+			background-position:-19px -15px ;
+		}
+		#tab span{
+			float: left;
+			margin-right: 20px;
+			background: grey;
+			color: #fff;
+			cursor: pointer;
+			padding: 5px 10px;
+		}
+		#tab span.grey{
+			background: grey;
+		}
+		#tab span.red{
+			background: red;
+		}
+		#tab span.green{
+			background: green;
+		}
+		#tab span.blue{
+			background: blue;
+		}
+		#tab span.orange{
+			background: orange;
+		}
+		#tab span.pink{
+			background: pink;
+		}
+	</style>
+</head>
+<body>
+	<ul id="change">
+		<li class="grey selected" value="灰">灰</li>
+		<li class="pink" value="粉">粉</li>
+		<li class="red" value="红">红</li>
+		<li class="blue" value="蓝">蓝</li>
+		<li class="orange" value="橙">橙</li>
+		<li class="green" value="绿">绿</li>
+	</ul>
+	<div id="tab">
+		<span>时事新闻</span>
+		<span>娱乐新闻</span>
+	</div>
+	<script type="text/javascript" src="../jquery.min.js"></script>
+	<script src="jquery.cookie.js" type="text/javascript"></script>
+<script type="text/javascript" src="cookie.js"></script>
+	<script>
+		$(function(){
+			$("#change li").click(function(){
+				//alert($(this).html());
+				$(this).addClass("selected")
+						.siblings().removeClass("selected");
+				$span = $("#tab span");
+				if($(this).html() == "灰"){
+					$span.removeClass();
+					$span.addClass("grey");
+				}
+				if($(this).html() == "红"){
+					$span.removeClass();
+					$span.addClass("red");
+				}
+				if($(this).html() == "绿"){
+					$span.removeClass();
+					$span.addClass("green");
+				}
+				if($(this).html() == "粉"){
+					$span.removeClass();
+					$span.addClass("pink");
+				}
+				if($(this).html() == "橙"){
+					$span.removeClass();
+					$span.addClass("orange");
+				}
+				if($(this).html() == "蓝"){
+					$span.removeClass();
+					$span.addClass("blue");
+				}
+				$.cookie( "MyCssSkin" ,  this.value , { path: '/', expires: 10 });
+			});
+			var cookie_skin = $.cookie( "MyCssSkin");
+			if (cookie_skin) {
+				$("#"+cookie_skin).addClass("selected")                //当前<li>元素选中
+				.siblings().removeClass("selected");  //去掉其它同辈<li>元素的选中
+				$("#cssfile").attr("href","css/"+ cookie_skin +".css"); //设置不同皮肤
+				$.cookie( "MyCssSkin" ,  cookie_skin  , { path: '/', expires: 10 });
+			}
+			/*var Days = 30;
+			var exp = new Date();
+			exp.setTime(exp.getTime() + Days*24*60*60*1000);
+			document.cookie = "MySkin" + "="+ this.value + ";expires=" + exp.toGMTString();
+			*/
+			setCookie('MySkin',this.value);
+			
+		});
+
+		
+	</script>
+</body>
+</html>

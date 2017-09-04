@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<button id="btn">随机彩票</button>
+	<div id="result"></div>
+
+	<script>
+		var oBtn = document.getElementById("btn");
+		var oResult = document.getElementById("result");
+		var obj = {};
+
+		/*oBtn.onclick = function(){
+			var arr = [];
+			location.hash = Math.random();  //地址栏#后面
+			for(var i=0;i<7;i++){
+				var rand = Math.ceil(  Math.random()*31 + 1) ; // [1-32]
+				arr.push(rand);
+			}
+			obj[location.hash] = arr;
+			oResult.innerHTML = arr;
+			console.log(obj);
+		};
+
+		window.onhashchange = function(){
+			oResult.innerHTML = obj[location.hash];
+		};*/
+
+		oBtn.onclick = function(){
+			var arr = [];
+			for(var i=0;i<7;i++){
+				var rand = Math.ceil(  Math.random()*31 + 1) ; // [1-32]
+				arr.push(rand);
+			}
+			history.pushState(arr,"");  //h5的history方法
+			oResult.innerHTML = arr;
+			//console.log(obj);
+		};
+
+		window.onpopstate = function(e){
+			oResult.innerHTML = e.state;  //从history中取出
+		};
+	</script>
+</body>
+</html>

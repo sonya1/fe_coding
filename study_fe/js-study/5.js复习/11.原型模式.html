@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function Person(name,age){  //属性放在类里面，方法放在原型里面
+			this.name = name;
+			this.age = age;
+		}
+		Person.prototype.height = 180;  
+		Person.prototype.sayName = function(){  //节省内存
+				alert(this.name);
+			};
+		var p1 = new Person("lisi",20);
+		var p2 = new Person("wuwu",30);
+
+		p1.height = 190;
+		//p1.sayName();
+		alert(p2.height);
+	</script>
+</body>
+</html>

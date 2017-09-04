@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>parent</title>
+</head>
+<body>
+
+
+	this is parent. 
+	<button id="btn">控制子页面</button>
+<br>
+	<iframe id="myFrame" src="9.跨文档消息通信_child.html" frameborder="1" style="background:#fff"></iframe>
+
+	<script>
+
+	//localhost环境下
+		var oBtn = document.getElementById("btn");
+		var myFrame = document.getElementById("myFrame");
+		oBtn.onclick = function(){
+			myFrame.contentWindow.document.body.style.background = "red";
+			//myFrame.contentWindow
+		};
+	</script>
+
+</body>
+</html>

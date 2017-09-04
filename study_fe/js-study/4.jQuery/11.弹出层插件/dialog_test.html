@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="mydialog.css">
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.sy-dialog-wrapper{
+			
+		}
+		.sy-dialog-mask{  /*遮罩层*/
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background: #000;
+			opacity: 0.4;
+			filter:alpha(opacity=40);
+		}
+		.sy-dialog-dialog{
+			width: 400px;
+			
+			z-index: 1;   /*需要定位*/
+			position: relative;
+			margin: 0 auto;  /*绝对定位不好使*/
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+			background: #fff;
+			top:100px;
+		}
+		.sy-dialog-title{
+			height: 40px;
+			line-height: 40px;
+			background: #114a7b;
+			color: #fff;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+		}
+		
+		.sy-dialog-close{
+			color: #fff;
+			float: right;
+			margin-right:5px;
+			cursor: pointer; 
+		}
+	</style>
+</head>
+<body>
+	<button >click</button>
+	<div class="sy-dialog-wrapper">
+		<div class="sy-dialog-mask"></div>
+		<div class="sy-dialog-dialog">
+			<div class="sy-dialog-title">这是标题
+				<b class="sy-dialog-close">[X]</b>
+			</div>
+			<div class="sy-dialog-content">
+				我是内容<br>
+				我是内容<br>
+				我是内容<br>
+				我是内容<br>
+				我是内容<br>
+				我是内容<br>
+				我是内容<br>
+				我是内容<br>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

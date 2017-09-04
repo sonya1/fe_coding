@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>4.2内建对象</title>
+</head>
+<body>
+	<p>
+		到目前为止，本章所使用的实际上都是Object()构造器函数，他会在我们使用对象文本标识法，或访问相关构造器属性时返回新建的对象。
+		Object()只是JS中众多内建构造器之一，在本章接下来的内容中，我们将会为您一一介绍其余的内建构造器。
+	</p>
+	<ul>内建对象大致上可以分成三大类：
+		<li>数据封装类对象——包括Object、Aray、Boolean、Number和String。这些对象代表着JS种不同的数据类型，并且都拥有各自不同的typeof返回值（这点我们在第二章：基本数据类型、数组、循环及条件表达式讨论过），以及undefined和null状态。</li>
+		<li>工具类对象——包括Math、Date、RegExp等用于提供便利的对象。</li>
+		<li>错误类对象——包括一般性错误对象以及其他各种更特殊的错误类对象。他们可以在某些异常发生时帮助我们纠正程序工作状态。</li>
+	</ul>
+	<p>
+		另外值得一提的是，不要去纠结什么是内建对象，什么是内建构造器，实际上他们是一回事。要不了多久您就会明白，无论是函数还是构造器函数，最后都是对象。
+	</p>
+
+	<h2>4.2.1 Object</h2>
+	<p>
+		Object是JS中所有对象的父级对象，这意味着我们创建的所有对象都集成于此。为了新建一个空对象，我们既可以用对系那个文本标识法也可以调用Object()构造器函数，即下面这两行代码的执行结果是等价的。
+	</p>
+	<script>
+		var o = {};
+		var o = new Object();
+	</script>
+	<p>
+		我们之前提到过，所谓的“空”对象，实际上并非是完全无用的，他还是包含了一些继承来的方法和属性的。在本书中，“空”对象指的是像{}这种除继承来的属性之外，不含任何自身属性的对象。下面，我们就带您来看看之前所创建的“空”对象o中的部分属性。
+	</p>
+	<ul>
+		<li>o.constructor:返回构造器函数的引用。</li>
+		<li>o.toString()：返回对象的描述字符串。</li>
+		<li>o.valueOf()：返回对象的单值描述信息，通常返回的就是对象本身。</li>
+	</ul>
+	<p>
+		下面，我们来实际应用一下这些方法。首先创建一个对象，然后调用toString方法，返回该对象的描述字符串。
+
+		toString()方法会在某些需要用字符串来表示对象的时候被JS内部调用。例如alert()的工作就需要用到这样的字符串。所以，如果我们将对象传递给了一个alert()函数，toString()方法就会在后台被调用，也就是说，下面两行代码的执行情况是相同的：
+	</p>
+	<script>
+		var o = new Object();
+		o.toString();  //"[object Object]"
+
+		alert(o);
+		alert(o.toString());
+
+		"An object:"+o; //An object:[object Object]"
+
+		o.valueOf() === o;   //true
+	</script>
+	<p>
+		另外，字符串连接操作也会使用字符串描述文本，如果我们将某个对象与字符串进行连接，那么该对象就先调用自身的toString()方法。
+
+		valueOf()方法也是为所有对象共有的一个方法。对于简单对象（即以Object()为构造器的对象）来说，valueOf()方法所返回的就是对象自己。	
+	</p>
+	<ul>总而言之：
+		<li>我们创建对象时既可以用var o = {};的形式（即执行对象文本标识法，我们比较推荐这种做法），也可以用var o = new Object();</li>
+		<li>无论多复杂的对象，他都是继承自Object对象的，并且拥有其所有的方法（例如toString()）和属性（例如constructor）。</li>
+	</ul>
+
+
+	<h2>4.2.2 Array</h2>
+	<p>
+		Array()是一个用来构建数组的内建构造器函数，这与下面的数组文本标识法是等效的。例如：
+	</p>
+	<script>
+		var a = new Array();
+		var a = [];
+	</script>
+	<p>
+		无论数组是以什么方式创建的，我们都能照常往里添加元素：
+		当我们使用Array()构造器函数创建新数组时，也可以通过传值的方式为其设定元素。	
+		但是如果我们传递给该构造器的是一个单独数字，就会出现一种异常情况，即该数值会被认为是数组的长度。
+		既然数组是由构造器来创建的，那么这是否意味着数组实际上是一个对象呢？的确如此，我们可以用typeof操作符来验证一下。
+		由于数组也是对象，那么就说明他也继承了Object的所有方法和属性。
+	</p>
+	<script>
+		a[0] = 1;
+		a[1] = 2;
+		a;  //[1,2]
+
+		var a = new Array(1,2,3,"four");
+
+		var a2 = new Array(5);
+		a2;  //[undefined × 5]
+
+		typeof [1,2,3];   //object
+
+		a.toString();  //"1,2,3,four"
+		a.valueOf();  //[1, 2, 3, "four"]
+		a.constructor;  //function Array() { [native code] }
+	</script>
+	<ul>尽管数组也是一种对象，但还是有一些特殊之处，因为：
+		<li>数组的属性名是从0开始递增，并自动生成数值；</li>
+		<li>数组拥有一个用于记录元素数量的length属性；</li>
+		<li>数组在父级对象的基础上扩展了更多额外的内建方法。</li>
+	</ul>
+	<p>
+		下面来实际验证一下对象与数组之间的区别，让我们从创建空对象o和空数组a开始：
+
+		首先，定义数组对象时会自动生成一个length属性。而这在一般对象中是没有的：
+		
+		在为数组和对象添加以数字或非数字为键名的属性操作上，两者间并没有多大的区别：
+	
+		length属性通常会随着数字键名属性而更新，而忽略非数字键名属性：
+		
+		我们也可以手动设置length属性。如果设置的值大于当前数组中元素数量，剩下的那部分会被自动创建（值为undefined）的空元素所填充：
+	
+		而如果我们设置的length值小于当前元素数，多出的那部分元素将会被移除：
+	</p>
+	<script>
+		var a = [],o = {};
+
+		a.length;  //0
+		typeof o.length;  //undefined
+
+		a[0] = 1;
+		o[0] = 1;
+		a.prop = 2;
+		o.prop = 2;
+		a;  //[1]
+		o;  //Object {0: 1, prop: 2}
+
+		a.length;  //1
+
+		a.length = 5;
+		a;  //[1, undefined × 4]
+
+		a.length = 2;
+		a;  //[1, undefined × 1]
+	</script>
+
+	<h3>一些数组方法</h3>
+	<p>
+		除了从父级对象那里继承的方法以外，数组对象中还有一些更为有用的方法，例如sort(),join(),slice()等，下面，我们将通过一个数组来试验一下这些方法：	
+		
+		push()方法会在数组的末端添加一个新元素，而pop()方法则会移除最后一个元素，也就是说，a.push("new")就相当于a[a.length] = "new",而a.pop()则与a.length--的结果相同。
+
+		另外，push()返回的是改变后的数组长度，而pop所返回的则是被移除的元素。
+
+		而sort()方法则是用于给数组排序的，它会返回排序后的数组，在下面的示例中，排序完成后，a和b所指向的数组是相同的：
+
+		join()方法会返回一个由目标数组中所有元素值用逗号连接而成的字符串，我们可以通过该方法的参数来设定这些元素之间用什么字符（串）连接。例如：
+		
+		slice()方法会在不修改目标数组的情况下返回其中的某个片段，该片段的首位索引位置将由slice()的头两个参数来指定（都以0为基数）。所有的截取完成之后，原数组的状态不变：
+
+		splice()则是会修改目标数组的。他会移除并返回指定切片，并且在可选情况下，他还会用指定的新元素来填补被切除的空缺。该方法的头两个参数所指定的是要移除切片的首尾索引位置，其他参数则用于填补的新元素值。当然，用于填补空缺的新元素是可选的，我们也可以直接跳过：   /*第一个参数为起始位置，第二个参数为截取个数！！！*/
+
+	</p>
+
+	<script>
+		var a = [3,5,1,7,"test"];
+
+		a.push("new");  //6
+		a; //[3, 5, 1, 7, "test", "new"]
+		a.pop();  //new
+		a;  //[3, 5, 1, 7, "test"]
+
+		var b = a.sort();
+		b;  //[1, 3, 5, 7, "test"]
+		a === b;  //true
+
+		a.join();  //"1,3,5,7,test"
+		a.join(' is not '); //"1 is not 3 is not 5 is not 7 is not test"
+
+		b = a.slice(1,3);  //[3,5]
+		b = a.slice(0,1);  //[1]
+		b = a.slice(0,2);  //[1,3]
+		a ;  //[1, 3, 5, 7, "test"]
+
+		b = a.splice(1,2,100,101,102);  //[3,5]
+		a;  //[1, 100, 101, 102, 7, "test"]
+
+		a.splice(1,3);  //[100, 101, 102]
+		a;  //[1, 7, "test"]
+	</script>
+
+	<h2>4.2.3 Function</h2>
+	<p>
+		之前，我们已经了解了函数是一种特殊的数据类型，但事实还远不止如此，它实际上是一种对象。函数对象的内建构造器是Function（），你可以将它作为创建函数的一种备选方式（但我们并不推荐这种方式）。
+
+		下面展示了三种定义函数的方式：
+	</p>
+	<script> 
+		function a(){
+
+		}
+
+		var a = function(){
+
+		};
+
+		var a = new Function();
+
+		function sum(a,b){
+			return a+b;
+		}
+		sum(1,2);  //3
+
+		var sum = function(a,b){return a+b;};
+		sum(1,2);  //3
+
+		var sum = new Function("a","b","return a+b;");
+		sum(1,2);  //3
+	</script>
+	<p>
+		如果我们使用的是Function（）构造器的话，就必须要通过参数传递的方式来设定函数的参数名（通常是字符串）以及函数体中的代码（也是用字符串）。JS引擎自会对这些源代码进行解析，并随即创建新函数，这样一来，就会带来与eval（）相似的缺点。因此，我们要尽量避免使用Function（）构造器来定义函数。（性能差，不安全）
+	</p>
+	<p>
+		如果您一定想用Function（）构造器来创建一个拥有许多参数的函数，可了解一点：这些参数可以是由逗号分隔而成的单列表，所以，下面例子中的这些函数定义是相同的：
+	</p>
+	<script>
+		var first = new Function("a,b,c,d","return arguments;");
+		first(1,2,3,4);  //[1, 2, 3, 4]
+
+		var second = new Function("a,b,c","d","return arguments;");
+		second(1,2,3,4);  //[1, 2, 3, 4]
+
+		var third = new Function("a","b","c","d","return arguments;");
+		third(1,2,3,4);  //[1, 2, 3, 4]
+
+	</script>
+	<h3>最佳实践</h3>
+	<p>
+		请尽量避免使用Function（）构造器。因为他与eval（）和setTimeout（）	（以后会讨论）一样，始终会议字符串的形式通过JS的代码检查。
+	</p>
+
+
+	<h3>4.2.3.1 函数对象的属性</h3>
+	<p>
+		与其他对象相同的是，函数对象中也含有名为constructor的属性，其引用的就是Function（）这个构造器函数。
+
+		另外，函数对象中也有一个length属性，用于记录该函数声明时所决定的参数数量。
+	</p>
+	<script>
+		function myfunc(a){
+			return a;
+		}
+		myfunc.constructor;  //function Function() { [native code] }
+
+		function myfunc(a,b,c){
+			return true;
+		}
+		myfunc.length;  //3
+
+		function myfunc(a,b,c,d,f){
+			return true;
+		}
+		myfunc.length;  //5
+	</script>
+	<h3>prototype属性</h3>
+	<ul>prototype属性是JS中使用的最为广泛的函数属性。我们将会在下一章中详细介绍他，现在只是做个简单说明：
+		<li>每个函数的prototype属性中都指向了一个对象；</li>
+		<li>他只有在该函数是构造器时才会发挥作用；</li>
+		<li>该函数创建的所有对象都会持有一个该prototype属性的引用，并可以将其当做自身的属性来使用。</li>
+	</ul>
+	下面，我们来演示一下prototype属性的使用。先创建一个简单对象，对象中只有一个name属性和一个say（）方法：
+	<script>
+		var ninja = {
+			name:"Ninja",
+			say:function(){
+				return "i am a "+this.name;
+			}
+		};
+	</script>
+	<p>
+		这方面的验证很简单，因为任何一个新建函数（即使这个函数没有函数体）中都会有一个prototype属性，而该属性会指向一个新对象。
+	</p>
+	<script>
+		function F(){}
+		typeof F.prototype;  //object
+	</script>
+	<p>
+		如果我们现在对该prototype属性进行修改，就会发生一些有趣的变化：当前默认的空对象被直接替换成了其他对象。下面我们将变量ninja赋值给这个prototype：
+	</p>
+	<script>
+		F.prototype = ninja;
+	</script>
+	<p>现在，如果我们将F()当做一个构造器函数来创建对象baby_ninja，那么新对象baby_ninja就会拥有对F.prototype属性（也就是ninja）的访问权。</p>
+	<script>
+		var baby_ninja = new F();
+		baby_ninja.name;   //ninja
+		baby_ninja.say();  //"i am a Ninja"
+	</script>
+	<p>
+		关于prototype的属性的更多内容，下章会继续讨论。
+	</p>
+
+	<h3>4.2.3.2 函数对象的方法</h3>
+	<p>
+		所有的函数对象都是继承自顶级父对象Object（）的，因此它也拥有Object对象的方法。例如toString（）。当我们对一个函数调用toString（）方法时，所得到的就是该函数的源代码。
+	</p>
+	<script>
+		function myfunc(a,b,c){
+			return a+b+c;
+		}
+		myfunc.toString();  //"function myfunc(a,b,c){return a+b+c;}"
+	</script>
+	<p>
+		但如果我们想用这种方法来查看那些内建函数的源码的话，就只会得到一个毫无用处的字符串[native code]。
+	</p>
+	<script>
+		parseInt.toString();  //"function parseInt() { [native code] }"
+	</script>
+	<p>如您所见，我们可以用toString（）函数来区分本地方法和自定义方法。
+		toString（）方法的行为与运行环境有关，浏览器之间也会有差异，比如空格和行号的多少。
+	</p>
+
+	<h3>4.2.3.3 call()与apply()</h3>
+	<p>
+		在JS中，每个函数都有call（）和apply（）两个方法，您可以用它们来触发函数，并指定相关的的调用参数。
+
+		此外，这两个方法还有另外一个功能，他可以让一个对象去“借用”另一个对象的方法，并为己所用。这也是一种非常简单而实用的代码重用。
+
+		下面，我们定义一个some_obj对象，该对象中有一个say（）方法：
+
+		这样一来，我们就可以调用该对象的say（）方法，并在其中使用this.name来访问其name属性了。
+
+		下面，我们再创建一个my_obj对象，他只有一个name属性：
+
+		显然，some_obj的say（）方法也适用于my_obj，因此我们希望将该方法当做my_obj自身的方法来调用。在这种情况下，我们就可以试试say（）函数中的对象方法call（）：
+
+		成功了！但您明白这是怎么回事么？由于我们在调用say（）函数的对象方法call（）时传递了两个参数：对象my_obj和字符串“Dude”。这样一来，当say()被调用时，其中的this就被自动设置成了my_obj对象的引用。因而我们看到，this.name返回的不再是“Ninja”，而是“Scripting guru”了。
+
+		如果我们调用call（）方法时需要传递更多的参数，可以在后面依次加入他们：
+
+		另外，如果我们没有将对象传递给call（）的首参数，或者传递给她的是null，他的调用对象将会被默认为全局对象。
+
+		apply（）的工作方式与call基本相同，唯一的不同之处在于参数的传递形式，这里目标函数所需要的参数都是通过一个数组来传递。所以，下面两行代码的作用是等效的。
+
+		因而，对于之前的示例，我们也可以这样写:
+	</p>
+	<script>
+		var some_obj = {
+			name:"Ninja",
+			say:function(who){
+				return "Haya " + who + ",i am a "+this.name;
+			}
+		};
+
+		some_obj.say("Dude");  //"Haya Dude,i am a Ninja"
+
+		var my_obj = {
+			name:"Scripting guru"
+		};
+
+		some_obj.say.call(my_obj,"dude");  //"Haya dude,i am a Scripting guru"
+
+		some_obj.somemethod.call(my_obj,"a","b","c");
+
+		some_obj.somemethod.apply(my_obj,["a","b","c"]);
+		some_obj.somemethod.call(my_obj,"a","b","c");
+
+		some_obj.say.apply(my_obj,["Dude"]);  //"Haya Dude,i am a Scripting guru"
+	</script>
+
+
+	<h3>4.2.3.4 重新认识arguments对象</h3>
+	<p>
+		在上一章中，我们已经掌握了如何在一个函数中通过arguments来访问传递给该函数所需的全部参数。例如：
+		
+		尽管arguments看上去像是一个数组，但它实际上是一个类似数组的对象。它和数组相似是因为其中也包含了索引元素和length属性。但相似之处也就到此为止了，因为arguments不提供一些像sort、slice这样的数组方法。
+
+		但我们可以把arguments转换为数组，这样就可以对他使用各种各样的数组方法了。在下面这个例子中，我们用刚学到的call（）方法做到了这点：
+		
+		如您所见，这里的做法是新建一个空数组[],再使用它的slice属性。当然，您也可以通过Array.prototype.slice来调用同一个函数。
+	</p>
+	<script>
+		function f(){
+			return arguments;
+		}
+		f(1,2,3);  //[1,2,3]
+		typeof f.arguments  //"object"
+
+		function f(){
+			var args = [].slice.call(arguments);
+			return args.reverse();
+		}
+		f(1,2,3,4);  //[4, 3, 2, 1]
+	</script>
+
+	<h3>4.2.3.5 推断对象类型</h3>
+	<p>
+		之前，我们已经介绍过arguments对象跟数组之间的不同之处。但二者之间具体应该如何区分呢？或者我们换一种问法：既然数组的typeof返回值也为“object”，那么要如何区分对象与数组呢？
+
+		答案是使用Object对象的toString（）方法。这个方法会返回所创建对象的内部类名。
+
+		在这里，toString（）方法必须要来自于Object构造器的prototype属性。直接调用Array的toString（）方法是不行的，因为在Array对象中，这个方法已经出于其他目的被重写了：
+
+		下面我们来做一些更有趣的尝试。您也可以单独为Object.prototype.toString设置一个引用变量，一边代码显得更简短一些：
+
+
+	</p>
+	<script>
+		Object.prototype.toString.call({});   //"[object Object]"
+		Object.prototype.toString.call([]);   //"[object Array]"
+
+		[1,2,3].toString();  //"1,2,3"
+		Array.prototype.toString.call([1,2,3]);   //"1,2,3"
+
+		var toStr = Object.prototype.toString;
+		(function(){
+			return toStr.call(arguments);
+		})();   //"[object Arguments]"
+
+		toStr.call(document.body); //"[object HTMLBodyElement]"
+	</script>
+
+
+	<h2>4.2.4 Boolean</h2>
+	<p>
+		下面继续我们的JS内建对象之旅。接下来要介绍的对象相对来说就简单多了，他们不过是一些基本数据类型的封装，只要包括Boolean、Number、String等。在这里，我们要介绍的是与Boolean（）构造器相关的内容。
+
+		在这里最重要的一点是，我们必须明白这里所创建的b是一个对象，而不是一个基本数据类型的布尔值。如果想将b转换成基本数据类型的布尔值，我们可以调用它的valueOf()方法（继承自Object对象）。
+
+		总体而言，用Boolean（）构造器所创建的对象并没有多少实用性，因为它并没有提供来自父级对象以外的任何方法和属性。
+
+		不使用new操作符而单独作为一般函数使用时，Boolean（）可以将一些非布尔值转换为布尔值（其效果相当于进行两次取反操作：！！value）。
+
+		而且，在JS中，除了那六种falsy值外，其他所有的都属于truthy值，其中也包括所有的对象。这就意味着所有由new Boolean（）语句创建的布尔对象都等于true，因为他们都是对象。
+
+		这种情况确实很容易让人混淆。而且考虑到Boolean对象中并没有很特别的方法，我们建议您最好还是一直使用基本类型来表示布尔值比较妥当。
+	</p>
+	<script>
+		var b = new Boolean();
+
+		typeof b;  //object
+
+		typeof b.valueOf();  //"boolean"
+		b.valueOf(); /false
+
+		Boolean("test");  //true
+		Boolean("");  //false
+		Boolean({});  //true
+
+		Boolean(new Boolean(false));  //true
+	</script>
+
+	<h2>4.2.5 Number</h2>
+	<p>
+		Number（）函数的用法与Boolean（）类似，即：1.在被当做构造器函数时（即用于new操作符），他会创建一个对象；2.在被当做一般函数时，他会试图将任何值转化为数字，这与parseInt（）或parseFloat（）起到的作用基本相同。
+
+		由于函数本身也是对象，所以会拥有一些属性。在Number（）函数中，有一些内置属性是值得我们注意的（他们是不可更改的）：
+
+		此外，Number对象中还提供了三个方法，他们分别是：toFixed（）、toPrecision（）和toExpontial（）：
+
+		需要注意的是，你可以在事先未创建Number对象的情况下使用这些方法。在这些例子中，Number对象均在后台完成创建和销毁：
+
+		与所有对象一样，Number对象也提供了自己的toString（）方法。但值得注意的是，该对象的toString（）方法有一个可选的radix参数（它的默认值是10）。
+
+
+	</p>
+	<script>
+		var n = Number("12.12");
+		n;  //12.12
+		typeof n; //"number"
+
+		var n = new Number("12.12");
+		typeof(n);  //"object"
+
+		Number.MAX_VALUE;  //1.7976931348623157e+308
+		Number.MIN_VALUE;  //5e-324
+		Number.POSITIVE_INFINITY;  //Infinity
+		Number.NEGATIVE_INFINITY;  //-Infinity
+		Number.NaN;  //NaN
+
+		var n = new Number(123.456);
+		n.toFixed(1);  //"123.5"   四舍五入
+
+		(12345).toExponential();  //"1.2345e+4"
+
+		var n = new Number(255);
+		n.toString();  //"255"
+		n.toString(10);  //"255"
+		n.toString(16); //"ff"
+		(3).toString(2);  //"11"
+		(3).toString(10); // "3"
+	</script>
+
+	<h2>4.2.6 String</h2>
+	<p>
+		同样，我们可以通过String（）构造器函数来新建String（）对象。该对象为我们提供了一系列用于文本操作的方法，但您最好还是使用基本的字符串类型。
+
+		下面，我们通过一个示例来看看String对象与基本的字符串类型之间有什么区别。
+		
+		String对象实际上就像是一个字符数组，其中也包括用于每个字符的索引属性（虽然这个特性在ES5开始才引入，但早已被各大浏览器支持，除了早期版本的IE），以及整体的length属性。
+
+		如果我们想获得String对象的基本类型，可以调用该对象的valueOf()或toString（）方法（都继承自Object对象）。不过您可能很少有机会这么做，因为在很多场景中，String对象都会被自动转换为基本类型的字符串。
+
+		而基本类型的字符串就不是对象了，因此他们不含有任何属性和方法。但JS还是为我们提供了一些将基本字符串类型转换为String对象的语法（就像我们之前转换基本类型的数字一样）。
+
+		例如在下面的示例中，我们将一个基本字符串当做对象来使用时，后台就会相应的创建String对象，在调用完后又把String对象给立即销毁。
+
+		最后我们再来看一个说明基本字符串与String对象之间区别的例子：当她们被转换成布尔值时，尽管空字符串属于falsy值，但所有的String对象都是truthy值（因为所有的对象都是truthy值）。
+
+		与Number（）和Boolean（）类似，如果我们不通过new 操作符来调用String（），他就会试图将其参数转换为一个基本字符串。
+
+		如果其参数是一个对象的话，这就等于调用该对象的toString（）方法。
+
+	</p>
+	<script>
+		var primitive = "Hello";
+		typeof primitive;  //"string"
+		var obj = new String("world");
+		typeof(obj);  //"object"
+		obj;  //String {0: "w", 1: "o", 2: "r", 3: "l", 4: "d", length: 5, [[PrimitiveValue]]: "world"}
+
+		obj[0];  //"w"
+		obj[4];  //"d"
+		obj.length;  //5
+
+		obj.valueOf();  //"world"
+		obj.toString();  //"world"
+		obj+"";  //"world"
+
+		"potato".length;  //6
+		"tomato"[0]; //"t"
+		"potatoes"["potatoes".length-1];  //s
+
+		Boolean("");  //false
+		Boolean(new String(""));  //true
+
+		String(1);  //"1"
+
+		String({p:1});  //"[object Object]"
+		String([1,2,3]);  //"1,2,3"
+		String([1,2,3]) === [1,2,3].toString();  //true
+	</script>
+	<h3>String对象的一些方法</h3>
+	<p>
+		下面，让我们来示范一下部分String对象方法的调用。
+		首先从新建String对象开始：
+
+		接下来是用于字符串大小写转换的方法，toUpperCase（）与toLowerCase（）：
+
+		charAt()方法返回的是我们指定位置的字符，这与中括号的作用相当（字符串本身就是一个字符数组）。
+
+		如果我们传递给charAt（）方法的位置并不存在，他就会返回一个空字符串：
+
+		indexOf()方法可以帮助我们实现字符串内部搜索，该方法在遇到匹配字符时会返回第一次匹配位置的索引值。由于该索引值是从0开始的，所以字符串“Couch”中第二个字符“o”的索引值为1。
+
+		另外，我们也可以通过可选参数指定搜索开始的位置（以索引值的形式）。例如下面所找到的就是字符串中的第二个“o”，因为我们制定的搜索是从索引2处开始的。
+
+		如果我们想让搜索从字符串的末端开始，可以调用lastIndexOf（）方法（但返回的索引值仍然是从前到后计数的）。
+
+		当然，上述方法的搜索对象不仅仅局限于字符，也可以用于字符串搜索。并且搜索是区分大小写的。
+
+		如果方法找不到匹配对象，返回的位置索引值就为-1：
+
+		如果我们想进行一次大小写无关的搜索，可以将字符串转换为小写后再执行搜索：
+
+		如果相关的搜索方法返回的索引值是0，就说明字符串的匹配部分是从0处开始的。这有可能会给if语句的使用带来某些混淆因素，当我们像下面这样使用if语句，就会将索引值0隐式的转换为布尔值false，虽然这种写法没什么语法错误，但在逻辑上却完全错了：
+
+		正确的做法是：当我们用if语句检测一个字符串中是否包含另一个字符串时，可以用数字-1来做indexOf（）结果的比较参照：
+
+		接下来，我们要介绍的是slice（）和subString（），这两个方法都可以用于返回目标字符串中指定的区间。
+
+		需要提醒的是，这两个方法的第二个参数所指定的都是区间的末端设置，而不是该区间的长度。这两个方法的不同之处在于对负值参数的处理方式，subString（）方法会将负值视为0；而slice（）方法则会将它与字符串的长度相加。因此，如果我们传给他们的参数是（1，-1）的话，他们的实际情况分别是subString（1,0）和slice（1，s.length-1）：
+
+		还有一个方法叫substr（），但由于他不在JS的标准中，所以您应该尽量使用SubString（）来代替它。
+
+		split（）方法可以根据我们所传递的分割字符串，将目标字符串分割成一个数组。例如：
+
+		split()是join（）的反操作，后者则会将一个数组合并成一个字符串。例如：
+
+		concat()方法通常用于合并字符串，它的功能与基本字符串类型的+操作符类似：
+
+		需要注意的是，到目前为止，我们所讨论的方法返回的都是一个新的字符串，他们所做的任何修改都不会改动源字符串。所有的方法调用都不会影响原始字符串的值。
+
+		通常情况下，我们会用indexOf（）和lastIndexof()方法进行字符串内搜索，但除此之外还有一些功能更为强大的方法（如search（）、match（）、replace（）等），他们可以以正则表达式为参数来执行搜索任务。关于正则表达式，我们将会在稍后加以详细讨论。
+
+		现在，数据封装类对象已经全部介绍完了，接下来买我们要介绍一些工具类对象，他们分别是Math、Date和RegExp。
+	</p>
+	<script>
+		var s = new String("Couch potato");
+
+		s.toUpperCase();  //"COUCH POTATO"
+		s.toLowerCase();  //"couch potato"  不改变原值
+		s  //String {0: "C", 1: "o", 2: "u", 3: "c", 4: "h", 5: " ", 6: "p", 7: "o", 8: "t", 9: "a", 10: "t", 11: "o", length: 12, [[PrimitiveValue]]: "Couch potato"}
+
+		s.charAt(0);  //C
+		s[0] ;  //C
+
+		s.charAt(101);  //""
+
+		s.indexOf("o"); //1
+
+		s.indexOf("o",2);  //7
+
+		s.lastIndexOf("o");  //11
+
+		s.indexOf("Couch");  //0
+
+		s.indexOf("couch");  //-1
+
+		s.toLowerCase().indexOf("couch");  //0
+
+		if(s.indexOf("Couch")){...}  //错
+
+		if(s.indexOf("Couch") !== -1){...}  //对
+
+		s.slice(1,5);  //"ouch"
+		s.substring(1,5);  //"ouch"
+
+		s.slice(1,-1);  //slice(1,11)  "ouch potat"
+		s.substring(1,-1);  //substring(1,0);  "C"
+
+		s.split(" ");  //["Couch","potato"]
+
+		s.split(" ").join(" ");  //"Couch potato"
+
+		s.concat("es");  //"Couch potatoes"
+		s.valueOf()  //"Couch potato"
+		s.toString()  //"Couch potato"
+	</script>
+
+
+	<h2>4.2.7 Math</h2>
+	<p>
+		Math与我们之前所见过的其他全局内建对象是有些区别的。Math对象不是函数对象，所以我们不能对他调用new操作符，以创建别的对象。实际上，Math只是一个包含一系列方法和属性、用于数学计算的全局内建对象。
+
+		Math的属性都是一些不可修改的常数，因此他们都以大写的方式来表示自己与一般属性变量的不同（这类似于Number（）构造器的常数属性）。下面就让我们来看看这些属性。
+
+		现在，您知道下次该如何忽悠朋友了吧？（无论出于什么样的尴尬理由）当他们开始使劲回想诸如“e的值是什么？”的时候，我们只需要轻松的在控制台中输入Math.E，就会立即得到答案。
+
+		接下来，我们再来看看Math对象所提供的一些方法。
+
+		首先是生成随机数：random()返回的是0-1之间的某个数，所以如果我们想要获得0-100之间的某个数时，就可以这样：
+
+		如果我们需要获取的是某max和min之间的数，就可以通过一个公式((max-min)*Math.random())+min来获取，例如，我们想获取的是2-10之间的某个数，就可以这样：
+
+		如果这里需要的是一个整数的话，您可以调用一下取整方法：floor（）、ceil（）、round（）：
+		
+		如果我们想获得一个数字集合中的最大值或最小值，则可以调用max（）和min（）方法。所以，当我们在一个表单中需要一个合法的月份值时，可以用下面的方式来确保相关的数据能正常工作。
+
+		除此之外，Math对象还提供了一些用于执行数学计算的方法，这些计算是我们不需要去专门设计即可使用的。这意味着当我们想要执行指数运算时只需要调用pow（）方法即可，而求平方根时只需要调用sqrt（），另外还包括所有的三角函数计算——sin（）、cos（）、atan（）等。
+	</p>
+	<script>
+		//数字 常数PI
+		Math.PI;  //3.141592653589793
+
+		//2的平方根
+		Math.SQRT2;   //1.4142135623730951
+
+		//欧拉常数e：（及自然对数的底数）
+		Math.E;  //2.718281828459045
+
+		//2的自然对数
+		Math.LN2;  //0.6931471805599453
+
+		//10的自然对数
+		Math.LN10;  //2.302585092994046
+
+		Math.random();  //0-1
+		Math.random()*100;  //0-100
+
+		Math.random()*(10-2) +2;  //2-10
+
+		Math.round(Math.random());  //不是0就是1
+
+		Math.min(Math.max(1,input),12);
+
+		//2的8次方
+		Math.pow(2,8);  //256
+
+		//9的平凡根
+		Math.sqrt(9);  //3  
+	</script>
+
+	<h2>4.2.8 Date</h2>
+	<p>
+		Date（）是用于创建Date对象的构造器函数，我们在用它创建对象时可以传递以下几种参数。
+			<ul>
+				<li>无参数（默认为当天的日期）</li>
+				<li>一个用于表现日期的字符串</li>
+				<li>分开传递的日、月、时间等值</li>
+				<li>一个timestamp值</li>
+			</ul>
+		下面是一个表示当天日期和时间的对象实例：
+
+		Date构造器可以接受各种不同格式的字符串日期表示法，但如果要定义一个精确的日期，例如将用户输入直接传递给Date构造器，这样做显然不够可靠。更好的选择是向Date（）构造器传递一些具体的数值，其中包括：
+		<ul>
+			<li>年份</li>
+			<li>月份：0-11</li>
+			<li>日期：1-31</li>
+			<li>时数：0-23</li>
+			<li>分钟：0-59</li>
+			<li>秒数：0-59</li>
+			<li>毫秒数:0-599</li>
+		</ul>
+		
+		如果我们所传递的值越过了被允许的范围，Date对象会自行启动“溢出式”前进处理。例如，由于2016年2月不存在30日这一天，所以它会自动解释为该年的3月1日。
+
+		类似的，如果我们传递的是12月32日，就会被自动解释为来年的1月1日。
+
+		最后，我们也可以通过timestamp的方式来初始化一个Date对象（这是一个以毫秒为单位的UNIX纪元方式，开始于1970年1月1日）。
+
+		如果我们在调用Date（）是没有用new操作符，那么无论是否传递了参数，所得字符串的内容始终都将是当前的日期和时间。
+
+	</p>
+	<script>
+		new Date();  //Sun Jun 25 2017 12:09:12 GMT+0800 (中国标准时间)
+		new Date("2015 11 12");  //Thu Nov 12 2015 00:00:00 GMT+0800 (中国标准时间)
+		new Date("1 1 2016");  //Fri Jan 01 2016 00:00:00 GMT+0800 (中国标准时间)
+		new Date("1 mar 2016 5:30");  //Tue Mar 01 2016 05:30:00 GMT+0800 (中国标准时间)
+
+		new Date(2015,0,1,17,05,03,120);  //Thu Jan 01 2015 17:05:03 GMT+0800 (中国标准时间)
+
+		new Date(2015,0,1,17);  //Thu Jan 01 2015 17:00:00 GMT+0800 (中国标准时间)
+
+		new Date(2016,1,28);  //Sun Feb 28 2016 00:00:00 GMT+0800 (中国标准时间)
+
+		new Date(2016,1,29);  //Mon Feb 29 2016 00:00:00 GMT+0800 (中国标准时间)
+		new Date(2016,1,30);  //Tue Mar 01 2016 00:00:00 GMT+0800 (中国标准时间)
+
+		new Date(2012,11,31);  //Mon Dec 31 2012 00:00:00 GMT+0800 (中国标准时间)
+		new Date(2012,11,32);  //Tue Jan 01 2013 00:00:00 GMT+0800 (中国标准时间)
+
+		new Date(1357027200000);  //Tue Jan 01 2013 16:00:00 GMT+0800 (中国标准时间)
+
+		Date();  //"Sun Jun 25 2017 12:33:15 GMT+0800 (中国标准时间)"
+		Date(1,2,3,"it doesn't metter");  //"Sun Jun 25 2017 12:33:23 GMT+0800 (中国标准时间)"
+
+		typeof Date();  //"string"
+		typeof new Date();  //"object"
+	</script>
+	<h3>Date对象的方法</h3>
+	<p>
+		一旦我们创建了Date对象，就可以调用该对象中的许多方法。其中使用最多的都是一些名为set*（）或get*（）的方法，例如getMonth()、setMonth（）、getHours（）、setHours（）	等等。下面我么来看一些具体的示例。
+		
+
+		除了这些实例方法外，Date（）函数、对象中还有另外两个方法，（ES5中又新增了一个）。这两个属性不需要在实例化情况下使用，工作方式与Math的方法基本相同。在基于class概念的程序设计语言中，他们往往被称之为“静态”方法，因为他们的调用不需要依托对象实例。
+
+		例如，Date.parse()方法会将其所接受的字符串转换成相应的timestamp格式，并返回：
+
+		而Date.UTC()方法则可以接受包括年份、月份、日期等在内的所有参数，并以此产生一个相应的、符合格林尼治时标准的timestamp值：
+
+		由于用Date创建对象时可以接受一个timestamp参数，因此我们也可以直接将Date.UTC()的结果传递给该构造器。
+
+		此外，ES5还为Date构造器新增了now（）方法，已用于返回当前timestamp。比起在ES3中对着一个Date对象调用getTime（）方法而言，这种新方法显然更为简洁。
+
+		您可以认为，日期的内部表达形式就是一个整数类型的timestamp，而他的其它表达形式只不过是这种内部形式的“糖衣”。这么一来，我们就很容易理解为什么Date对象的valueOf()返回的是一个timestamp数据：
+
+		而将Date转换为整形只需要一个加号：
+
+	</p>
+	<script>
+		var d = new Date(2015,1,1);
+		d.toString();  //"Sun Feb 01 2015 00:00:00 GMT+0800 (中国标准时间)"
+
+		d.setMonth(2);  //1425139200000
+		d.toString();  //"Sun Mar 01 2015 00:00:00 GMT+0800 (中国标准时间)"
+
+		d.getUTCMonth();  //1  ???
+		d.getMonth();  //2
+
+		Date.parse("Jan 11,2018");  //1515600000000
+
+		Date.UTC(2018, 0,11);  //1515628800000
+
+		new Date(Date.UTC(2018,0,11));  //Thu Jan 11 2018 08:00:00 GMT+0800 (中国标准时间)
+		new Date(2018,0,11);  //Thu Jan 11 2018 00:00:00 GMT+0800 (中国标准时间)
+
+		Date.now();  //1498366707309
+		Date.getTime();  //ERROR!!
+		new Date().getTime();  //1498366733443
+		Date.now() === new Date().getTime();  //true
+
+		new Date().valueOf();  //1498366916018
+		new Date().toString();  //"Sun Jun 25 2017 13:02:24 GMT+0800 (中国标准时间)"
+
+		+ new Date();  //1498366924003
+	</script>
+
+	<h3>例子：计算生日</h3>
+	<p>
+		下面，我们再来看最后一个关于Date对象的工作实例。例如，我很好奇自己2016年的生日（6月20日）是星期几，就可以这样：
+
+		由于星期数是从0（星期日）开始计数的，因此，1应该代表了星期一。我们来验证一下：
+		
+
+		好吧，星期一不错，但那显然是不是一个搞派对的最佳日子。接下来我要弄一个循环，看看从2016年到3016年有多少个6月20日是星期一，并查看一下这些日子在一周当中的分布情况。
+
+		首先，我们来初始化一个包含7个元素的数组，每个元素都分别对应着一周中的一天，以充当计数器。也就是说，再循环到3016年的过程中，我们将会根据执行情况递增相关的计数器：
+
+
+	</p>
+	<script>
+		var d = new Date(2016,5,20);
+		d.getDay();  //1 星期
+		d.toDateString();  //"Mon Jun 20 2016"
+
+		var stat = [0,0,0,0,0,0,0];
+		for(var i = 2016;i < 3016;i++){
+			stat[new Date(i,5,20).getDay()]++;
+		}
+		stat;  //[140, 146, 140, 145, 142, 142, 145]  142个星期五 145个星期六
+	</script>
+
+	<h2>4.2.9 RegExp</h2>
+	<p>
+		正则表达式提供了一种强大的文本搜索和处理方式。对于正则表达式，不同的语言有着不同的实现，JS所采用的是Perl 5的语法。
+
+		另外，为简便起见，人们经常会将regular expression 缩写成regex或者regexp。
+		<ul>一个正则表达式通常由以下部分组成。
+			<li>一个用于匹配的模式文本。</li>
+			<li>用0个或多个修饰符（也叫做标志）描述的匹配模式细节。</li>
+		</ul>
+		该匹配模式也可以是简单的全字符文本，但这种情况极少，而且此时我们多半会使用indexOf（）这样的方法，而很少会用到正则表达式。在大多数情况下，匹配模式往往都要更为复杂，也更难以理解。事实上，掌握正则表达式是一个很大的问题，我们也不打算在这里详细讨论他们。接下来，我们只会介绍他在JS中的语法，以及可用于正则表达式的对象和方法。
+
+		在JS中，我们通常会利用内建构造器RegExp（）来创建正则表达式对象，例如：
+
+		另外，RegExp对象还有一种更为简便的正则文本标记法：
+
+		在上面的示例中，“j.*t”就是我们之前说的正则表达式模式。其具体含义是：“匹配任何以j开头、t结尾的字符串，且这两个字符之间可以包含1个或多个字符。”其中的*的意思就是“0个或多个单元”，而这里的点号所表示的是“任意字符”。当然，当我们向RegExp构造器传递该模式时，还必须将它放在一对引号中。
+	</p>
+	<script>
+		var re = new RegExp("j.*t");
+
+		var re = /j.*t/;
+	</script>
+
+	<h3>4.2.9.1 RegExp对象的属性</h3>
+	<p>
+		以下是一个正则表达式对象所拥有的属性。
+		<ul>
+			<li>global:如果该属性值为false（这也是默认值），相关搜索在找到第一个匹配时就会停止。如果需要找出所有的匹配，将其设置为true即可。</li>
+			<li>ignoreCase：设置大小写相关性，默认为false。</li>
+			<li>multiline：设置是否跨行搜索，默认为false。</li>
+			<li>lastIndex：搜索开始的索引位，默认值为0。</li>
+			<li>source：用于存储正则表达式匹配模式。</li>
+		</ul>
+
+		另外，除了lastIndex外，上面所有属性在对象创建之后就不能再被修改了。
+
+		而且，前三个属性是可以通过regex修饰符来表示的。当我们通过构造器来创建regex对象时，可以向构造器的第二参数传递下列字符中的任意组合。
+		<ul>
+			<li>“g”代表global。</li>
+			<li>“i”代表ignoreCase。</li>
+			<li>“m”代表multiline。</li>
+		</ul>
+
+		这些字符可以以任意顺序传递，只要他们被传递给了构造器，相应的修饰符就会被设置为true。例如在下面的示例中，我们将所有的修饰符都设置成了true：
+		
+		不过，这里的修饰符一旦被设置了就不能更改：
+
+		另外，我们也可以通过文本方式来设置这种regex的修饰符，只需将他们加在斜线后面：
+	</p>
+	<script>
+		var re = new RegExp("j.*t","gmi");
+		re.global;  //true
+
+		re.global = false;
+		re.global;  //false
+
+		var re = /j.*t/ig;
+		re.global;  //true
+	</script>
+
+	<h3>4.2.9.2 RegExp对象的方法</h3>
+	<p>
+		RegExp对象中有两种可用于查找匹配内容的方法：test（）和exec（）。这两个方法的参数都是一个字符串，但test（）方法返回的是一个布尔值（找到匹配内容时为true，否则就是false），而exec（）返回的则是由匹配到的字符串组成的数组。显然，exec（）能做的工作更多，而test（）只有在我们不需要匹配的具体内容时才会有所用处。人们通常会用正则表达式来执行某些验证操作，在这种情况下往往使用test（）就足够了。
+
+		下面的表达式是不匹配的，以为目标中是大写的J：
+	</p>
+	<script>
+		/j.*t/.test("Javascript");  //false
+
+		/j.*t/.test("javascript");  //true
+
+		/j.*t/i.test("Javascript");  //true  大小写无关
+
+		/j.*t/i.exec("Javascript")[0];  //"Javascript"
+
+	</script>
+
+	<h3>4.2.9.3 以正则表达式为参数的字符串方法</h3>
+	<p>
+		在本章前面，我们曾向您介绍过如何使用String对象的IndexOf（）和lastIndexOf（）方法来搜索文本。但这些方法只能用于纯字符串式的搜索，如果想获得更强大的文本搜索能力就需要用到正则表达式了。String对象也为我们提供了这种能力。
+	</p>
+	<ul>在String对象中，以正则表达式对象为参数的方法主要有以下这些：
+		<li>match（）方法：返回的是一个包含匹配内容的数组。</li>
+		<li>search（）方法：返回的是第一个匹配内容所在的位置。</li>
+		<li>replace（）方法：该方法能将匹配的文本替换成指定的字符串。</li>
+		<li>split（）方法：能根据指定的正则表达式将目标字符串分割成若干个数组元素。</li>
+	</ul>
+
+	<h3>4.2.9.4 search()与match()</h3>
+	<p>
+		下面来看一些search（）与match（）方法的例子。首先，我们来新建一个String对象：
+
+		然后调用其match（）方法，这里返回的结果数组中只有一个匹配对象：
+
+		接下来，我们对其施加g修饰符，进行global搜索，这样一来返回的数组中就有了两个结果：
+
+		而search（）方法则会返回匹配字符串的索引位置：
+	</p>
+	<script>
+		var s = new String("HelloJavaScriptWorld");
+
+		s.match(/a/);  //["a"]
+
+		s.match(/a/g);  //["a", "a"]
+
+		s.match(/j.*a/i);  //["Java"]
+
+		s.search(/j.*a/i);  //5
+	</script>
+
+	<h3>4.2.9.5 replace()</h3>
+	<p>
+		replace（）方法可以将相关的匹配文本替换为某些其他字符串。在下面的例子中，我们移除了目标字符串中的所有大写字符（实际上是替换为空字符串）。
+
+		如果我们忽略了g修饰符，结果就只有首个匹配字符被替换掉：
+
+		当某个匹配对象被找到时，如果我们想让相关的替换字符串中包含匹配的文本，可以使用
+		$&来代替所找到的匹配文本。例如，下面我们在每一个匹配字符前面加了一个下划线：
+
+		如果正则表达式中分了组（即带括号），那么可以用$1来表示匹配分组中的第一组，而$2则表示第二组，以此类推。
+		
+		假设我们的Web页面中有一个注册表单，上面会要求用户输入Email地址、用户名和密码。当用户输入他们的Email地址时，我们还可以利用JS将Email的前半部分提炼出来，作为后面用户名字段的建议：
+	</p>
+	<script>
+		s.replace(/[A-Z]/g,"");  //elloavacriptorld"
+
+		s.replace(/[A-Z]/,"");  //"elloJavaScriptWorld"
+
+		s.replace(/[A-Z]/g,"_$&");  //_Hello_Java_Script_World"
+
+		s.replace(/([A-Z])/g,"_$1");  //_Hello_Java_Script_World"
+
+		var email = "story@phpied.com";
+		var username = email.replace(/(.*)@.*/,"$1");
+		username ;  //"story"
+	</script>
+
+	<h3>4.2.9.6 回调式替换</h3>
+	<p>
+		当我们需要执行一些特定的替换操作时，也可以通过返回字符串的函数来完成。这样，我们就可以在执行替换操作之前实现一些必要的处理逻辑：
+
+		该回调函数可以接受一系列的参数（在上面的实例中，我们忽略了所有参数，但首参数是依然存在的）。
+		<ul>
+			<li>首参数是正则表达式所匹配的内容。</li>
+			<li>尾参数则是被搜索的字符串。</li>
+			<li>尾参数之前的参数表示的是匹配内容所在的位置。</li>
+			<li>剩下的参数可以是由regex模式所分组的所有匹配字符串组。</li>
+		</ul>
+	</p>
+	<script>
+		function replaceCallback(match){
+			return "_" + match.toLowerCase();
+		}
+
+		s.replace(/[A-Z]/g,replaceCallback);  //"_hello_java_script_world"
+	</script>
+
+	<p>下面让我们来具体测验一下。首先，我们新建一个变量，用于存储之后传递给回调函数的整个arguments对象：</p>
+
+	下一步是定义一个正则表达式，我们将Email地址分成三个匹配组，具体格式形如something@sonmething.something:
+
+	最后就是定义相应的回调函数了，他会接受glob数组中的参数，并返回相应的替换内容：
+	<script>
+		var glob;
+		var re = /(.*)@(.*)\.(.*)/;
+
+		var callback = function(){
+			glob = arguments;
+			return arguments[1] + " at " + arguments[2]+ " dot " + arguments[3];
+		};
+
+		"stoyan@phpied.com".replace(re,callback);  //"stoyan at phpied dot com"
+
+		glob  //["stoyan@phpied.com", "stoyan", "phpied", "com", 0, "stoyan@phpied.com"]
+	</script>
+
+	<h3>4.2.9.7 split()</h3>
+	<p>
+		我们之前已经了解split（）方法，它能根据指定的分割字符串将我们的输入字符串分割成一个数组。下面就是我们用逗号将字符串分割的结果：
+
+		由于上面的输入字符串中存在逗号前后的空格不一致的情况，这导致生成的数组也会出现多余的空格。如果我们使用正则表达式，就可以在这里用\s*修饰符来解决，意思就是“匹配0个或多个空格”。
+	</p>
+	<script>
+		var csv = "one, two,three ,four";
+		csv.split(",");  //["one", " two", "three ", "four"]
+
+		csv.split(/\s*,\s*/);  //["one", "two", "three", "four"]
+	</script>
+
+	<h3>4.2.9.8 用字符串来代替过于简单的regexp对象</h3>
+	<p>
+		关于我们刚刚讨论的四个方法（split、match、search、replace），还有最后一件事不得不提，即这些方法可以接受的参数不仅仅是一些正则表达式，也包括字符串。他们会将接收到的的字符串参数转换成regex对象，就像我们直接传递new RegExp（）一样。
+
+		例如，下面的replace（）方法直接使用字符串参数来执行替换：
+
+		当然，在执行这种字符串传递时，我们就不能像平时使用构造器或者regex文本法那样设置表达式修饰符了。使用字符串而不是正则表达式来替换文本比较常见的错误是，使用者往往会误以为原字符串中所有的匹配都会替换。然而如上所述，以字符串为参数的replace（）其global修饰符的值将为false，即只有第一个被匹配到的字符串才会被替换。这与其他一些编程语言不同，从而导致混淆。例如：
+	</p>
+	<script>
+		"test".replace("t","r"); //rest
+		"test".replace(new RegExp("t"),"r");  //rest
+
+		"pool".replace("o","*");  //p*ol
+		"pool".replace(/o/g,"*");  //p**l
+
+	</script>
+
+	<h2>4.2.10 Error对象</h2>
+	<p>
+		当代码中有错误发生时，一个好的处理机制可以帮助我们理解错误发生的原因，并且使我们能以一种较为优雅的方式来纠正错误。在JS中，将会使用try、catch及finilly语句组合来处理错误。当程序中出现错误时，就会抛出一个Error对象，该对象可能由以下几个内建构造器中的一个产生而成，他们包括EvalError、RangeError、ReferenceError、SyntaxError、TypeError和URIError等，所有这些构造器都继承自Error对象。
+
+		下面，我们来主动触发一个错误，看看会发生什么。下面的例子中调用了一个并不存在的函数，控制台中输入：
+
+		错误显示的方式在各浏览器和宿主环境中差别可能会很大。事实上，大多数现代浏览器倾向于向用户隐藏错误，但不能因此就假设我们所有的用户都会屏蔽错误显示，而制作一个没有错误、用户体验完美的页面理所当然是开发者的责任。在上面的例子中，错误被显示是因为我们没有尝试捕获（catch）这个错误。程序既没有预测到这里会出现错误，也不知道怎样处理这个错误。幸运的是，错误捕获很容易，只需要我们使用try语句后面接一个catch语句即可。
+
+		例如添加下面代码，我们就不会看到之前控制台中的那个错误显示了：
+
+		如您所见，这里包含两部分内容。try语句及其代码块、catch语句及其参数变量和代码块。
+
+		finally语句并没有在这个例子中出现，这是一个可选项，主要用于执行一些无论如何（无论有没有错误发生）都要执行的内容。
+
+		在上面的例子中，我们并没有在catch语句后面的代码块中写入任何内容，但实际上我们可以在这里加入一些用于修复错误的代码，或者至少可以将该应用程序错误的一些特定情况反馈给用户。
+
+		catch语句的参数（括号中的）e实际上是一个Error对象。跟其他对象一样，它也提供一系列有用的方法与属性。遗憾的是，不同的浏览器对于这些方法与属性都有着各自不同的实现，但其中有两个属性的实现还是基本相同的，那就是e.name和e.message。
+
+		现在，让我们来看看这段代码：
+
+		如您所见，这里的第一个alert（）显示了e.name和e.message，第二个显示了Finally！。
+
+		e.name所包含的是构造当前Error对象的构造器名称。
+		由于Error对象在各宿主环境（浏览器）中的表现并不一致，因此在这里我们需要使用一些小技巧，以便我们的代码能处理各种类型的错误（即e.name的值）。
+
+		当然，我们也可以用new Error()或者其他Error对象构造器来自定义一个Error对象，然后告诉JS引擎某个特定的条件，并使用throw语句来抛出该对象。
+
+		下面来看一个具体的实例，假设我们需要调用一个maybeExists（）函数，并将函数返回结果作为除数来执行除法运算。我们想统一进行错误处理，无论错误原因是maybeExists()函数不存在，还是返回值不是我们想要的，那么代码都应该这样写：
+
+		根据maybeExists（）函数的存在与否极其返回值，这段代码会弹出几种不同的信息：
+		<li>如果maybeExists（）函数不存在，我们在FireFox中将会得到信息“RefrenceError：maybeExists（） is not defined”，而在IE中则为“TypeError：Object expected”</li>
+		<li>如果maybeExists（）返回值为0，我们将得到的信息为“Error：Division By zero!”</li>
+		<li>如果maybeExists（）的返回值为2，我们将得到的alert（）信息是25.</li>
+		在以上所有的情况下，程序都会弹出第二个窗口“Finally！”。
+
+		另外，这里抛出的是一般性的错误提示，使用的是throw new Error("Division by zero!")，然而我们也可以根据自身的需要来明确错误类型。例如可以利用throw new RangeError("Division by zero!")语句来抛出该错误，或者不用任何构造器，直接定义一个一般对象抛出：
+	</p>
+	<script>
+		iDontExist();
+
+		try{
+			iDontExist();
+		}catch(e){
+			//Do something
+		}
+
+		try{
+			iDontExist();
+		}catch(e){
+			alert(e.name+" : "+e.message);
+		}finally{
+			alert("Finally!");
+		}
+
+		try{
+			var total = maybeExists();
+			if(total === 0){
+				throw new Error("Division by zero!");
+			}else{
+				alert(50/total);
+			}
+		}catch(e){
+			alert(e.name + ": " + e.message);
+		}finally{
+			alert("finally!");
+		}
+
+		throw{
+			name:"MyError",
+			message:"OMG!Something terrible has happened"
+		}
+	</script>
+
+
+</body>
+</html>

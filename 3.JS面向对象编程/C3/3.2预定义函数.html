@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3.2预定义函数</title>
+</head>
+<body>
+	<p>JS引擎中有一组可供随时调用的内建函数。下面，让我们来了解一下这些函数。在这一过程中，我们会通过一系列具体的函数时间，来帮助您掌握这些函数的参数和返回值，以便最终实现熟练应用。这些内建函数包括：</p>
+	<ul>
+		<li>parseInt()</li>
+		<li>parseFloat()</li>
+		<li>isNaN()</li>
+		<li>isFinite()</li>
+		<li>encodeURI()</li>
+		<li>decodeURI()</li>
+		<li>encodeURIComponent()</li>
+		<li>decodeURIComponent()</li>
+		<li>eval()</li>
+	</ul>
+	<h3>黑盒函数</h3>
+	<p>
+		一般来说，当我们调用一个函数时，程序是不需要知道该函数的内部工作细节的。我们可以将其看做一个黑盒子，您只需要给他一些值（作为输入参数），就能获取他输出的返回结果。这种思维是用于任何函数————既包括JS中的内建函数，也包括有任何个人或集体所创建的函数。
+	</p>
+
+	<h2>3.2.1 parseInt()</h2>
+	<p>
+		parseInt()会试图将其收到的任何输入值（通常是字符串）转换成整数类型输出。如果转换失败就返回NaN。
+	</p>
+	<p>除此之外，该函数还有个可选的第二参数：基数（radix），他负责设定函数所期望的数字类型————十进制、十六进制、二进制等。</p>
+	<p>如果我们在调用parseInt()是没有指定第二参数，函数就会将其默认为十进制，但两种情况除外。</p>
+	<ul>
+		<li>如果首参数字符串是0x开头，第二参数就会被默认指定为16。</li>
+		<li style="color:red">如果首参数字符串是0开头，第二参数就会被默认指定为8。(NO!!!)</li>
+	</ul>
+	<script>
+		parseInt("123");
+		123
+		parseInt("acs123");
+		NaN
+		parseInt("111acs123");
+		111
+
+		parseInt("FF",10);
+		NaN
+		parseInt("FF",16);
+		255
+		parseInt("0377",10);
+		377
+		parseInt("0377",8);
+		255
+
+
+		parseInt("377");
+		377
+		parseInt("0377");
+		377
+		parseInt("0x377");
+		887
+	</script>
+	<p>
+		明确指定radix值总是最安全的。
+	</p>
+	<p style="color:red">值得一提的是，ECMAScript5移除了八进制的默认表示法，这避免了其在parseInt()中与十进制的混淆。</p>
+
+	<h2>3.2.2 parseFloat()</h2>
+	<p>parseFloat()的功能与parseInt()基本相同，只不过他仅支持将输入值转换为十进制数。因此，该函数只有一个参数。</p>
+	<p>
+		与parseInt()相同的是，parseFloat()在遇到第一个异常字符时就会放弃，无论剩下的那部分字符串是否可用。
+	</p>
+	<p>
+		此外，parseFloat()还可以接受指数形式的数据（这点与parseInt()不同）。
+	</p>
+	<script>
+		parseFloat("123");
+		123
+		parseFloat("1.23");
+		1.23
+		parseFloat("1.23acs.00");
+		1.23
+		parseFloat("a.c1.23acs.00");
+		NaN
+		parseFloat("a123.34");
+		NaN
+		parseFloat("12a123.34");
+		12
+
+
+		parseFloat("123e-2");
+		1.23
+		parseFloat("1e10");
+		10000000000
+		parseInt("1e10");
+		1
+	</script>
+	<h2>3.2.3 isNaN()</h2>
+	<p>通过isNaN()，我们可以确定某个输入值是否是一个可以参与算数运算的数字。因而，该函数也可以用来检测parseInt()与parseFloat()的调用成功与否。</p>
+	<p>该函数也会始终试图将其所接受的输入转换为数字。</p>
+	<p>isNaN()函数是非常有用的，因为NaN自己不存在等值的概念，也就是说表达式NaN===NaN返回的是false，这确实让人觉得有点匪夷所思。</p>
+	<script>
+		isNaN(NaN);
+		true
+		isNaN(123);
+		false
+		isNaN(1.23);
+		false
+		isNaN(parseInt("abc123"));
+		true
+
+		isNaN("1.23");
+		false
+		isNaN("a1.23");
+		true
+	</script>
+
+	<h2>3.2.4isFinite()</h2>
+	<p>isfinite()可以用来检查输入是否是一个既非Infinity也非-Infinity也非NaN的数字。</p>
+	<script>
+		isFinite(Infinity);
+		false
+		isFinite(-Infinity);
+		false
+		isFinite(12);
+		true
+		isFinite(1e308);
+		true
+		isFinite(1e309);
+		false
+	</script>
+
+	<h2>3.2.5 URI的编码与反编码</h2>
+	<p>在URL（统一资源定位符）或URI（统一资源标识符）中，有一些字符是具有特殊含义的。如果我们想“转义”这些字符，就可以去调用函数encodeURI()或encodeURIComponent()。前者会返回一个可用的URL，而后者则会认为我们所传递的仅仅是URL的一部分。例如，对于下面这个查询字符串来说，这两个函数所返回的字符编码分别是：</p>
+	<script>
+		var url="http://www.packtpub.com/sc ipt.php?q=this and that";
+		encodeURI(url);
+		"http://www.packtpub.com/sc%20ipt.php?q=this%20and%20that"
+		encodeURIComponent(url);
+		"http%3A%2F%2Fwww.packtpub.com%2Fsc%20ipt.php%3Fq%3Dthis%20and%20that"
+	</script>
+	<p>encodeURI()和encodeURIComponent()分别都有各自对应的反编码函数decodeURI()和decodeURIComponent()。另外，我们有时候还会在一些遗留代码中看到相似的编码函数和反编码函数escape()和unescape()，但我们并不赞成使用这些函数来执行相关的操作，他们的编码规则也不尽相同。</p>
+
+
+<h2>3.2.6 eval()</h2>
+	<p>eval()会将其输入的字符串当做JS代码来执行。</p>
+	<script>
+		eval("var ii=2;");
+		ii
+		2
+	</script>
+	<p>所以，这里的eval("var ii=2;");与表达式var ii=2;的执行效果是相同的。</p>
+<p>尽管eval()在某些情况下是很有用的，但如果有选择的话，我们应该尽量避免使用它。毕竟在大多数情况下，我们有更优雅的选择，这些选择通常也更易于编写和维护。对于许多经验丰富的JS程序员来说，“Eval is evil”是一句至理名言。</p>
+<ul>因为eval()是这样一种函数：
+	<li>安全性方面——JS拥有的功能很强大，但这也意味着很大的不确定性，如果您对放在eval函数中的代码没有太多把握，最好还是不要这样使用。</li>
+	<li>性能方面——它是一种由函数执行的“动态”代码，所以要比直接执行脚本要慢。</li>
+</ul>
+
+<h2>3.2.7 一点惊喜——alert()函数</h2>
+	<p>eval()会将其输入的字符串当做JS代码来执行。</p>
+	<script>
+		eval("var ii=2;");
+		ii
+		2
+	</script>
+<p>在用这个函数值钱，我们必须要明白这样做会阻塞当前的浏览器线程。也就是说，在alert的执行窗口关闭之前，当前所有的代码都会暂停执行。因此，对于一个忙碌的AJAX应用程序来说，alert通常不是一个好的选择。</p>
+
+</body>
+</html>

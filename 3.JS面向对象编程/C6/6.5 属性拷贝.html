@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6.5 属性拷贝</title>
+</head>
+<body>
+	<p>
+		接下来，让我们尝试一下一个与之前略有不同的方法。在构建可重用的继承代码时，我们也可以简单地将父对象的属性拷贝给子对象，参照之前的extend（）接口，我们可以创建一个extend2（）函数，该函数也接受两个构造器函数为参数，并将Parent的原型的所有属性全部拷贝给Child（）的原型，其中包括方法，因为方法本身也是一种函数类型的属性。
+
+		如您所见，我们通过一个简单的循环遍历了函数所接受的所有属性。在之前的示例中，如果子对象需要访问父对象的方法，我们可以通过设置uber属性来实现。而这里的情况与之前有所不同，由于我们已经完成对Child的原型进行扩展，不需要再去重置Child.prototype.constructor属性，因为他不会再被完全覆盖了，因此在这里，constructor属性所指向的值是正确的。
+
+		与之前的方法相比，这个方法在效率上略逊一筹。因为这里执行的是子对象原型的逐一拷贝，而非简单地链查询。所以我们必须要记住，这种方式仅适用于只包含基本数据类型的对象，所有的对象类型（包括函数与数组）都是不可复制的，因为他们只支持引用传递。
+
+		下面我们来看看具体的应用实例，以下有两个构造器函数Shape()和TwoDShape（）。其中，Shape（）的原型中包含了一个基本类型属性name，和一个非基本类型属性——toString()方法：
+
+		如果我们通过extend（）方法来实现继承，那么name属性既不会是TwoDShape（）实例的属性，也不会成为其原型对象的属性，但是子对象依然可以通过继承方式来访问该属性。
+	</p>
+	<script>
+		function extend2(Child,Parent){
+			var p = Parent.prototype;
+			var c = Child.prototype;
+			for(var i in p){
+				c[i] = p[i];
+			}
+			c.uber = p;
+		}
+
+		function extend(Child,Parent){
+			var F = function(){};
+			F.prototype = Parent.prototype;
+			Child.prototype  = new F();
+			Child.prototype.constructor = Child;
+			Child.uber = Parent.prototype;
+		}
+
+		var Shape = function(){};
+		var TwoDShape = function(){};
+		Shape.prototype.name = "shape";
+		Shape.prototype.toString = function(){
+			return this.uber?this.uber.toString()+","+this.name:this.name;
+		};
+
+		extend(TwoDShape,Shape);
+		var td = new TwoDShape();
+		td.name;  //"shape"
+		TwoDShape.prototype.name;  //"shape"
+		td.__proto__.name;  //"shape"
+		td.hasOwnProperty("name");//false
+		td.__proto__.hasOwnProperty("name"); //false
+	</script>
+
+	<p>
+		而如果继承是通过extend2（）方法来实现的，TwoDShape()的原型中就会拷贝获得属于自己的name属性。同样的，其中也会拷贝属于自己的toString（）方法，但这只是一个函数引用，函数本身并没有被再次创建。
+	</p>
+	<script>
+		extend2(TwoDShape,Shape);
+		var td = new TwoDShape();
+		td.__proto__.hasOwnProperty("name");  //true
+		td.__proto__.hasOwnProperty("toString");  //true
+		td.__proto__.toString === Shape.prototype.toString;  //true
+		TwoDShape.prototype.hasOwnProperty("name");  //true
+		Shape.prototype.hasOwnProperty("name");  //true
+
+		td.toString();  //"shape,shape"
+		TwoDShape.prototype.name = "2D shape";
+		td.toString();  //"shape,2D shape"
+	</script>
+	<p>
+		如您所见，上面两个toString方法实际上是同一个函数对象。之所以这样做，也是因为这样的方法重建其实是完全没有必要的。
+
+		所以，之所以说extend2（）的效率要低于extend（）方法，主要是前者对部分原型属性进行了重建。当然了，这对于只包含基本数据类型的对象来说，未必真的就如此糟糕。而且，这样做还能使属性查找操作更多的停留在对象本身，从而可较少原型链上的查找。
+
+		现在，让我们再来回顾一下定义uber属性的整个过程。这一次的做法有别与之前的通过Parent构造器赋值，这里我们是将Parent的prototype属性赋值给了变量p，再通过p来完成uber赋值的。之所以要故意做出这种差异化实现只是为了说明，您可以根据自己的需要来使用您自己认为合适的继承模式。让我们来测试一下代码：
+
+		TwoDShape并没有重新定义name属性，所以在这里打印了两个Shape。您可以在任何时候重新定义name属性，然后所有的实例都会立即“看见”name属性的更新：
+
+
+	</p>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>注意点：</title>
+</head>
+<body>
+	注意点：
+1.如果JS引擎在一个逻辑表达式中遇到一个非布尔类型的操作数，那么该操作数的值就会成为该表达式所返回的结果。
+<script>
+	true||"something"
+	true
+	true&&"something"
+	"something"
+	true&&"something"&&true
+	true
+</script>	
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>导航栏-sy</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		a{
+			text-decoration: none;
+		}
+		#container{
+			width: 150px;
+			margin: 50px auto;			
+		}
+		#level1{
+			border: 1px solid #C4D5DF;
+			border-top: none;
+		}
+		#level1 > li > a{
+			width: 148px;
+			height: 28px;
+			display: block;
+			background: #EBF3F8;
+			color: #5893B7;
+			border-top: 1px solid #C4D5DF;
+			text-indent: 14px;
+			line-height: 28px;
+			font-weight: 700;
+
+		}
+		#level2{
+			display: none;
+		}
+		#level2 > li >a{
+			display: block;
+		    height: 28px;
+		    line-height: 28px;
+		    background: #ffffff;
+		    font-weight: 400;
+		    color: #42556B;
+		    text-indent: 18px; 
+		}
+		#level2 > li >a:hover{
+			color: orange;
+		}
+		#level1 > li > a.current{
+			background: #B1D7EF;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<ul id="level1">
+			<li><a href="">item 1</a>
+				<ul id="level2">
+					<li><a href="">subitem 1</a></li>
+					<li><a href="">subitem 2</a></li>
+					<li><a href="">subitem 3</a></li>
+					<li><a href="">subitem 4</a></li>
+				</ul>
+			</li>
+			<li><a href="">item 2</a>
+				<ul id="level2">
+					<li><a href="">subitem 1</a></li>
+					<li><a href="">subitem 2</a></li>
+					<li><a href="">subitem 3</a></li>
+					<li><a href="">subitem 4</a></li>
+				</ul>
+			</li>
+			<li><a href="">item 3</a>
+				<ul id="level2">
+					<li><a href="">subitem 1</a></li>
+					<li><a href="">subitem 2</a></li>
+					<li><a href="">subitem 3</a></li>
+					<li><a href="">subitem 4</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	
+	<script type="text/javascript" src="../jquery.min.js"></script>
+	<script>
+		$(function(){
+			$("#level1 a").on("click",function(){
+				$(this).addClass("current")
+					   .next().show()
+					   .parent().siblings()
+					   .children("a").removeClass("current")
+					   .next().hide();
+					   return false;   //？？？？？？？？？？？？？?
+			});
+		});
+
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		#ul1{
+			width: 390px;
+			height: 390px;
+			margin:50px auto;
+		}
+		#ul1 li{
+			width: 100px;
+			height: 100px;
+			float: left;
+			margin-right: 30px;
+			margin-bottom: 30px;
+		}
+		#ul1 li img{
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+<body>
+	<ul id="ul1">
+		<li><img src="img/images/1.jpg" alt=""></li>
+		<li><img src="img/images/2.jpg" alt=""></li>
+		<li><img src="img/images/3.jpg" alt=""></li>
+		<li><img src="img/images/4.jpg" alt=""></li>
+		<li><img src="img/images/5.jpg" alt=""></li>
+		<li><img src="img/images/6.jpg" alt=""></li>
+		<li><img src="img/images/7.jpg" alt=""></li>
+		<li><img src="img/images/8.jpg" alt=""></li>
+		<li><img src="img/images/9.jpg" alt=""></li>
+	</ul>
+	</div>
+
+	<script src="jquery-1.9.1.min.js"></script>
+	<script>
+		$(function(){
+			var $ul = $("ul1");
+			var $ali = $("#ul1 li");
+			$ali.each(function(){
+				this.left = this.offsetLeft;
+				this.top = this.offsetTop;
+				$(this).css({
+					left:this.offsetLeft,
+					top:this.offsetTop
+				});
+			}).css({
+				position:"absolute"
+			}).hover(function(){
+					$(this).stop().animate({
+						width:this.offsetWidth + 100,
+						height:this.offsetHeight + 100,
+						left:this.offsetLeft - 50,
+						top:this.offsetTop - 50 
+					});
+					this.style.zIndex ++;
+					//$(this).css("zIndex",$(this).css("zIndex")+1);
+				},function(){
+					$(this).stop().animate({
+						width:100,
+						height:100,
+						left:this.left,
+						top:this.top 
+					});
+					this.style.zIndex --;
+				});;
+		});
+		
+		/*var oUl = document.getElementById("ul1");
+		var aLi = oUl.getElementsByTagName("li");
+		for(var i=0;i<aLi.length;i++){
+			aLi[i].left = aLi[i].offsetLeft;  //记住自己的初始值
+			aLi[i].top = aLi[i].offsetTop;   //记住自己的初始值
+
+			//布局转化，定位每一个
+			aLi[i].style.left = aLi[i].offsetLeft + "px";
+			aLi[i].style.top = aLi[i].offsetTop + "px";
+			//绝对定位空间释放，后面将前面的覆盖
+			//aLi[i].style.position = "absolute";  
+		}
+		for(var i=0;i<aLi.length;i++){
+			aLi[i].style.position = "absolute";  
+			aLi[i].onmouseover = function(){
+				//this.style.width = this.offsetWidth + 100 + "px";
+				//this.style.height = this.offsetHeight + 100 + "px";
+				//this.style.left = this.offsetLeft - 50 + "px";
+				//this.style.top = this.offsetTop - 50 + "px";
+				$(this).stop().animate({
+					width:this.offsetWidth + 100,
+					height:this.offsetHeight + 100,
+					left:this.offsetLeft - 50,
+					top:this.offsetTop - 50 
+				});
+				this.style.zIndex ++;
+			};
+			aLi[i].onmouseout = function(){
+				//this.style.width = this.offsetWidth - 100 + "px";
+				//this.style.height = this.offsetHeight - 100 + "px";
+				//this.style.left = this.offsetLeft + 50 + "px";
+				//this.style.top = this.offsetTop + 50 + "px";
+				$(this).stop().animate({
+					width:100,
+					height:100,
+					left:this.left,
+					top:this.top 
+				});
+				this.style.zIndex --;
+			};
+		}*/
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+ul{
+	list-style: none;
+}
+img{
+	border:0;
+}
+body{
+	background: #ccc;
+	margin-left: 200px;
+}
+ul li{
+	/*float: left;*/
+	display: inline;
+	margin-left: 5px;
+}
+#placeholder{
+	width: 500px;
+	height: 300px;
+	padding: 20px;
+	border: 1px solid #666;
+	background: #fff;
+}

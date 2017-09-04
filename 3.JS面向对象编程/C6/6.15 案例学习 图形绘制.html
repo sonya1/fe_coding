@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6.15 案例学习——图形绘制</title>
+</head>
+<body>
+	下面，让我们用一个更为具体的继承应用示例来做本章的结尾吧。示例的任务是计算各种不同图形的面积和边界，然后将他们绘制出来。并且，要求在这过程中尽可能地实现代码重用。
+	<h2>6.15.1</h2>
+	<p>
+		首先，我们要将所有对象的公共部分定义成一个构造器，即Shape。然后我们基于这个构造器分别构建我们的Triangle、Rectangle和Squre构造器，他们将全部继承于Shape。其中，Square实际上可以被当做一个长宽相等的Rectangle，因此我们构建Square是可以直接重用Rectangle。
+
+		下面，我们来定义Shape对象，首先买我们要定义一个带x，y坐标的Point对象。图形一般都是由若干个point组成的。例如，定义一个Triangle对象需要三个point对象，而定义一个Rectangle对象（为了让题目尽可能简单）需要定义一个point对象和其长宽度。图形的周长一般是其各边长度的总和，而计算一个图形的面积则随图形不同而有较大差异，应该由这些图形自己来实现。
+		<Ul>这样一来，Shape体系中的共有属性主要包括：
+			<li>一个能很据给定的point绘制出图形的draw（）方法</li>
+			<li>一个getParameter（）方法</li>
+			<li>一个用于存储point对象的数组属性</li>
+			<li>其它必需的属性和方法</li>
+		</Ul>
+		关于绘制这部分，我们还将用到canvas标签。尽管早期的IE并不支持这一特性，胆管他的，这不过是个练习。
+
+		当然，还有两个辅助构造器不能不提——Point和Line。其中，Point用于定义图形，而Line则用于计算给定两个点之间的距离。
+
+		读者也可以到http://www.phpied.com/files/canvas/中去运行该工作实例，只需打开控制台，然后按部就班新建图形即可。
+	</p>
+
+	<h2>6.15.2 实现</h2>
+	<p>
+		首先，我们要在空白的HTML也米娜中添加一个canvas标签：
+
+		然后再插入script标签，我们的JS代码就放在这里：
+	</p>
+
+	<canvas height="600" width="800" id="canvas"></canvas>
+	<script>
+		function Point(x,y){
+			this.x = x;
+			this.y = y;
+		}
+
+		function Line(p1,p2){  //算 两点之间的距离 勾股定理
+			this.p1 = p1;
+			this.p2 = p2;
+			this.length = Math.sqrt(  Math.pow(p1.x-p2.x,2) + Math.pow(p1.y-p2.y,2));
+		}
+
+		function Shape(){
+			this.points = [];
+			this.lines = [];
+			this.init();
+		}
+
+		Shape.prototype = {
+			constructor:Shape,
+			init:function(){
+				if(this.context === undefined){
+					var convas = document.getElementById("convas");
+					Shape.prototype.context = canvas.getContext("2d");
+				}
+			},
+
+			draw:function(){
+				var i,ctx = this.context;
+				ctx.strokeStyle = this.getColor();
+				//ctx.strokeStyle = "rgb(125,125,125)";
+				ctx.beginPath();
+				ctx.moveTo(this.points[0].x, this.points[0].y);
+				for(var i=1;i<this.points.length;i++){
+					ctx.lineTo(this.points[i].x, this.points[i].y);
+				}
+				ctx.closePath();
+				ctx.stroke();
+			},
+
+			getColor:function(){
+				var i,rgb = [];
+				for(var i=0;i<3;i++){
+					rgb[i] = Math.round(255*Math.random());
+				}
+				return "rgb("+rgb.join(",")+")";
+			},
+
+			getLines:function(){
+				if(this.lines.length>0){
+					return this.lines;
+				}
+				var i,lines = [];
+				for(i=0;i<this.points.length;i++){
+					lines[i] = new Line(this.points[i],
+					this.points[i+1] || this.points[0]);
+				}
+				this.lines = lines;
+				return lines;
+			},
+
+			getArea:function(){
+
+			},
+
+			getPerimeter:function(){
+				var i,perim=0,lines=this.getLines();
+				for(i=0;i<lines.length;i++){
+					perim += lines[i].length;
+				}
+				return perim;
+			}
+
+		};
+
+
+		//Triangle
+		function Triangle(a,b,c){
+			this.points = [a,b,c];
+			//Area = s(s-a)(s-b)(s-c) 其中，s为半周长
+			this.getArea = function(){
+				var p = this.getPerimeter();
+				s = p/2;
+				return Math.sqrt(s * (s-this.lines[0].length) * (s-this.lines[1].length) * (s-this.lines[2].length));
+			};
+		}
+
+		//Rectangle
+		function Rectangle(p,side_a,side_b){
+			this.points = [p,new Point(p.x+side_a,p.y),new Point(p.x+side_a,p.y+side_b),new Point(p.x,p.y+side_b)];
+			this.getArea = function(){
+				return side_a * side_b;
+			};
+		}
+
+		//Square
+		function Square(p,side){
+			Rectangle.call(this,p,side,side);
+		}
+
+		//继承关系
+		(function(){
+			var s = new Shape();
+			Triangle.prototype = s;
+			Rectangle.prototype = s;
+			Square.prototype = s;
+		})();
+
+		//测试
+		var p1 = new Point(100,100);
+		var p2 = new Point(300,100);
+		var p3 = new Point(200,0);
+
+		var t = new Triangle(p1,p2,p3);
+		t.draw();
+		t.getPerimeter();  //482.842712474619
+		t.getArea();  //10000.000000000002
+
+		var r = new Rectangle(new Point(200,200),50,100);
+		r.draw();
+		r.getArea();  //5000
+		r.getPerimeter();  //300
+
+		var s = new Square(new Point(130,130),50);
+		s.draw();
+		s.getArea();  //2500
+		s.getPerimeter();  //200
+
+		new Square(p1,200).draw();
+	</script>
+</body>
+</html>

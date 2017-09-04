@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+body.large{
+	font-size:20px;
+}
+body.large a{
+	font-size:20px;
+	color:red;
+}
+</style>
+</head>
+<body>
+	<ul>
+		<li><a title="百&#12288;度" target="_blank" href="6.获取鼠标位置.html">百&#12288;度</a></li>
+		<li><a title="Google" target="_blank" href="http://i.firefoxchina.cn/parts/google_rdr.html">Google</a></li>
+		<li><a title="新浪" target="_blank" href="http://www.sina.com.cn/">新浪</a></li>
+	</ul>
+	<script src="../jquery.min.js" type="text/javascript"></script>
+	<script>
+		$(function(){
+			function checkWindowSize(){
+				if($(window).width()>900){
+					alert(11);
+					$("body").addClass("large");
+				}else{
+					$("body").removeClass("large");
+				}
+			}
+			$(window).resize(checkWindowSize);
+		});
+	</script>	
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{
+			background: #000;
+		}
+		canvas{
+			background: #fff;
+		}
+	</style>
+</head>
+<body>
+	<canvas width="400" height="400" id="cvs"></canvas>
+
+	<script>
+		var cvs = document.getElementById("cvs");
+		var ctx = cvs.getContext("2d");
+
+		
+		function draw(){
+			ctx.clearRect(0,0,400,400);
+			//画大圆
+			ctx.beginPath();
+			//ctx.arc(200,200,150,0,2*Math.PI,false);  //画圆arc(原点坐标x，坐标y，radius,开始弧度，结束弧度，顺逆时针);
+			ctx.lineWidth = 3;
+			ctx.stroke();
+
+			//画刻度
+			for(var i=0;i<60;i++){
+				ctx.beginPath();
+				ctx.moveTo(200,200);
+				ctx.arc(200,200,150,6*i*(Math.PI/180),6*(i+1)*(Math.PI/180),false);  //画圆arc(原点坐标x，坐标y，radius,开始弧度，结束弧度，顺逆时针);
+				ctx.stroke();
+			}
+
+			//填充白色de大圆
+			ctx.beginPath();
+			ctx.arc(200,200,140,0,2*Math.PI,false);  //画圆arc(原点坐标x，坐标y，radius,开始弧度，结束弧度，顺逆时针);
+			ctx.fillStyle = "#fff";
+			ctx.fill();
+
+			//画长刻度
+			for(var i=0;i<12;i++){
+				ctx.beginPath();
+				ctx.moveTo(200,200);
+				ctx.arc(200,200,150,30*i*(Math.PI/180),30*(i+1)*(Math.PI/180),false);  //画圆arc(原点坐标x，坐标y，radius,开始弧度，结束弧度，顺逆时针);
+				ctx.stroke();
+			}
+
+			//填充白色de小圆
+			ctx.beginPath();
+			ctx.arc(200,200,130,0,2*Math.PI,false);  //画圆arc(原点坐标x，坐标y，radius,开始弧度，结束弧度，顺逆时针);
+			ctx.fillStyle = "#fff";
+			ctx.fill();
+
+			//画时针
+			var now = new Date();
+			var second = now.getSeconds();
+			var minute = now.getMinutes() + second/60;
+			var hour = now.getHours() + minute/60; //==> 0.5*Math.PI,hour*30-90
+			ctx.beginPath();
+			ctx.moveTo(200,200);
+			ctx.arc(200,200,80,(hour*30-90)*Math.PI/180,(hour*30-90)*Math.PI/180,false);  //画圆arc(原点坐标x，坐标y，radius,开始弧度，结束弧度，顺逆时针);
+			ctx.stroke();
+
+			//画分针
+			ctx.beginPath();
+			ctx.moveTo(200,200);
+			ctx.arc(200,200,100,(minute*6-90)*Math.PI/180,(minute*6-90)*Math.PI/180,false);  //画圆arc(原点坐标x，坐标y，radius,开始弧度，结束弧度，顺逆时针);
+			ctx.lineWidth = 2;
+			ctx.stroke();
+
+			//画秒针
+			ctx.beginPath();
+			ctx.moveTo(200,200);
+			ctx.arc(200,200,120,(second*6-90)*Math.PI/180,(second*6-90)*Math.PI/180,false);  //画圆arc(原点坐标x，坐标y，radius,开始弧度，结束弧度，顺逆时针);
+			ctx.lineWidth = 1;
+			ctx.stroke();
+
+		}
+
+		draw();
+		setInterval(draw,1000);
+	</script>
+</body>
+</html>

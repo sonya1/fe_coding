@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<ul id="ul1">
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+	</ul>
+	<script>
+		var oUl = document.getElementById("ul1");
+		var aLi = oUl.getElementsByTagName("li");
+		/*for(var i=0;i<aLi.length;i++){
+			//alert(i);
+			
+			//aLi[i].onclick = function(){
+			//	alert(i);
+			//};
+
+			(function (index){
+				aLi[i].onclick = function(){
+					alert(index);
+				}
+			})(i);
+		}*/
+//闭包：外部函数内部声明内部函数，内部函数调用外部函数的局部变量，当外部函数执行完毕后，局部变量不会释放
+		for(var i=0;i<aLi.length;i++){
+			(function (index){
+				aLi[i].onclick = function(){
+					alert(index);
+				};
+			})(i);
+		}
+	</script>
+</body>
+</html>

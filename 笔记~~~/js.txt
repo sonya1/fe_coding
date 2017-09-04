@@ -1,0 +1,8 @@
+Math.random()生成 （0，1]之间的随机数
+
+生成一个 0 到 9之间的随机整数。  Math.floor(Math.random()*10)
+
+创建一个叫randomRange的函数，参数为myMin和myMax，返回一个在myMin(包括myMin)和myMax(包括myMax)之间的随机数。  Math.floor(Math.random()*(myMax-myMin+1) + myMin);
+
+在执行这种字符串传递时，我们就不能像平时使用构造器或者regex文本法那样设置表达式修饰符了。使用字符串而不是正则表达式来替换文本比较常见的错误是，使用者往往会误以为原字符串中所有的匹配都会替换。然而如上所述，以字符串为参数的replace（）其global修饰符的值将为false，即只有第一个被匹配到的字符串才会被替换。这与其他一些编程语言不同，从而导致混淆。例如："pool".replace("o","*");  //p*ol
+		"pool".replace(/o/g,"*");  //p**l

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		table{
+			width: 300px;
+			height: 190px;
+			text-align: center;
+		}
+		th{
+			border-bottom: 1px #000 solid;
+		}
+		.odd{
+			background:#ffffee;
+		}
+		.even{
+			background: #FFF38F;
+		}
+		.selected{
+			background: orange;
+		}
+	</style>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr><th></th><th>姓名</th><th>性别</th><th>暂住地</th></tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input type="checkbox" name="choice" ></td>
+				<td>张三</td>
+				<td>男</td>
+				<td>牡丹江</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="choice" ></td>
+				<td>李四</td>
+				<td>男</td>
+				<td>牡丹江</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="choice" ></td>
+				<td>王五</td>
+				<td>男</td>
+				<td>牡丹江</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="choice" ></td>
+				<td>赵六</td>
+				<td>男</td>
+				<td>牡丹江</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" name="choice" ></td>
+				<td>爸爸</td>
+				<td>男</td>
+				<td>牡丹江</td>
+			</tr>
+		</tbody>
+	</table>
+	<script type="text/javascript" src="../jquery.min.js"></script>
+	<script>
+		$(function(){
+			$("table tbody tr:even").addClass("even");
+			$("table tbody tr:odd").addClass("odd");
+			$("table tbody tr:contains('王五')").addClass("selected")
+					.find(":checkbox").attr("checked",true);
+
+		});
+
+			$("tbody tr").click(function(){
+				if(!$(this).hasClass("selected")){
+					$(this).addClass("selected")
+						.find(":checkbox").attr("checked",true);
+
+				}else{
+					$(this).removeClass("selected")
+						.find(":checkbox").attr("checked",false);
+				}
+			});
+			
+			$(":checked").parents("tr").addClass("selected");
+
+			/*
+				$("tbody>tr:odd").addClass("odd");
+				$("tbody>tr:even").addClass("even");
+				$('tbody>tr').click(function() {
+					//判断当前是否选中
+					var hasSelected=$(this).hasClass('selected');
+					//如果选中，则移出selected类，否则就加上selected类
+					$(this)[hasSelected?"removeClass":"addClass"]('selected')
+						//查找内部的checkbox,设置对应的属性。
+						.find(':checkbox').attr('checked',!hasSelected);
+				});
+				// 如果复选框默认情况下是选择的，则高色.
+				$('tbody>tr:has(:checked)').addClass('selected');
+
+
+			 */
+	</script>
+</body>
+</html>

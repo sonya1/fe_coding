@@ -1,0 +1,24 @@
+2017-08-24
+
+1.ul 块级元素 水平竖直居中问题：
+	（1）设宽度，margin：0 auto ； --》水平居中，但竖直居中不好弄，只能定位：top:50%;margin-top的一半，到（3)。
+	（2）父级元素设相等内边距，竖直居中了。
+	
+	（3）定位，设宽高，margin：0 auto ；就不好使了。
+		top.left都定位：50%；
+		margin-top，margin-left: -高宽的一半
+
+
+2.li里面的a： margin左右 好使，上下不好使？？ （行级元素margin-top不好使）
+	需要把a设为dispaly：block。
+
+3.定位的元素，要设宽高，不设的话，就是被内容撑起来的。
+
+4.background-size：cover（图片宽度将背景覆盖，等比例缩放）
+	background-position：50% 50%，是图片位置的变化（图片居中显示），不是等比缩放
+
+5.background-size：cover IE8不支持，所以用插入图片的方法，溢出隐藏，图片width=100%，就可达到background-size：cover的效果。
+
+6.background: rgba(82,87,89,0.39);IE8不支持。所以背景和里面的文字都会透明，我们只想让背景透明，所以就得把里面文字提出来。和图片并列布局。
+
+7.图片出框了，img{width：100%}就好了。

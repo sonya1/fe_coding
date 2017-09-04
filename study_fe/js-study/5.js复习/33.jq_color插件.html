@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<button id="btn">click</button>
+	<script src="jquery-1.9.1.min.js"></script>
+	<script src="33.jquery.color.js"></script>
+	<script>
+	//实现extend函数
+		/*var o1 = {
+			name:"lisi",
+			age:34
+		}
+		var o2 = {
+			age:50,
+			sex : "male"
+		}
+
+		function extend(o1,o2){
+			for(var p in o2){
+				o1[p] = o2[p];
+			}
+			return o1;
+		}
+		var o3 = extend(o1,o2);
+		console.log(o3);*/
+
+		$("#btn").on("click",function(){
+			$(this).color("red");
+			//$(this).css("background","green");
+		});
+		console.log($("#btn").color());
+	</script>
+</body>
+</html>

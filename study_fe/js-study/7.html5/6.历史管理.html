@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		ul{
+			list-style: none;
+			height: 30px;
+			position: fixed;
+			width: 100%;
+		}
+		ul li a{
+			height: 30px;
+			width: 120px;
+			margin-right: 10px;
+			text-align: center;
+			line-height: 30px;
+			background: #ccc;
+			float: left;
+		}
+		div{
+			height: 400px;
+		}
+		#div1{
+			background: red;
+		}
+		#div2{
+			background: green;
+		}
+		#div3{
+			background: yellow;
+		}
+		#div4{
+			background: orange;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li><a href="#div1">Link 1</a></li>
+		<li><a href="#div2">Link 2</a></li>
+		<li><a href="#div3">Link 3</a></li>
+		<li><a href="#div4">Link 4</a></li>
+	</ul>
+
+	<div id="div1">div1</div>
+	<div id="div2">div2</div>
+	<div id="div3">div3</div>
+	<div id="div4">div4</div>
+
+	<script>
+		var aLink = document.getElementsByTagName("a");
+		var timer = null;
+		for(var i=0;i<aLink.length;i++){
+			aLink[i].onclick = function(e){
+				clearInterval(timer);
+				//alert(this.href);
+				//alert(this.href.indexOf("#"));
+				var hash = this.href.split("#")[1];  //div2
+				var oDiv = document.getElementById(hash);
+
+				var target = oDiv.offsetTop;
+				
+				
+//---------------动画效果
+				play(target);
+//-------------历史记录
+
+				history.pushState(target,"");
+
+				return false;
+				//e.preventDefault();
+			};
+		}
+
+		window.onpopstate = function(e){
+			play(e.state);
+		};
+
+		function play(target,current){
+			var current = 0;
+			timer = setInterval(function(){
+				var iScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+				var speed = (target - iScrollTop) / 8;  //越来越小
+				speed = speed>0?Math.ceil(speed):Math.floor(speed);
+
+				current += speed;
+
+				if(current == target){
+					//current = target;
+					clearInterval(timer);
+				}
+				//console.log(current);
+				scrollTo(0,current);
+			},30);
+		}
+	</script>
+</body>
+</html>

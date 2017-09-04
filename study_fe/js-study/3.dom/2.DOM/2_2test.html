@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" id="root">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="div1">
+		<h1 id="h1">aaa</h1>
+		<p id="p1">pppp</p>
+	</div>
+	<script type="text/javascript">
+		var oDiv1 = document.getElementById("div1");
+		var oH1 = document.getElementById("h1");
+		var oP1 = document.getElementById("p1");
+		/*
+		console.log(document.getElementById("root"));  //html
+		console.log(document.documentElement);  //html 同上
+		console.log(oDiv1.childNodes.length);  //5
+		console.log(oDiv1.children.length);    //2
+		console.log(oDiv1.firstChild);      //text
+		console.log(oDiv1.firstElementChild);  //h1
+		console.log(oDiv1.lastChild);  //text
+		console.log(oDiv1.lastElementChild);  //p
+		console.log(oH1.nextSibling);  //text
+		console.log(oH1.nextElementSibling); //p
+		console.log(oP1.previousSibling);  //text
+		console.log(oP1.previousElementSibling);  //h1
+		console.log(oH1.parentNode); //div
+		*/
+		
+
+		function next(elem){
+			do{
+				elem = elem.nextSibling;
+			}while(elem && elem.nodeType != 1);  //1元素  3文本（空格、文字）。
+			return elem;
+		}
+		console.log(next(oH1));
+
+		function first(elem){
+			elem = elem.firstChild;
+			return elem && elem.nodeType != 1 ? next(elem) : elem;
+		}
+		console.log(first(oDiv1));
+
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6.11 多重继承</title>
+</head>
+<body>
+	<p>
+		所谓的多重继承，通常指的是一个子对象中有不止一个父对象的继承模式。对于这种模式，有些面向对象程序语言支持，有些则不支持。我们可以对他们进行一些甄别，自行判断在复杂的应用程序设计中多重继承是否能带来方便，或者是否有这种必要使用它，以及他是否会比原型链的方式更好。但无论如何，对于JS这样的动态语言来说，实现多继承是很简单的，尽管语言本身没有为此提供特殊的语法单元。现在，让我们暂且先离开一下这个讨论多重继承利弊的漫漫长夜，去实现中感受一下多重继承的用法吧。
+
+		多重继承实现是极其简单的，我们只需要延续属性拷贝法的继承思路依次扩展对象即可，而对参数中所继承的对象的数量没有限制。
+
+		下面，我们来创建一个multi（）函数，他可以接受任何数量的输入性对象。然后，我们在其中实现了一个双重循环，内层循环用于拷贝属性，而外层循环则用于遍历函数参数中所传递进来的所有对象。
+
+		getArea方法应该是独有属性，dimensions则应该是继承自twoDee的属性，toString（）则是从Shape继承而来的：
+
+		要注意的是，multi（）中的循环是按照对象的输入顺序来进行遍历的。如果其中两个对象拥有相同的属性，前一个就会被后一个覆盖。
+
+	</p>
+	<script>
+		function multi(){
+			var n = {},stuff,j=0,len=arguments.length;
+			for(j;j<len;j++){
+				stuff = arguments[j];
+				for(var i in stuff){
+					if(stuff.hasOwnProperty(i)){
+						n[i] = stuff[i];
+					}
+				}
+			}
+			return n;
+		}
+
+		var shape = {
+			name:"shape",
+			toString:function(){
+				return this.name;
+			}
+		};
+
+		var twoDee = {
+			name:"2D shape",
+			dimensions:2
+		};
+
+		var triangle = multi(shape,twoDee,{
+			name:"Triangle",
+			getArea:function(){
+				return this.side*this.height/2;
+			},
+			side:5,
+			height:10
+		});
+
+		triangle.getArea();  //25
+		triangle.dimensions;  //2
+		triangle.toString();  //"Triangle"
+	</script>
+
+	<h3>混合插入</h3>
+	<p>
+		在这里，我们需要了解一种叫做混合插入的技术。我们可以将其看做一种为对象提供某些实用功能的技术，只不过，他并不是通过子对象的继承与扩展来完成的。我们之前所讨论的多重继承实际上那个正是基于这种技术理念来实现的。也就是说，每当我们新建一个对象时，可以选择将其他对象的内容混合到我们的新对象中去，只要将他们全部传递给multi（）函数，我们就可以在不建立相关继承树的情况下获得这些对象的功能。
+	</p>
+</body>
+</html>

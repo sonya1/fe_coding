@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//隐式绑定
+		/*function foo(){
+			console.log(this.a);  //this:Object
+		}
+		var obj = {
+			a:3,
+			foo:foo
+		};
+		obj.foo();  //2
+*/
+
+
+
+		//对象属性引用链中只有最顶层或者说最后一层会影响调用位置。
+		/*function foo(){
+			console.log(this.a);  //this->obj2
+		}
+		var obj2 = {
+			a:42,
+			foo:foo
+		};
+		var obj1 = {
+			a:2,
+			obj2:obj2
+		};
+		obj1.obj2.foo();  //42
+		*/
+
+
+
+		//隐式丢失
+		function foo(){
+			console.log(this.a);   //this-->window
+		}
+		var obj = {
+			a:2,
+			foo:foo
+		};
+
+		var bar = obj.foo;
+		var a="oops,global";
+		bar();  //oops,global
+
+
+
+
+		//回调函数丢失this绑定
+		function foo(){
+			console.log(this.a);
+		}
+		function doFoo(fn){
+			//fn其实引用的是foo
+			fn();  //  <==调用位置
+		} 
+		var obj = {
+			a:2,
+			foo:foo
+		};
+		var a = "oops,global";
+		doFoo(obj.foo);  //oops,global
+
+
+		//回调函数丢掉this绑定
+		function foo(){
+			console.log(this.a);
+		}
+		var obj = {
+			a:2,
+			foo:foo
+		};
+
+		var a = "oops,global";
+		setTimeout(obj.foo, 100);  ////oops,global
+		//setTimeout的实现
+		function settimeout(fn,delay){
+			//..延迟delay秒
+			fn();  // <== 调用位置
+		}
+
+		
+	</script>
+</body>
+</html>

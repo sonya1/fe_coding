@@ -1,0 +1,15 @@
+.dropdown-menu{
+	border:1px solid #ccc;
+	width: 178px;
+}
+.dropdown-menu li{
+	height: 26px;
+	line-height: 26px;
+}
+.dropdown-menu li a{
+	text-align: center;
+	color: #333;
+}
+.dropdown .dropdown-menu{
+	display: none;
+}

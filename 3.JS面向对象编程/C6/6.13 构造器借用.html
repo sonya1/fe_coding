@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6.13 构造器借用</title>
+</head>
+<body>
+	<p>
+		我们再来看一种继承实现。这需要再次从构造器函数入手，这回不直接使用对象了。由于在这种继承模式中，子对象构造器可以通过call（）或apply（）方法来调用父对象的构造器，因而，他通常被称为构造器盗用法，或者构造器借用法，如果您想更含蓄一点的话。
+
+		尽管call（）和apply（）这两个方法在第四章已经讨论过，但这里我们要更进一步。正如您所知，这两个方法都允许我们将某个指定对象的this值与一个函数的调用绑定起来。这对于继承而言，就意味着子对象的构造器在调用父对象构造器时，也可以将子对象中新建的this对象与父对象的this值绑定起来。
+
+		下面，我们来构建一个父类构造器Shape（）；
+
+		现在我们来定义Triangle（）构造器，在其中通过apply（）方法来调用Shape（）构造器，并将相关的this值（即newTriangle（）所创建的示例）和其他一些参数传递该方法。
+
+		注意，这里无论是Triangle（）还是Shape()都在其各自的原型中添加些额外的属性。
+
+		下面，我们来测试一下，先新建一个triangle对象：
+
+		在这里，新的triangle对象继承了其父对象的id属性，但她并没有继承父对象原型中的其他任何东西：
+
+		之所以triangle对象中不包含Shape的原型属性，是因为我们从来没有调用new Shape（）创建任何一个实例，自然其原型也从来没有被用到。这很容易做到，例如本章最初的那个示例中，我们可以对Triangle()构造器进行如下重定义：
+	</p>
+	<script>
+		function Shape(id){
+			this.id = id;
+		}
+		Shape.prototype.name = "shape";
+		Shape.prototype.toString = function(){
+			return this.name;
+		};
+
+		function Triangle(){
+			Shape.apply(this,arguments);
+		}
+		Triangle.prototype.name = "Triangle";
+
+		var t = new Triangle(101);
+		t.name;  //"Triangle"
+
+		t.id;  //101
+		t.toString();  //"[object Object]"
+
+
+		function Triangle(){
+			Shape.apply(this,arguments);
+		}
+		Triangle.prototype = new Shape();
+		Triangle.prototype.name = "Triangle";
+
+	</script>
+	<p>
+		在这种继承模式中，父对象的属性是以子对象自身属性的身份来重建的。这也体现了构造器借用法的一大优势：当我们创建一个继承于数组或者其他对象类型的子对象时，将获得一个完完全全的新值（不是一个引用），对他做任何修改都不会影响其父对象。
+
+		但这种模式也是有缺点的，因为这种情况下父对象的构造器往往会被调用两次：一次发生在通过apply（）方法继承其自身属性时，而另一次则发生在通过new操作符继承其原型时。这样一来，父对象的自身属性事实上被继承了两次。下面让我们来做一个简单的演示：
+	</p>
+	<script>
+		function Shape(id){
+			this.id = id;
+		}
+		function Triangle(){
+			Shape.apply(this,arguments);
+		}
+		Triangle.prototype = new Shape(101);
+
+		var t = new Triangle(202);
+		t.id;  //202
+		t.__proto__.id;  //101
+		delete t.id;  //true
+		t.id;  //101
+	</script>
+	<p>
+		如您所见，对象中有一个自身属性id，但它并非来自原型链中，我们可以执行如上验证。
+	</p>
+
+	<h3>借用构造器与原型复制</h3>
+	<p>
+		对于这种由于构造器的双重调用而带来的重复执行问题，实际上是很容易更正的。我们可以在父对象构造器上调用apply（）方法，以获得其全部的自身属性，然后再用一个简单的迭代器对其原型属性执行逐项拷贝（这也可以使用之前讨论的extend2（）方法来完成）。例如：
+	</p>
+	<script>
+		function extend2(Child,Parent){
+			var p = Parent.prototype;
+			var c = Child.prototype;
+			for(var i in p){
+				c[i] = p[i];
+			}
+			c.uber = p;
+		}
+
+		function Shape(id){
+			this.id = id;
+		}
+		Shape.prototype.name = "shape";
+		Shape.prototype.toString = function(){
+			return this.name;
+		};
+
+		function Triangle(){
+			Shape.apply(this,arguments);
+		}
+		extend2(Triangle,Shape);
+		Triangle.prototype.name = "Triangle";
+
+		//测试
+		var t = new Triangle(101);
+		t.toString();  //"Triangle"
+		t.id;  //101
+		typeof t.__proto__.id;  //undefined
+		t.uber.name;  //Shape
+	</script>
+</body>
+</html>

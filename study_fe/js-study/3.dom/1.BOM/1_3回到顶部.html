@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>回到顶部demo</title>
+	<style type="text/css">
+		body{
+			height: 2000px;
+		}
+		#back{
+			position: fixed;
+			bottom: 0px;
+			right: 0px;
+			width: 50px;
+			height: 50px;
+			background: red;
+		}
+
+	</style>
+	
+</head>
+<body>
+	这是顶部
+	<!--<a href="javaScript:;" id="back" onclick="goback()">goback!</a>
+	<a href="javaScript:void(0);" id="back" onclick="goback()">goback!</a>-->
+
+	<a href="javaScript:;" id="back" onclick="goback()">goback!</a>
+
+	<script type="text/javascript">
+		function goback(){
+			//scrollTo(0,0);
+			
+			//var iScrollTop = document.body.scrollTop; //360,Chrome,
+			//var iScrollTop = document.documentElement.scrollTop;  //IE8,火狐
+			var iScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+			//alert(iScrollTop);
+
+			var timer = setInterval(function(){  //定时器
+				scrollTo(0,iScrollTop-=100);
+				console.log(iScrollTop);
+				if(iScrollTop <= 0){
+					clearInterval(timer);  //清除定时器
+				}
+			},100);
+			return false;
+		}
+	</script>
+
+</body>
+</html>
+

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>7.4 DOM</title>
+</head>
+<body>
+	<p class="opener">first paragraph</p>
+	<p><em>second</em> paragraph</p>
+	<p id="closer">final</p>
+	<!--and that's about it-->
+	<script>
+	//7.4.2.1 文档节点
+	
+	//节点类型：元素1 属性2 文本3 document9
+		document.nodeType;  //9
+		document.nodeName;  //"#document"
+		document.nodeValue; //null
+
+
+	//7.4.2.2 documentElement
+	//当前文档的树结构
+	document.documentElement;  //<html><head>...</head><body>...</body></html>
+	document.documentElement.nodeType;  //1  元素节点
+	document.documentElement.nodeName;  //"HTML"
+	document.documentElement.nodeValue;  //null  文本节点的值就是它的实际文本,元素节点nodeValue为null
+
+	document.documentElement.tagName;  //"HTML"
+
+	//7.4.2.3 子节点
+	document.documentElement.hasChildNodes();  //true
+	document.documentElement.childNodes.length;  //3
+	document.documentElement.childNodes[0];  //<head>...</head>
+	document.documentElement.childNodes[1];  //#text
+	document.documentElement.childNodes[2];  //<body>...</body>
+	document.documentElement.childNodes[3];  //undefined
+
+	document.documentElement.childNodes[1].parentNode;  //<html>...</html>
+
+	//7.4.2.4 属性
+	var bd = document.documentElement.childNodes[2];
+	bd.childNodes.length;  //11
+
+	bd.childNodes[1];  //<p class="opener">first paragraph</p>
+	bd.childNodes[1].hasAttributes();  //true  有属性
+	bd.childNodes[1].attributes.length; //1
+	bd.childNodes[1].attributes[0].nodeName;  //"class"
+	bd.childNodes[1].attributes[0].nodeValue;  //"opener"
+	bd.childNodes[1].attributes["class"].nodeValue;  //"opener"
+	bd.childNodes[1].getAttribute("class");  //"opener"
+
+	//7.4.2.5 访问标签中的内容
+	bd.childNodes[1].nodeName;  //"P"
+	bd.childNodes[1].textContent;  //"first paragraph"  老IE不支持textContent，用innerText
+
+	bd.childNodes[1].innerHTML;  //"first paragraph"
+	bd.childNodes[3].innerHTML;  //"<em>second</em> paragraph"
+	bd.childNodes[3].textContent;  //"second paragraph"
+	bd.childNodes[3].innerText;  //"second paragraph"  老IE支持
+
+	bd.childNodes[1].childNodes.length;  //1
+	bd.childNodes[1].childNodes[0].nodeName;  //"#text"
+	bd.childNodes[1].childNodes[0].nodeValue;  //"first paragraph"
+
+	//7.4.2.6 DOM访问的快捷方法
+	document.getElementsByTagName("p").length;  //3
+	document.getElementsByTagName("p")[0];  //<p class="opener">first paragraph</p>
+	document.getElementsByTagName("p").item(0);  //<p class="opener">first paragraph</p>
+
+	document.getElementsByTagName("p")[0].innerHTML;  //"first paragraph"
+	document.getElementsByTagName("p")[2];  //<p id="closer">final</p>
+	document.getElementsByTagName("p")[2].id;  //"closer"
+
+	document.getElementsByTagName("p")[0].className;  //"opener"
+
+	document.getElementsByTagName("*").length;  //10
+	document.all.length;  //IE7之前 10
+	document.getElementsByTagName("*");  //[html, head, meta, title, body, p.opener, p, em, p#closer, script]
+
+	document.getElementById("closer");  //<p id="closer">final</p>
+
+	//7.4.2.7 兄弟节点、body元素及首尾子节点
+	var para = document.getElementById("closer");
+	para.nextSibling;  //#text
+	para.previousSibling;  //#text
+	para.previousSibling.previousSibling;  //<p>...</p>
+	para.previousSibling.previousSibling.previousSibling;  //#text
+	para.previousSibling.previousSibling.nextSibling.nextSibling;  //<p id="closer">final</p>
+
+	document.body;  //<body>...</body>
+	document.body.nextSibling; //null
+	document.body.previousSibling;  //#text
+	document.body.previousSibling.previousSibling;  //<head></head>
+
+	document.body.firstChild;  //#text
+	document.body.lastChild;  //#text
+	document.body.lastChild.previousSibling;  //<p></p>
+
+	//7.4.2.8 遍历DOM
+	function walkDom(n){
+		do{
+			console.log(n);
+			if(n.hasChildNodes()){
+				walkDom(n.firstChild);
+			}
+		}while(n=n.nextSibling);
+	}
+	walkDom(document.documentElement);
+	walkDom(document.body);
+
+
+	//7.4.3 DOM节点的修改
+	var my = document.getElementById("closer");
+	my.innerHTML = "final!!!";  //"final!!!"
+
+	my.innerHTML = "<em>my </em>final";  //"<em>my </em>final"
+	my.firstChild;  //<em>my </em>
+	my.firstChild.firstChild;  //"my "
+
+	my.firstChild.firstChild.nodeValue = "your ";  //"your "
+
+	//7.4.3.1 修改样式
+	my.style.border = "1px solid red";  //"1px solid red"
+	my.style.fontWeight = "bold";  //"bold"
+
+	my.style.cssText;  //"border: 1px solid red; font-weight: bold;"
+	my.style.cssText += " border-style:dashed;"  //"border: 1px solid red; font-weight: bold; border-style:dashed;"
+
+
+	//7.4.3.2 玩转表单
+	//https://www.baidu.com/页面下
+	var input = document.querySelector("input[type=text]");
+	input.name;  //"wd"
+	input.value = "my query";  //"my query"
+
+	var baidu = document.querySelectorAll("input[type=submit]")[0];
+	baidu.value;  //"百度一下"
+	baidu.value = baidu.value + "!!!";  //"百度一下!!!"
+
+	function toggle(){
+		var st = document.querySelectorAll("input[type=submit]")[0].style;
+		st.visibility = (st.visibility==="hidden") ? "visible" : "hidden";
+	}
+	var myint = setInterval(toggle, 1000);
+	clearInterval(myint);
+
+	//7.4.4 新建节点
+	//http://www.phpied.com/files/jsoop/ch7.html
+	var myp = document.createElement("p");
+	myp.innerHTML = "yet another";  //"yet another"
+	myp.style;  //CSSStyleDeclaration {alignContent: "", alignItems: "", alignSelf: "", alignmentBaseline: "", all: ""…}
+	myp.style.border = "2px solid blue";  //"2px solid blue"
+	document.body.appendChild(myp);  //<p style="border:2px solid blue;">yet another</p>
+
+
+	//7.4.4.1 纯DOM方法  
+	//<p>one more paragraph<strong>bold</strong></p>
+	var myp = document.createElement("p");
+	var myt = document.createTextNode("one more paragraph");
+	myp.appendChild(myt);
+
+	var str = document.createElement("strong");
+	str.appendChild(document.createTextNode("bold"));
+
+	myp.appendChild(str);
+	document.body.appendChild(myp);
+
+	//7.4.4.2 cloneNode()  参数为true：深拷贝（包括所有子节点）  false：浅拷贝（只针对当前节点）
+	var el = document.getElementsByTagName("p")[1];  //
+	document.body.appendChild(el.cloneNode(false));  //没有变化 只考了P节点
+	document.body.appendChild(document.createElement("p"));  //一样的效果
+
+	document.body.appendChild(el.cloneNode(true));  //拷贝了
+	document.body.appendChild(el.firstChild.cloneNode(true));  //只拷贝em元素
+
+	//7.4.4.3 insertBefore()
+	document.body.appendChild(document.createTextNode("boo!")); //
+
+	document.body.insertBefore(
+		document.createTextNode("boo!"),  //要插的
+		document.body.firstChild  //插在谁前
+	);
+
+	//7.4.5 移除节点
+	var myp = document.getElementsByTagName("p")[1];
+	var removed = document.body.removeChild(myp);   //移除了
+
+	removed;  //<p>...</p>
+	removed.firstChild;  //<em>second</em>
+
+	var p = document.getElementsByTagName("p")[1];
+	p;  //<p id="closer">final</p>
+	var replaced = document.body.replaceChild(removed, p);  //用remove替换了p
+
+	document.body.innerHTML = "";  //全部抹去  ""
+	document.body.firstChild;  //null
+
+	//删除某个指定结点所有子节点的函数
+	function removeAll(n){
+		while(n.firstChild){
+			n.removeChild(n.firstChild);
+		}
+	}
+
+	removeAll(document.body);  //变成空的body
+
+	//7.4.6 只适用于HTML的DOM对象
+	document.images;
+	document.applets;
+	document.links;
+	document.anchors;
+	document.forms;
+
+	document.forms[0].elements[0].value ="";
+	document.forms[0].elements[0].disabled = true;  
+
+	document.forms[0].elements["search"];
+	document.forms[0].elements.search;  
+
+	//7.4.6.3 Cookies Title Referrer Domain
+	document.cookie;
+	document.title = "sonya";  //网页中title并没有改变，只是改变了浏览器中的显示内容，并不等于document.querySelector("title");
+
+	document.referrer;  //记录的是我们之前所访问过的页面URL
+
+	document.domain;  //"www.phpied.com"
+	document.domain = "phpied.com"; //"phpied.com"
+	document.domain = "www.phpied.com"; //"www.phpied.com"
+
+	
+
+	</script>
+	<p>
+		现代浏览器也支持其他一些快捷方法，包括：
+		<ul>
+			<li>getElementByClassName():通过元素的class属性寻找元素</li>
+			<li>querySelector():通过CSS选择器的方式寻找元素</li>
+			<li>querySelectorAll():与前一个方法基本相同，但上一个方法仅返回匹配的第一个元素，这个方法会返回所有匹配的元素</li>
+		</ul>
+	</p>
+
+</body>
+</html>

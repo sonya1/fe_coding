@@ -1,0 +1,23 @@
+.carousel{
+	width: 870px;
+	height: 500px;
+	overflow: hidden;
+	position: relative;
+}
+.carousel .carousel-imgs{
+	width: 5000px;
+}
+.carousel .carousel-imgs li{
+	float: left;
+}
+.carousel .carousel-loading{
+	width: 870px;
+	height: 500px;
+	background: rgba(0,0,0,0.5);
+	position: absolute;
+	top:0;
+	left:0;
+	text-align: center;
+	line-height: 500px;
+	color:#fff;
+}

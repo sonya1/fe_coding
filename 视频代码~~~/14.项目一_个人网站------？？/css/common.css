@@ -1,0 +1,94 @@
+/**********common开始***************/
+*{
+	margin:0;
+	padding: 0;
+}
+img{
+	border: 0;
+}
+ul,ol{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+/**********common结束***************/
+
+
+ body{
+	font-family: 'Raleway',sans-serif;
+ }
+/**********nav开始***************/
+#nav{
+	
+}
+#nav .nav-icon{
+	width: 48px;
+	height: 48px;
+	background: url(../img/align_just.png);
+	position:absolute;
+	top:64px;
+	right:86px;
+	cursor: pointer;
+}
+#nav .nav-menu-box{
+	width: 100%;
+	position: absolute;
+	left:0;
+	top:-192px;
+}
+#nav .nav-menu-bg{
+	height:192px;
+	background: rgb(82,87,89);
+	opacity: 0.39;
+	filter:alpha(opacity=39);
+	/*background: rgba(82,87,89,0.39);  /*只背景透明，里面内容不透明,but IE8不支持*/
+}
+#nav .nav-menu{
+	position: absolute;
+	width: 694px;
+	height: 32px;
+	left: 50%;
+	top:50%;
+	margin-left: -347px;
+	margin-top: -16px;
+}
+#nav .nav-menu li{
+	float: left;
+}
+#nav .nav-menu li a{
+	display: block;
+	margin: 8px 24px;
+	color:#fff;
+}
+#nav .nav-close-icon{
+	width: 48px;
+	height: 48px;
+	background: url(../img/round_delete.png);
+	position: absolute;
+	right: 136px;
+	top:50%;
+	margin-top: -24px;
+	cursor: pointer;
+
+}
+
+/**********nav结束***************/
+
+
+
+/**********header开始***************/
+#header{
+	min-height: 830px;
+	/*background: url(../img/tm-bg-slide-3.jpg) no-repeat;	
+	-webkit-backgroud-size:cover;
+	-moz-backgroud-size:cover;
+	-ms-backgroud-size:cover;
+	-o-backgroud-size:cover;
+	background-size: cover;  /*IE8不支持,所以用插入图片的方法*/
+	overflow: hidden;
+}
+#header .header-bg{
+	width: 100%;
+}
+/**********header结束***************/

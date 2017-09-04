@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>个人网站</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="keywords" content="个人网站，个人博客">
+	<link rel="stylesheet" href="css/common.css">
+	<link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/jquery.lightbox.css">
+	<script type="application/x-javascript">
+		//解决 手机端 隐藏地址栏
+		addEventListener("load", function(){
+			setTimeout(hideURLbar, 0);  //？？？？
+		}, false);
+		function hideURLbar(){
+			window.scrollTo(0, 1);
+		}
+	</script>
+</head>
+<body>
+  	<div id="nav">
+  		<span class="nav-icon"></span>
+  		<!--移动 nav-menu-box-->
+  		<div class="nav-menu-box"> 
+  			<!--透明框-->
+  			<div class="nav-menu-bg"></div> 
+  			<ul class="nav-menu">
+  				<li><a href="#">HOME</a></li>
+  				<li><a href="#">ABOUT</a></li>
+  				<li><a href="#">SERVICES</a></li>
+  				<li><a href="#">PORTFOLIO</a></li>
+  				<li><a href="#">BLOG</a></li>
+  				<li><a href="#">CONTACT</a></li>
+  			</ul>
+  			<span class="nav-close-icon"></span>
+  		</div>
+  	</div>
+  	<div id="header">
+  		<img src="img/tm-bg-slide-3.jpg" class="header-bg" alt="" >
+  	</div>
+  	<div id="aboutme"></div>
+  	<div id="myservice"></div>
+  	<div id="portfolio">
+      <ul>
+          <li data-src="img/1.jpg">
+            <img src="img/1.jpg" alt="">
+            <div class="mask"></div>
+          </li>
+          <li data-src="img/2.jpg">
+            <img src="img/2.jpg" alt="">
+            <div class="mask"></div>
+          </li>
+          <li data-src="img/3.jpg">
+            <img src="img/3.jpg" alt="">
+            <div class="mask"></div>
+          </li>
+          <li data-src="img/4.jpg">
+            <img src="img/4.jpg" alt="">
+            <div class="mask"></div>
+          </li>
+          <li data-src="img/5.jpg">
+            <img src="img/5.jpg" alt="">
+            <div class="mask"></div>
+          </li>
+          <li data-src="img/6.jpg">
+            <img src="img/6.jpg" alt="">
+            <div class="mask"></div>
+          </li>
+          <li data-src="img/7.jpg">
+            <img src="img/7.jpg" alt="">
+            <div class="mask"></div>
+          </li>
+          <li data-src="img/8.jpg">
+            <img src="img/8.jpg" alt="">
+            <div class="mask"></div>
+          </li>
+        </ul>
+    </div>
+  	<!--瀑布流-->
+    <div id="myblog">
+      <div id="loading">loading...</div>
+        <ul class="col">
+         <!-- <li>
+            <img src="img/1.jpg" alt="">
+            <p>介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍</p>
+          </li>
+          <li>
+            <img src="img/2.jpg" alt="">
+            <p>介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍</p>
+            <p>介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍</p>
+
+          </li>-->
+        </ul>
+        <ul class="col">
+          <!-- <li><img src="img/3.jpg" alt="">
+            <p>介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍</p>
+          </li>
+          <li><img src="img/4.jpg" alt=""></li>-->
+        </ul>
+        <ul class="col">
+         <!--  <li><img src="img/5.jpg" alt=""></li>
+          <li><img src="img/6.jpg" alt=""></li>
+        </ul>-->
+    </div>
+  	<div id="projects"></div>
+  	<div id="footer"></div>
+
+
+  	<script src="js/require.js" data-main="js/index"></script>
+
+ <!-- <script src="js/jquery.js"></script>
+  <script src="js/index.js"></script>
+  <script>
+    
+  </script>-->
+</body>
+</html>

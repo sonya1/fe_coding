@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script src="../jquery.min.js" type="text/javascript"></script>
+	<script>
+		$(function(){
+			if($.browser.safari){
+				alert("safari");
+			}
+			if($.browser.chrome){
+				alert("chrome");
+			}
+			if($.browser.msie && $.browser.version <= 6){
+				alert("ie <= 6 ");
+			}
+			if($.browser.msie && $.browser.version > 6){
+				alert("ie >6");
+			}
+			if($.browser.opera){
+				alert("opera");
+			}
+			if($.browser.mozilla ){
+				alert("mozilla");
+			}
+		});
+	</script>	
+</body>
+</html>

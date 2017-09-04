@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		p{
+			position: absolute;
+			left:0;
+			top:0;
+		}
+	</style>
+</head>
+<body>
+	<p id="slide">whee!</p>
+	<script>
+		var oP = document.getElementById("slide");	
+		oP.style.position = "absolute";
+		oP.style.left = 0;
+		oP.style.top = 0;
+		function slide(){
+			var x = parseInt(oP.style.left);
+			var y = parseInt(oP.style.top);
+			//alert(x+","+y);
+			
+			if(x<200){
+				x++;
+			}
+			if(y<200){
+				y++;
+			}
+			oP.style.left = x+"px";
+			oP.style.top = y+"px";
+			if(x==200 && y==200){
+				return true;
+			}
+			setTimeout(slide, 20);
+		}
+
+		setTimeout(slide, 3000);
+	</script>
+</body>
+</html>

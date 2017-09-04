@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function sum(a,b){  //函数声明
+			return a+b;
+		}
+
+		var sum = function(a,b){  //函数表达式
+			return a+b;
+		};
+
+		var sum = new Function("a","b","return a+b"); //
+
+		function fab(num){  //阶乘
+			if(num<=1){
+				return 1;
+			}else{
+				return num*fab(num-1);
+				return num*arguments.callee(num-1);  //一样,
+			}
+		}
+
+		function sayName(name){
+			return name;
+		}
+		alert(sayName.length);  //1 ---形参的个数
+		alert(arguments.length);//实参的个数
+	</script>
+</body>
+</html>

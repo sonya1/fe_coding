@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>window对象</title>
+	<style type="text/css">
+		body{
+			width: 2000px;
+			height: 2000px;
+		}
+	</style>
+</head>
+<body>
+	<button id="btn">button</button>
+	<script type="text/javascript">
+		/*********窗体控制*/
+		console.log(window.location);
+		//window.moveBy(50,100);
+		//window.moveTo(100,100);
+		//window.resizeBy(300,300);
+		//window.resizeTo(300,300);
+		
+		/*****窗体滚动轴控制*/
+		window.scrollTo(200,200);
+		/*var oBtn = document.getElementById("btn");
+		oBtn.onclick = function(){
+			setTimeout(function(){  //仅执行一次
+				alert("haha");
+			},1000);
+		};*/
+
+		console.log(navigator.userAgent);  //用户浏览器的信息
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<p class="pp">p1</p>
+	<p>p2</p>
+	<p class="pp">p3</p>
+	
+	<script type="text/javascript">
+		//var aP = document.getElementsByClassName("pp");  //IE8不支持
+		//console.log(aP);
+		var aP = document.getElementsByTagName("p");
+		for(var i=0;i<aP.length;i++){
+			if(aP[i].className == "pp"){   //class属性变为 className
+				aP[i].style.background = "red";
+			}
+			
+		}
+	</script>
+
+
+</body>
+</html>

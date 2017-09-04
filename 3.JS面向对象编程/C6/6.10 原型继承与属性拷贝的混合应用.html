@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6.10 原型继承与属性拷贝的混合应用</title>
+</head>
+<body>
+	<p>
+		对于继承来说，主要目标就是将一些现有的功能归为己有。也就是说，我们在新建一个对象时，通常首先应该继承于现有对象，然后再为其添加额外的方法与属性。对此，我们可以通过一个函数调用来完成，并且在其中混合使用我们刚才所讨论的两种方式。
+
+		<ul>具体而言就是：
+			<li>使用原型继承的方式，将一个已有对象设置为新对象的原型。</li>
+			<li>新建一个对象后，将另一个已有对象的所有属性拷贝过来。</li>
+		</ul>
+		这个函数接受两个参数，其中对象o用于继承，而另一个对象stuff则用于拷贝方法与属性。下面我们来看看实际使用。
+
+		首先，需要一个基本对象shape：
+
+		接着再创建一个继承于shape的2D对象，并为其添加更多的属性。这些额外的属性由一个用文本标识法所创建的匿名对象提供。
+
+		现在，我们来创建一个继承于2D对象的triangle对象，并为其添加一些额外的属性。
+
+		下面我们来测试一下：创建一个具体的triangle对象my，并自定义其side和height属性。
+	</p>
+	<script>
+		function objectPlus(o,stuff){
+			var n;
+			function F(){}
+			F.prototype = o;
+			n = new F();
+			n.uber = o;
+
+			for(var i in stuff){
+				n[i] = stuff[i];
+			}
+			return n;
+		}
+
+		var shape = {
+			name:"shape",
+			toString:function(){
+				return this.name;
+			}
+		};
+
+		var twoDee = objectPlus(shape,{
+			name:"2D shape",
+			toString:function(){
+				return this.uber.toString()+", "+this.name;
+			}
+		});
+
+		var triangle = objectPlus(twoDee,{
+			name:"Triangle",
+			getArea:function(){
+				return this.side *this.height/2;
+			},
+			side:0,
+			height:0
+		});
+
+		var my = objectPlus(triangle,{
+			side:4,
+			height:4
+		});
+		my.toString();  //"shape, 2D shape, Triangle, Triangle"
+	</script>
+	<p>
+		这里的不同之处在于，当toString（）函数被执行时，Triangle的name属性会被重复两次。这是因为我们在具现化实例时是继承于triangle对象的，所以这里多了一层继承关系。我们也可以给该实例一个新的name属性。例如：
+	</p>
+	<script>
+		objectPlus(triangle,{
+			side:4,
+			height:4,
+			name:"my 4*4"
+		}).toString();  //"shape, 2D shape, Triangle, my 4*4"
+	</script>
+	<p>
+		这里的objectPlus（）函数的实现方式比之前提到的object（）更接近ES5的object.create()。知识ES5的实现中，附加属性（也就是第二个参数）是通过属性描述符提供的。
+	</p>
+</body>
+</html>

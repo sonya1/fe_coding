@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<button id="btn">back!</button>
+
+	<script type="text/javascript">
+		var oBtn = document.getElementById("btn");
+		oBtn.onclick = function(){
+			//history.back();
+			history.go(-1);
+			//history.forword();
+		};
+	</script>
+</body>
+</html>

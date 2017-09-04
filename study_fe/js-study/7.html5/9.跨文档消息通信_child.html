@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>child</title>
+</head>
+<body>
+	this is child.
+	haha
+	<button id="btn">控制父页面</button>
+	
+	<script>
+
+	//localhost环境下
+		var oBtn = document.getElementById("btn");
+		oBtn.onclick = function(){
+			parent.document.body.style.background = "green";  //父页面
+
+			//window.top.document.body.style.background = "red";  //最顶级父页面
+		};
+	</script>
+
+	</body>
+
+</html>

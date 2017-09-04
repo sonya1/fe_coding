@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="common.css">
+	<style>
+		#tab>li{
+			float: left;
+			border:1px solid #ccc;
+			cursor: pointer;
+			width: 100px;
+			height: 35px;
+			line-height: 35px;
+			text-align: center;
+			margin-right: 3px;
+		}
+		li.item1 ul{
+			border: 1px solid #ccc;
+			border-top: 0;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<ul id="tab">
+		<li class="item1">item1
+			<ul>
+				<li>item01</li>
+				<li>item02</li>
+				<li>item03</li>
+				<li>item04</li>
+			</ul>
+		</li>
+		<li class="item1">item2
+			<ul>
+				<li>item01</li>
+				<li>item02</li>
+				<li>item03</li>
+				<li>item04</li>
+			</ul>
+		</li>
+		<li class="item1">item3
+			<ul>
+				<li>item01</li>
+				<li>item02</li>
+				<li>item03</li>
+				<li>item04</li>
+			</ul>
+		</li>
+		<li class="item1">item4
+			<ul>
+				<li>item01</li>
+				<li>item02</li>
+				<li>item03</li>
+				<li>item04</li>
+			</ul>
+		</li>
+	</ul>
+	<script>
+		var oUl = document.getElementById('tab');
+		var aLi = oUl.querySelectorAll('.item1');
+		var aUl = document.querySelectorAll('.item1 ul');
+		for(var i=0;i<aLi.length;i++){
+			aLi[i].index = i;
+			aLi[i].onmouseover = function(){
+				aUl[this.index].style.display = 'block';
+			};
+			aLi[i].onmouseout = function(){
+				aUl[this.index].style.display = 'none';
+			};
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>4.1从数组到对象</title>
+</head>
+<body>
+	<p>
+		正如我们在第二章：基本数据类型、数组、循环及条件表达式中所介绍的，数组实际上就是一组值的列表。该列表中的每一个值都有自己的索引值（即数字键名），索引值从0开始，依次递增。例如：
+	</p>
+	<script>
+		var myarr = ["red","blue","yellow","purple"];
+		myarr
+		["red", "blue", "yellow", "purple"]
+		myarr[0]
+		"red"
+		myarr[1]
+		"blue"
+		myarr[2]
+		"yellow"
+		myarr[3]
+		"purple"
+		myarr[4]
+		undefined
+
+		var hero = {
+			breed:"Turtle",
+			occupation:"Ninja"
+		};
+	</script>
+	<p>
+		事实上，对象的情况跟数组很相似，唯一的不同是她的键值类型是自定义的。也就是说，我们的索引方式不再局限于数字了，而可以使用一些更为友好的键名，比如first_name,age等。
+	</p>
+	<p>
+		通常情况下，我们不建议您在属性名上面加引号(这也能减少一些输入)，但在以下这些情景中，引号是必须的。
+	</p>
+	<ul>
+		<li>如果属性名是JS中的保留字之一的话。</li>
+		<li>如果属性名中包含空格或其他字符的话（包括任何除字母、数字、下划线及美元符号以外的字符）。</li>
+		<li>如果属性名以数字开头的话。</li>
+	</ul>
+	<p>总而言之，如果我们所选的属性名不符合JS中的变量命名规则，就必须对其施加一对引号。</p>
+	<p>下面，让我们来看一个怪异的对象定义。</p>
+	<script>
+		var o = {  //正确的
+			$omething:1,
+			'yes or no':yes,
+			'!@#$%^&*':true
+		};
+	</script>
+	<p>虽然这个对象的属性名看起来很另类，但该对象是合法的，因为我们在他的第二和第三个属性名上加了引号，否则一定会出错。</p>
+	<p>在本章稍后的章节中，还会介绍除了[]和{}以外的定义数组和对象的方法。但首先要明白的是当前这种方法的术语名词：用[]定义数组的方法我们称之为数组文本标识法，用{}定义对象的方法叫做对象文本标识法。</p>
+
+	<h2>4.1.1 元素、属性、方法与成员</h2>
+	<p>
+		说到数组的时候，我们常说其中包含的是元素。而当我们说对象时，就会说其中包含的是属性。实际上对于JS来说，他们并没有多大的区别，只是在技术术语上的表达习惯有所不同罢了。这也是他区别于其他程序设计语言的地方。
+	</p>
+	<p>
+		另外，对象的属性也可以是函数，因为函数本身也是一种数据。在这种情况下，我们称该属性为方法。例如下面的talk就是一个方法：
+	</p>
+	<script>
+		var dog = {
+			name:"benji",
+			talk:function(){
+				alert("woof,woof!");
+			}
+		};
+	</script>
+	<p>
+		按照上一章的经验，我们也可以向下面这样，在数组中存储一些函数元素并在需要时调用他们，但这在实践中并不常见。
+	</p>
+	<script>
+		var a = [];
+		a[0] = function(what){alert(what);};
+		a[0]("Boo!");
+	</script>
+	<p>
+		有时候您可能还会看到一个对象的属性指向另一个对象属性的情况。而且所指的属性也可以是函数。
+	</p>
+
+	<h2>4.1.2 哈希表、关联型数组</h2>
+	<ul>z在一些程序设计语言中，通常都会存在着两种不同的数组类型。
+		<li>一般性数组，也叫做索引型数组或者枚举型数组（通常以数字为键名）。</li>
+		<li>关联型数组，也叫做哈希表或者字典（通常以字符串为键值）。</li>
+	</ul>
+	<p>
+		在JS中，我们会用数组来表示索引型数组，而用对象来表示关联型数组。因此，如果我们想在JS中使用哈希表，就必须要用到对象。
+	</p>
+	
+
+	<h2>4.1.3 访问对象属性</h2>
+	<p>
+		我们可以通过以下两种方式来访问对象的属性。
+	</p>
+	<ul>
+		<li>中括号表示法，例如hero['occupation']。</li>
+		<li>点号表示法，例如hero.occupation。</li>
+	</ul>
+	<p>
+		相对而言，点号表示法更易于读写，但也不是总能适用的，这一规则也适用于引用属性名，如果我们所访问的属性不符合变量命名规则，他就不能通过点号表示法来访问。
+		另外，由于对象中可以包含任何类型的数据，自然也包括其他对象。
+	</p>
+	<script>
+		var hero = {
+			bread:'Turtle',
+			occupation:'Ninja'
+		};
+
+		hero.bread;  //Turtle
+		hero['occupation']  //Ninja
+		hero.hair  //undefined
+
+		var book = {
+			name:'Catch-22',
+			published:1961,
+			author:{
+				firstname:'Joseph',
+				lastname:'Heller'
+			}
+		};
+
+		book.author.firstname; //"Joseph"
+		book['author']['lastname']; //"Heller"
+		book.author['lastname'];  //"Heller"
+		book['author'].lastname;  //"Heller"
+
+		var key = "firstname";
+		book.author[key];  //"Joseph"
+	</script> 
+	<p>
+		另外还有一种情况，如果我们要访问的属性名是不确定的，就必须使用中括号表示法了，他循序我们在运行时通过变量来实现相关属性的动态读取。（见上代码）
+	</p>
+
+	<h2>4.1.4 调用对象方法</h2>
+	<p>
+		由于对象方法实际上只是一个函数类型的属性，因此他们的访问方式与属性完全相同，即用点号表示法或中括号表示法均可。其调用（请求）也与其他函数相同，在指定的方法名后加一对括号即可。例如下面的say方法。如果调用方法时需要传递一些参数，做法也和一般函数一样。例如以下代码。
+	</p>
+	<script>
+		var hero = {
+			breed:"Turtle",
+			occupation:"Ninja",
+			say:function(){
+				return "I am "+hero.occupation;
+			}
+		};
+
+		hero.say();  //i am Ninja
+		hero.say("a","b","c");
+
+		hero['say']();
+
+		var method = "say";
+		hero[method](); 
+	</script>
+	<p>
+		另外，由于我们可以像访问数组一样用中括号来访问属性，因此这意味着我们同样可以用中括号来调用方法。使用中括号来调用方法在实践中并不常见，除非属性名是在运行时定义的。
+	</p>
+	<h3>最佳实践</h3>
+	<p>
+		尽量别使用引号（除非别无他法）。尽量使用点号表示法来访问对象的属性和方法。不要在对象中使用带引号的属性标识。
+	</p>
+
+
+
+	<h2>4.1.5 修改属性与方法</h2>
+	<p>
+		由于JS是一种动态语言，所以它允许我们随时对现存对象的属性和方法进行修改。其中自然也包括添加与删除属性，因此，我们也可以先创建一个空对象，稍后在为他添加属性。下面，让我们来看看具体怎么做哦。
+	</p>
+	<p>
+		首先创建一个空对象。
+		<h3>“空”对象</h3>
+		在本节，我们构造了一个“空”对象。这个“空”字要打引号，因为实际上这个对象并不是空的。虽然我们并没有为它定义属性，但它本身有一些继承的属性。当然，在ES3中，对象不可能是空的。然而，我们到确实可以真正创建一个不继承任何属性的空对象。但现在我们暂时还是将这个知识先放一放。
+	</p>
+	<script>
+		var hero = {};
+
+		hero.breed = "Turtle";
+		hero.name = "Leonardo";
+		hero.sayName = function(){
+			return hero.name;
+		};
+		hero.sayName();  //"Leonardo"
+		delete hero.name;
+		hero.sayName();  //"undefined"
+
+	</script>
+	<p>
+		现在，我们来为该对象添加一些属性和方法。
+		删除一个属性。然后再调用该方法，他就找不到name属性了。
+	</p>
+	<h3>灵活的对象</h3>
+	<p>
+		在JS中，对象在任何时候都是可以改变的，例如增加、删除、修改属性。但这种规则也有例外的情况：某些内建对象的一些属性是不可改变的（MATH.PI）。另外，ES5允许创建不可改变的对象。（参考附录）
+	</p>
+
+
+	<h2>4.1.6 使用this值</h2>
+	<p>
+		在之前的实例中，方法sayName是直接通过hero.name来访问hero对象的name属性的。而事实上，当我们处于某个对象的方法内部时，还可以用另一种方法来访问同一对象的属性，即该对象的特殊值this。例如：
+	</p>
+	<script>
+		var hero = {
+			name:"Rafaelo",
+			sayName:function(){
+				return this.name;
+			}
+		};
+
+		hero.sayName(); //"Rafaelo"
+	</script>
+	<p>
+		也就是说，当我们引用this值时，实际上所引用的就是“这个对象”或者“当前对象”。
+	</p>
+
+	<h2>4.1.7 构造器函数</h2>
+	<p>
+		另外，我们还可以通过构造器函数(constructor function)的方式来创建对象。下面来看一个例子：
+	</p>
+	<script>
+		function Hero(){
+			this.occupation = "Ninja";
+		}
+
+		var hero = new Hero();
+		hero.occupation;  //"Ninja"
+
+
+		function Hero(name){
+			this.name = name;
+			this.occupation = "Ninja";
+			this.whoAreYou = function(){
+				return "I am "+this.name+" and i am a "+this.occupation;
+			};
+		}
+
+		var h1 = new Hero("Michelanglo");
+		var h2 = new Hero("Donatello");
+		h1.whoAreYou();  //"I am Michelanglo and i am a Ninja"
+
+		h2.whoAreYou();  //"I am Donatello and i am a Ninja"
+
+	</script>
+	<p>
+		为了能使用该函数来创建对象，我们需要使用new操作符。
+		使用构造器函数的好处之一是它可以在创建对象是接受一些参数。下面，我们就来改一下上面的构造器函数，使它可以通过接收参数的方式来设定name属性。
+		这样我们就能利用同一个构造器来创建不同的对象了。	
+	</p>
+	<p>
+		<h3>最佳实践</h3>
+		依照惯例，我们应该将构造器函数的首字母大写，以便显著的区别与其他一般函数。
+	</p>
+	<p>
+		如果我们在调用一个构造器函数时忽略了new操作符，尽管代码不会出错，但他的行为可能会令人出乎意料。例如：
+	</p>
+	<script>
+		var h = Hero("Leonardo");
+		typeof h;  //"undefined"
+
+		var h = new Hero("Leonardo");
+		typeof h;   //"object"
+	</script>
+	<p>
+		能看出来上面发生了什么么？由于这里没有使用new操作符，因此我们不是在创建一个新的对象。这个函数调用与其它函数并没有区别，这里的h值应该就是该函数的返回值。而由于该函数没有显式返回值（他没有使用关键字return），所以它实际上返回的是undefined值，并将该值赋给了h。
+	</p>
+	<p>
+		那么，在这种情况下this引用的是什么呢？答案是全局对象。
+	</p>
+
+	<h2>4.1.8 全局对象</h2>
+	<p>
+		之前，我们已经讨论过全局变量（以及应该如何避免使用他们）和JS程序在宿主环境（例如浏览器）中的具体运行情况。现在，我们又学习了对象的相关知识，是时候了解一些真相了：事实上，程序所在的宿主环境一般都会为其提供一个全局对象，而所谓的全局变量其实都只不过是该对象的属性罢了。
+	</p>
+	<p>
+		例如当程序的宿主环境是Web浏览器时，他所提供的全局对象就是window。另一种获取全局对象的方法（这种方法在浏览器以外的大多数其他环境也同样有效）是在构造器函数之外使用this关键字。例如，可以在任何函数之外的全局代码部分这么做。
+	</p>
+	<p>下面，我们来看一个具体示例。首先，我们在所有函数之外声明一个全局变量，例如：</p>
+	<script>
+		var a = 1;
+
+		window.a;  //1
+		window["a"];//1
+		this.a;//1
+		this["a"];//1
+	</script>
+	<ul>然后，我们就可以通过各种不同的方式来访问全局变量了。
+		<li>可以当做一个变量a来访问。</li>
+		<li>可以当做全局对象的一个属性来访问，例如window["a"]或window.a。</li>
+		<li>可以通过this所指向的全局对象属性来访问。例如：this.a。</li>
+	</ul>
+	<p>现在，让我们或过头去分析一下刚才那个不使用new操作符调用构造器函数的情况，那时候，this值指向的是全局对象，并且所有的属性设置都是针对this所代表的window对象的。</p>
+	<p>也就是说，当我们声明了一个构造函数，但又不通过new来调用它时，代码会返回undefined。</p>
+	<script>
+		function Hero(name){
+			this.name = name;
+		}
+
+		var h = Hero("Leonardo");
+		typeof h;  //undefined
+		typeof h.name;  //ERROR!!!
+
+		name;  //"Leonardo"
+		window.name;  //"Leonardo"
+	</script>
+	<p>
+		由于我们在Hero中使用了this，所以这里就会创建一个全局变量（同时也是全局对象的一个属性）。而如果我们使用new来调用相同的构造器函数，我们就会创建一个新对象，并且this也会自动指向该对象。
+	</p>
+	<script>
+		var h2 = new Hero("Michelanglo");
+		typeof h2;  //object
+		h2.name;  //Michelanglo
+	</script>
+
+	<p>除此之外，我们在第三章：函数所见的那些函数也都可以当做window对象方法来调用，例如下面两个调用的效果完全相同：</p>
+	<p>
+		并且，如果在所有函数之外，这样使用也是可以的。
+	</p>
+	<script>
+		parseInt("101 daalla");//101
+		window.parseInt("101 dalalal");  //101
+
+		this.parseInt("101 dalalal");
+	</script>
+	
+
+
+	<h2>4.1.9 构造器属性</h2>
+	<p>
+		当我们创建对象时，实际上同时也赋予了该对象一种特殊的属性——即构造器属性（constructor property）。该属性实际上是一个指向用于创建该对象的构造器函数的引用。
+	</p>
+	<script>
+		h2.constructor;   //function Hero(name){this.name = name;}
+	</script>
+	<p>
+		当然，由于构造器属性所引用的是一个函数，因此我们也可以利用它来创建一个其他新对象。例如下面这样，大意就是：“无论对象h2有没有被创建，我们都可以用他来新建另一个对象”。
+	</p>
+	<script>
+		var h3 = new h2.constructor("Rafaelo");   //new !!!
+		h3.name;  //Rafaelo
+	</script>
+	<p>另外，如果对象是通过对象文本标识法所创建的，那么实际上他就是有内建构造器Object()函数所创建的（关于这一点，我们稍后详细介绍）。</p>
+	<script>
+		var o = {};
+		o.constructor;  //function Object() { [native code] }
+		typeof o.constructor;  //function
+	</script>
+
+	<h2>4.1.10 instanceof操作符</h2>
+	<p>
+		通过instanceof操作符，我们可以测试一个对象是不是由某个指定的构造器函数创建的。例如：
+	</p>
+	<script>
+		function Hero(){
+
+		}
+
+		var h = new Hero();
+		var o = {};
+
+		h instanceof Hero;  //true
+		h instanceof Object;  //true
+		o instanceof Hero;  //false
+		o instanceof Object;  //true
+	</script>
+	<p>
+		请注意，这里的函数名后面没有加括号（即不是 h instanceof Hero()），因为这里不是函数调用，所以我们只需要像使用其他变量一样，引用该函数的名字即可。
+	</p>
+
+	<h2>4.1.11 返回对象的函数</h2>
+	<p>
+		除了使用new操作符调用构造器函数以外，我们也可以抛开new操作符，只用一般函数来创建对象。这就需要一个能执行某些预备工作，并以对象为返回值的函数。例如，下面就有一个用于产生对象的简单函数factory()。
+	</p>
+	<script>
+		function factory(name){
+			return {
+				name:name
+			};
+		}
+		var o = factory("one");
+		o.name;  //one
+		o.constructor;  //function Object() { [native code] }
+	</script>
+	<p>
+		实际上，构造器函数也是可以返回对象的，只不过在this值的使用上会有所不同。这意味着我们需要修改构造器函数的默认行为。下面，我们来看看具体是怎么做的。
+	</p>
+	<script>
+		//这使构造器的一般用法
+		function C(){
+			this.a = 1;
+		}
+
+		var c = new C();
+		c.a;  //1
+
+		//现在考虑的是这种用法
+		function C2(){
+			this.a = 1;
+			return {b:2};
+		} 
+		var c2 = new C2();
+		typeof c2.a;  //undefined
+		c2.b;  //2
+		c2.a;  //undefined
+		a; //1  this指向全局了
+	</script>
+	<p>
+		能看出来发生了什么么？在这里，构造器返回的不再是包含属性a的this对象，而是另一个包含属性b的对象。但这也只有在函数的返回值是一个对象时才会发生，而当我们企图返回的是一个非对象类型时，该构造器将会照常返回this。
+	</p>
+	<p>
+		关于对象在构造器内部是如何创建出来的，您可以设想在函数开头处存在一个叫做this的变量，这个变量会在函数结束时被返回，就像这样：
+	</p>
+	<script>
+		function C(){
+			//var this = {};  
+			this.a = 1;
+			//return this;
+		}
+	</script>
+
+	<h2>4.1.12 传递对象</h2>
+	<p>
+		当我们拷贝某个对象或者将它传递给某个函数时，往往传递的都是该对象的引用。因此我们在引用上所作的任何改动，实际上都会影响他所引用的原对象。
+	</p>
+	<p>
+		在下面的示例中，我们将会看到对象是如何赋值给另一个变量的，并且，如果我们对该变量做一些改变操作的话，原对象也会跟着改变。
+		同样的，将对象传递给函数的情况也大抵如此。
+	</p>
+	<script>
+		var original = {howmany:1};
+		var mycopy = original;
+		mycopy.howmany;  //1
+		mycopy.howmany = 10;
+		original.howmany; //10
+
+		var nullify = function(o){o.howmany = 0;};  
+		nullify(original);   //传对象————引用
+		original.howmany;  //0
+
+		var nullify = function(o){o= 0;};
+		var a=10;		//传值
+		nullify(a);
+		a; //10
+	</script>
+
+	<h2>4.1.13 比较对象</h2>
+	<p>
+		当我们对对象进行比较操作时，当且仅当两个引用指向同一个对象时，结果为true。而如果是不同的对象，即使他们碰巧拥有相同的属性和方法，比较操作也会返回false。
+		下面，我们来创建两个看上去完全相同的对象。然后我们对他们进行比较，操作将会返回false。
+	</p>
+	<script>
+		var fido = {breed:"dog"};
+		var benji = {breed:"dog"};
+
+		benji === fido;   //false
+		benji == fido;   //false
+	</script>
+	<p>
+		我们可以新建一个变量mydog，并将其中的一个对象赋值给他。这样一来mydog实际上就指向了这个变量。
+		在这种情况下，mydog与benji所指向的对象是相同的（也就是说，改变mydog的属性就等同于改变benji），比较操作就会返回true。
+		并且，由于fido是一个与mydog不同的对象，所以他与mydog的比较结果仍为false。
+	</p>
+	<script>
+		var mydog = benji;
+		mydog === benji;  //true
+		mydog === fido;  //false
+
+		mydog.xin = "new";
+		benji.xin; //new
+		fido.xin; //undefined
+		mydog.xin;  //new
+	</script>
+
+	<h2>4.1.14 Webkit控制台中的对象</h2>
+	<p>
+		
+	</p>
+	<script>
+
+	</script>
+</body>
+</html>

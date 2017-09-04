@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function ClassA(scolor){
+			this.color = scolor;
+			this.sayColor = function(){
+				alert(this.color);
+			};
+		}
+		/*function ClassB(scolor){   //对象冒充 实现 类的继承
+			this.newMethod = ClassA;
+			this.newMethod(scolor);
+			delete this.newMethod;
+		}*/
+
+		function ClassB(scolor){   //call() 对象冒充 实现 类的继承
+			ClassA.call(this,scolor);
+		}
+
+		var o = new ClassB("red");
+		o.sayColor();
+	</script>
+</body>
+</html>

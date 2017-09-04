@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自动完成</title>
+	<link rel="stylesheet" href="../sonya.css">
+	<link rel="stylesheet" href="autocomplete.css">
+	<style>
+		.container{
+			width: 300px;
+			margin: 100px auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<!-- autoplete='off'关闭浏览器自动提示功能，并且插件肯定是要生成ul的，input涉及到网后台传值name属性，用户自己定义的样式等等，所以input由用户自己写-->
+		<input type="text" id="ipt" autocomplete="off" name="username">
+		
+	</div>
+	<script src="../jquery.js"></script>
+	<script src="autocomplete.js"></script>
+	<script>
+		$('#ipt').autocomplete();
+	</script>
+</body>
+</html>

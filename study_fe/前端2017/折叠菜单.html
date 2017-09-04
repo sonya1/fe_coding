@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="common.css">
+	<style>
+		h3{
+			border: 1px solid #ccc;
+			width: 100px;
+			height: 35px;
+			line-height: 35px;
+			text-align: center;
+			cursor: pointer;
+		}
+		ul{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<h3>JS</h3>
+		<ul>
+			<li><a href="">1</a></li>
+			<li><a href="">2</a></li>
+			<li><a href="">3</a></li>
+			<li><a href="">4</a></li>
+		</ul>
+
+		<h3>CSS</h3>
+		<ul>
+			<li><a href="">1</a></li>
+			<li><a href="">2</a></li>
+			<li><a href="">3</a></li>
+			<li><a href="">4</a></li>
+		</ul>
+	</div>
+
+	<script>
+		var aH3 = document.getElementsByTagName('h3');
+		var aUl = document.getElementsByTagName('ul');
+
+		for(var i=0;i<aH3.length;i++){
+			aH3[i].index = i;
+			aH3[i].onclick = function(){
+				aUl[this.index].style.display = aUl[this.index].style.display=='none' || aUl[this.index].style.display == ''?'block':'none';
+			};
+		}
+	</script>
+</body>
+</html>

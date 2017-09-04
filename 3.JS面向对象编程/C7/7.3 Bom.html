@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>7.3 BOM</title>
+</head>
+<body>
+	<iframe src="hello.html" name="myframe" frameborder="0"></iframe>
+	<script>
+		//7.3.4  windw.location
+		for(var i in location){
+			if(typeof location[i] === "string" ){
+				console.log(i+" =' "+location[i]+" '");
+			}
+		}
+		//将当前页面导航到新的页面有许多不同的方式：
+		window.location.href = "http://www.baidu.com";
+		location.href = "http://www.baidu.com";
+		location = "http://www.baidu.com";
+		location.assign('http://www.baidu.com');  //
+		location.replace("http://www.baidu.com");  //不会在浏览器的历史记录中留下记录??
+		location.reload();//重新载入页面
+		window.location.href = window.location.href;
+		location = location;
+
+		//7.3.5 window.history
+		window.history.length;  
+		window.history[0];  //undefined
+		history.forword();  //前进
+		history.back();   //后退
+		history.go(-1);  //后退一页  与back()一样
+		history.go(-2);  //后退两页
+		history.go(0);  //重载当前页
+
+		//URL被更改，页面并没有变化
+		history.pushState({a:1},"","hello");
+		history.pushState({b:2},"","hello-to-you");
+		history.state;  //Object {b: 2}
+
+
+		//7.3.6 window.frames
+		window.frames === window;  //true
+		frames.length;  //1
+
+		//如果想访问iframe元素的window对象，可以选择下面方式中的任何一种：
+		window.frames[0];
+		window.frames[0].window;
+		window.frames[0].window.frames;
+		frames[0].window;
+		frames[0];
+
+		frames[0].window.location.reload();
+		frames[0].parent === window;  //true
+
+		//top能访问到当前最顶层页面
+		window.frames[0].window.top === window;  //true 
+		window.frames[0].window.top === window.top;  //true
+		window.frames[0].window.top === top;  //true 
+		//self 作用与window基本相同
+		self === window;  //true
+		frames[0].self == frames[0].window;  //true
+
+		window.frames["myframe"] === window.frames[0];  //true
+		frames.myframe === window.frames[0];  //true
+
+		//7.3.7 window.screen
+		window.screen.colorDepth;  //显示器的色位 24
+		screen.width;  //1440  分辨率
+		screen.availWidth;  //1440
+		screen.height;  //900 
+		screen.availHeight;//860
+
+		screen.devicePixelRatio;  //undefined  设备物理像素与设备独立像素的比例
+
+		//7.3.11 window.setTimeout()、window.setInterval()
+		function boo(){alert("Boo!");}
+		setTimeout(boo, 2000);  //2 返回的是该计时器的ID
+		var id = setTimeout(boo, 2000);
+		clearTimeout(id);
+
+		function boo(){console.log("boo");}
+		var id = setInterval(boo, 2000);
+		clearInterval(id);
+
+		var id = setInterval(function(){
+			alert("hahah");
+		}, 5000);
+
+
+
+		function animateMe(){
+			webkitRequestAnimationFrame(function(){  //精确执行，不会延时
+				console.log(new Date());
+				animateMe();
+			});
+		}
+		//animateMe();
+
+		
+
+
+	</script>
+
+</body>
+</html>

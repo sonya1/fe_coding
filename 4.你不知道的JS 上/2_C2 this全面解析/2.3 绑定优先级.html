@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2.3 优先级</title>
+</head>
+<body>
+	首先，默认绑定的优先级肯定是最低的。
+	我们来看一下显示绑定和隐式绑定哪个优先级更高？
+	<script>
+		function foo(){
+			console.log(this.a);
+		}
+
+		var obj1={
+			a:2,
+			foo:foo
+		};
+
+		var obj2={
+			a:3,
+			foo:foo
+		};
+
+		obj1.foo(); //2 隐式绑定
+		obj2.foo();	//3 隐式绑定
+
+		obj1.foo.call(obj2);  //3 显示绑定比隐式绑定高 
+		obj2.foo.call(obj1);  //2
+
+		//所以，显示绑定比隐式绑定高
+		//我们看下 隐式绑定和new绑定 哪个高？
+		
+
+
+		function foo(something){
+			this.a = something;
+		} 
+		var obj1 = {
+			foo:foo
+		};
+
+		var obj2 = {};
+
+		obj1.foo(2);  //隐式绑定
+		console.log(obj1.a);  //2 
+
+		obj1.foo.call(obj2,3);  //显示绑定
+		console.log(obj2.a);   //3
+
+		var bar = new obj1.foo(4);  //new绑定 隐式绑定
+		console.log(obj1.a);  //2
+		console.log(bar.a);  //4  -------HERE！！！
+
+		//所以，new绑定比隐式绑定高
+		//接下来，看new绑定和显示绑定哪个高？
+		
+		//使用硬绑定来测试 （因为new和call、apply不能同时使用，所以使用bind）
+		function foo(something){
+			this.a = something;
+		}		
+
+		var obj1 = {};
+		
+		var bar = foo.bind(obj1);
+		bar(2);
+		console.log(obj1.a);  //2 硬绑定
+
+		var baz = new bar(3);  //new绑定
+		console.log(obj1.a);   //2
+		console.log(baz.a);		//3 
+		//new修改了硬绑定（到obj1的）调用bar()中的this
+
+
+
+		//new操作中使用了硬绑定函数！！！（p95）
+		
+		//所以，new绑定最高。
+		
+		//
+		//下面是MDN提供的一种bind()实现，
+		if (！Function.prototype.bind) {
+			Function.prototype.bind = function(oThis){
+				if(typeof this !== "function"){
+					//与ECMAScript 5最接近的
+					//内部 IsCallable函数
+					throw new TypeError(
+						"Function.prototype.bind - what is trying " + 
+						"to be bound is not callbale"
+					);
+				}
+
+				var aArgs = Array.prototype.slice.call(arguments,1),
+					fToBind = this,
+					fNOP = function(){};
+					fBound = function(){
+						return fToBind.apply(
+							this instanceof fNOP &&  //修改this
+							oThis ? this :oThis
+						),
+						aArgs.concat(
+							Array.prototype.slice.call(arguments)
+						);
+					};
+
+					fNOP.prototype = this.prototype;  //修改this
+					fBound.prototype = new fNOP();	//修改this
+
+					return fBound;
+			};
+		};
+		
+		//以上有注释的几行代码：
+		//会判断硬绑定函数是否被new调用，如果是的话就会使用新创建的this替换硬绑定的this。
+	</script>
+
+	<h3>判断this</h3>
+	<ol>现在我们可以根据优先级来判断函数在某个调用位置应用的是哪条规则。可以按照下面的顺序来进行判断：
+		<li>函数是否在new中调用（new绑定）？如果是的话this绑定的是新创建的对象。
+			var bar = new foo();</li>
+		<li>函数是否通过call、apply（显示绑定）或者硬绑定调用？如果是的话，this绑定的指定的对象。
+			var bar = foo.call(obj2);</li>
+		<li>函数是否在某个上下文对象中调用（隐式绑定）？如果是的话，this绑定的是那个上下文对象。
+			var bar = obj1.foo();</li>
+		<li>如果都不是的话，使用默认绑定。如果在严格模式下，就绑定到undefined，否则绑定到全局对象。
+			var bar = foo();</li>
+	</ol>
+	就是这样。对于正常的函数调用来说，理解了这些只是你就能明白this的绑定原理了。不过……凡事都有例外。
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>弹出层</title>
+	<link rel="stylesheet" href="styles/common.css">
+	<link rel="stylesheet" href="styles/lightbox.css">
+	<style>
+		.list{
+			height: 200px;
+		}
+		.list li{
+			float: left;
+			width: 320px;
+			height: 200px;
+			margin-right: 1px;
+			cursor: pointer;
+		}
+		.list li img{
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+<body>
+	<!-- <div class="light-overlay"></div>
+	<div class="light-wrap">
+		<img src="img/1.jpg" alt="">
+	</div> -->
+
+	<ul class="list">
+		<li data-src="img/1.jpg"><img src="img/1.jpg" alt=""></li>
+		<li data-src="img/2.jpg"><img src="img/2.jpg" alt=""></li>
+		<li data-src="img/3.jpg"><img src="img/3.jpg" alt=""></li>
+		<li data-src="img/4.jpg"><img src="img/4.jpg" alt=""></li>
+	</ul>
+	
+	
+
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/jquery.lightbox.js"></script>
+	<script>
+		$(function(){
+			$('.list li').on('click',function(){
+				$(this).lightbox();
+			});
+		});
+	</script>
+</body>
+</html>

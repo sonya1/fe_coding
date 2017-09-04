@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6.3 uber——子对象访问父对象的方式</title>
+</head>
+<body>
+	<p>
+		在传统的面向对象语言中，通常都会提供一种用于子类访问父类（有时也叫超类）的特殊语法，因为我们在实现子类方法往往需要其父类方法的额外辅助。在这种情况下，子类通常就要去调用父类中的同名方法，以便最终完成工作。
+
+		JS中虽然没有这种特殊语法，但是要实现类似的功能还是很寻常的。接下来，让我们再对之前的示例做一些修改，在构建继承关系的过程中引入一个uber属性，并令其指向其父级原型对象：
+	</p>
+	<script>
+		function Shape(){}
+		Shape.prototype.name = "shape";
+		Shape.prototype.toString = function(){
+			var cons = this.constructor;
+			return cons.uber 
+					? this.constructor.uber.toString()+"," +this.name  //
+					:this.name;
+		};
+
+		function TwoDShape(){}
+
+		var F = function(){};
+		F.prototype = Shape.prototype;
+		TwoDShape.prototype = new F();
+		TwoDShape.prototype.constructor = TwoDShape;
+		TwoDShape.uber = Shape.prototype;  //Here!!
+
+		TwoDShape.prototype.name = "2D shape";
+
+		function Triangle(side,height){
+			this.side = side;
+			this.height = height;
+		}
+
+		var F = function(){};
+		F.prototype = TwoDShape.prototype;
+		Triangle.prototype = new F();
+		Triangle.prototype.constructor = Triangle;
+		Triangle.uber = TwoDShape.prototype;  //Here!!
+
+		Triangle.prototype.name = "Triangle";
+		Triangle.prototype.getArea = function(){
+			return this.side *this.height/2;
+		};
+	</script>
+	<p>
+		在这里，我们主要新增了以下内容：
+		<ul>
+			<li>将uber属性设置成指向其父级原型的引用。</li>
+			<li>对toString()方法进行了更新。</li>
+		</ul>
+		在此之前，toString()所做的仅仅是返回this.name的内容而已。现在我们为他新增了一项额外任务，及检查对象中是否存在this.constructor.uber属性，如果存在，就先调用该属性的toString()方法。由于this.constrctor本身是一个函数，而this.constructor.uber则是指向当前对象父级对象的引用，所以当我们调用Triangle实体的toString（）方法时，其原型链上所有的toString（）都会被调用：
+	</p>
+	<script>
+		var my = new Triangle(5,10);  
+		my.toString();  //"shape,2D shape,Triangle"
+	</script>
+
+	<p>
+		另外，uber属性的名字原本应该是“superclass”，但这样一来好像显得JS中有了类的概念，或许应该叫做“super”（就像Java一样），但super一词在JS中属于保留字。因而用了uber（德语中的同义词）。
+	</p>
+</body>
+</html>

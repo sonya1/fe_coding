@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		ul li{
+			float: left;
+			border: 1px solid #ccc;
+			margin-right: 10px;
+		}
+		#tooltip{
+			position: absolute;
+			display: none;
+			border: 2px solid #000;
+			color: white;
+			background: #333;
+		}
+	</style>
+</head>
+<body>
+	<h3>有效果</h3>
+	<ul>
+		<li><a href="images/apple_1_bigger.jpg" title="苹果iPod" class="tooltip"><img src="images/apple_1.jpg" alt=""></a></li>
+		<li><a href="images/apple_2_bigger.jpg" title="苹果nano" class="tooltip"><img src="images/apple_2.jpg" alt=""></a></li>
+		<li><a href="images/apple_3_bigger.jpg" title="苹果iphone" class="tooltip"><img src="images/apple_3.jpg" alt=""></a></li>
+		<li><a href="images/apple_4_bigger.jpg" title="苹果mac" class="tooltip"><img src="images/apple_4.jpg" alt=""></a></li>
+	</ul>
+	<br><br><br><br><br/><br/><br/><br/>
+<br/><br/><br/><br/>
+
+	<h3>无效果：</h3>
+	<ul>
+		<li><a href="images/apple_1_bigger.jpg" title="苹果 iPod"><img src="images/apple_1.jpg" alt="苹果 iPod" /></a></li>
+		<li><a href="images/apple_2_bigger.jpg" title="苹果 iPod nano"><img src="images/apple_2.jpg" alt="苹果 iPod nano"/></a></li>
+		<li><a href="images/apple_3_bigger.jpg" title="苹果 iPhone"><img src="images/apple_3.jpg" alt="苹果 iPhone"/></a></li>
+		<li><a href="images/apple_4_bigger.jpg" title="苹果 Mac"><img src="images/apple_4.jpg" alt="苹果 Mac"/></a></li>
+	</ul>
+
+	<script type="text/javascript" src="../jquery.min.js"></script>
+	<script>
+		$(function(){
+			var x = 10;
+			var y = 10;
+			$("a.tooltip").mouseover(function(e){
+				this.mytitle = this.title;
+				this.title = "";
+				//var tooltip = "<div id='tooltip'>"+this.mytitle+"<\/div>";
+				var tooltip = "<div id='tooltip'><img src="+this.href+"><br>"+this.mytitle+"<\/div>";
+				$("body").append(tooltip);
+				$("#tooltip").css({
+					"left":(x+e.pageX)+"px",
+					"top":(y+e.pageY)+"px"
+				}).show("fast");
+			}).mouseout(function(){
+				this.title = this.mytitle;
+				$("#tooltip").remove();
+			}).mousemove(function(e){
+				$("#tooltip").css({
+					"left":(x+e.pageX)+"px",
+					"top":(y+e.pageY)+"px"
+				});
+			});
+		});
+
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2.5数组</title>
+</head>
+<body>
+	<p>
+		现在，我们对JS中的基本数据类型已经有了一定的了解，是时候将注意力转向更有趣的数据结构——数组了。
+
+		那么究竟什么是数组呢？简而言之，他就是一个用于存储数据的列表。与一次只能存储一个数据的变量不同，我们可以用数组来存储任意数量的元素值。
+		我们可以用一对不带任何内容的方括号来声明一个空数组变量。
+		只要在控制台中输入相应的数组名，就能打印出该数组中的所有内容。
+	</p>
+	<h3>增加、更新数组内容</h3>
+	<p>
+		我们可以通过索引来更新数组中的元素。
+		另外，我们也可以通过索引一个之前不存在的位置，来为其添加更多的数组元素。
+		如果新元素被添加的位置与原数组末端之间存在一定的间隔，那么这之间的元素将会被自动设定为undefined值。
+	</p>
+	<h3>删除元素</h3>
+	<p>
+		为了删除特定的元素，我们需要用到delete操作符。然而，相关元素被删除后，原数组的长度并不会受到影响。从某种意义上来说，该元素被删除的位置只是被留空了而已。
+	</p>
+	<h3>数组的数组</h3>
+	<p>
+		我们可以在数组中存放任何类型的值，当然也包括另一个数组。
+		如果我们用鼠标单击控制台内结果里的Array【3】，这个数组的值就会被展开。
+		如果想要访问内层数组中的特定元素，就要再加一组方括号。
+		值得注意的是，我们也可以通过这种数组访问方式来获取字符串中特定位置上的字符。
+	</p>
+	<p>
+		尽管用数组方式访问字符串在很久以前就已经被许多浏览器支持（除了旧版本的IE），但直到ECMAScript5才被官方正式承认为标准的一部分。
+	</p>
+
+	<ul>除此之外，数组的使用方法还有很多，现在先记住以下内容。
+		<li>数组是一种数据存储形式。</li>
+		<li>数组元素是可以被索引的。</li>
+		<li>数组中的元素索引是从0开始的，并且按照每个元素的位置依次递增。</li>
+		<li>我们是通过方括号中的索引值来访问数组元素的。</li>
+		<li>数组能存储任何类型的数据，包括另一个数组。</li>
+	</ul>
+	<script>
+		var a=[];
+		var a=[1,2,3];
+		a
+		[1, 2, 3]0: 11: 22: 3length: 3__proto__: Array[0]concat: concat()constructor: Array()copyWithin: copyWithin()entries: entries()every: every()fill: fill()filter: filter()find: find()findIndex: findIndex()forEach: forEach()includes: includes()indexOf: indexOf()join: join()keys: keys()lastIndexOf: lastIndexOf()length: 0map: map()pop: pop()push: push()reduce: reduce()reduceRight: reduceRight()reverse: reverse()shift: shift()slice: slice()some: some()sort: sort()splice: splice()toLocaleString: toLocaleString()toString: toString()unshift: unshift()Symbol(Symbol.iterator): values()Symbol(Symbol.unscopables): Object__proto__: Object
+		a[2]="three";
+		"three"
+		a
+		[1, 2, "three"]
+		a[3]="four";
+		a
+		[1, 2, "three", "four"]
+		a[7]="eight"
+		"eight"
+		a
+		[1, 2, "three", "four", undefined × 3, "eight"]
+		var a=[1,2,3];
+		delete a[1];
+		true
+		a
+		[1, undefined × 1, 3]
+		typeof a[1]
+		"undefined"
+		var a=[1,"two",false,null,undefined];
+		a
+		[1, "two", false, null, undefined]
+		a[5]=[1,2,3]
+		[1, 2, 3]
+		a
+		[1, "two", false, null, undefined, Array[3]]0: 11: "two"2: false3: null4: undefined5: Array[3]0: 11: 22: 3length: 3__proto__: Array[0]length: 6__proto__: Array[0]
+		var a=[[1,2,3],[4,5,6]];
+		a
+		[Array[3], Array[3]]0: Array[3]0: 11: 22: 3length: 3__proto__: Array[0]1: Array[3]0: 41: 52: 6length: 3__proto__: Array[0]length: 2__proto__: Array[0]
+		a[0];
+		[1, 2, 3]
+		a[0][0]
+		1
+		a[1][2]
+		6
+		var s="one";
+		s[0]
+		"o"
+		s[1]
+		"n"
+		s[2]
+		"e"
+	</script>
+</body>
+</html>

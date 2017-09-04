@@ -1,0 +1,57 @@
+/************按钮*************/
+.btn{
+	color: #fff;
+	width: 54px;
+	height: 30px;
+	line-height: 30px;
+	border:none;
+	background: #ccc;
+	border-radius: 5px;
+}
+.btn-primary{
+	background-color: #006dcc;
+}
+.btn-info{
+	background-color: #49afcd;
+}
+.btn-success{
+	background-color: #5bb75b;
+}
+.btn-large{
+	width: 144px;
+	height: 44px;
+	line-height: 44px;
+}
+
+/************按钮组*************/
+.btn-group{
+	height: 30px;
+}
+.btn-group .btn{
+	float: left;
+	border-radius: 0;
+}
+.btn-group .btn:first-child{
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+.btn-group .btn:last-child{
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.btn-group-vertical .btn{
+	float: none;
+	display:block;
+	
+}
+.btn-group-vertical .btn:first-child{
+	border-radius: 0;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+.btn-group-vertical .btn:last-child{
+	border-radius: 0;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}

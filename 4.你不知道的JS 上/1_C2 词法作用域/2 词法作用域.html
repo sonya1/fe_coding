@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2 词法作用域</title>
+</head>
+<body>
+	<script>
+	//2.1 词法阶段
+		/*function foo(a){
+			var b = a*2; //4
+
+			function bar(c){
+				console.log(a,b,c); //2,4,12
+			}
+			bar(b*3);
+		}
+		foo(2); //2,4,12
+		*/
+
+		//2.2欺骗词法
+		
+		function foo(str,a){
+			eval(str);
+			console.log(a,b);
+		}
+		var b=2;
+		foo("var b=3;",1); //1,3
+		
+		function foo(str){
+			"use strict";
+			eval(str);
+			console.log(a); //Uncaught ReferenceError: a is not defined
+		}
+		foo("var a=2;");
+		
+		var obj={
+			a:1,
+			b:2,
+			c:3
+		};	
+		//单调范围的重复“obj”
+		obj.a = 2;
+		obj.b = 3;
+		obj.c = 4;
+		//简单的快捷方式
+		with(obj){
+			a=3;
+			b=4;
+			c=5;
+		}
+
+
+
+
+		function foo(obj){
+			with(obj){
+				a=2;
+			}
+		}
+		var o1 = {
+			a:3
+		};
+		var o2 = {
+			b:3
+		}
+		foo(o1);
+		console.log(o1.a); //2
+
+		foo(o2);
+		console.log(o2.a); // undefined  LRS引用 没找到obj2.a，所以放到全局了
+		console.log(a); //2 --泄露到全局作用域了
+
+
+	</script>
+</body>
+</html>

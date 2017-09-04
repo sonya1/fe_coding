@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6.1原型链</title>
+</head>
+<body>
+	<p>
+		让我们先从默认的继承模式开始，即通过原型来实现继承关系链。
+
+		正如我们之前所了解的，JS中的每个函数中都有一个 指向某一对象的prototype属性。该函数被new操作符调用时会创建并返回一个对象，并且该对象中会有一个指向其原型对象的秘密链接。通过该秘密链接（在某些环境中 ，该链接名为__proto__），我们就可以在新建的对象中调用相关原型对象的方法和属性。
+
+		而原型对象自身也具有对象固有的普遍特征，因此本身也包含了指向其原型的链接。由此就形成了一条链，我们称之为原型链。
+
+		举例子来说：在对象A的一系列属性中，有一个叫做__proto__的隐藏属性，他指向了另一个对象B。而B的__proto__属性又指向了对象C，以此类推，直至链条末端的Object对象，该对象是JS中的最高级父对象，语言中所有对象都必须继承自他。
+
+		这些都很好理解，但这有什么实际的意义么?显然有，正因为有了这些技术，我们才可以在某个属性不在对象A中而在对象B中时，依然将他当做A的属性来访问。同样的，如果对象B中也没有该属性，还可以继续到对象C中去寻找。这就是继承的作用，它能使每个对象都能访问其继承链上的任何一个属性。
+
+		在后面内容中，我们将会演示一系列不同的继承应用，这些示例将由一组层次分明的结构组成。具体来说，就是一组以通用性对象Shape为父对象的二维图形对象序列（包括Triangle、Rectangle等）。
+	</p>
+	<h2>6.1.1 原型链示例</h2>
+	<p>
+		原型链是JS中实现继承的默认方式。下面，我们就用这种方式来实现之前所描述的层次结构吧，首先我们来定义三个构造器函数：
+	</p>
+	<script>
+		function Shape(){
+			this.name = "Shape";
+			this.toString = function(){
+				return this.name;
+			};
+		}
+
+		function TwoDShape(){
+			this.name = "2D shape";
+		}
+
+		function Triangle(side,height){
+			this.name = "Triangle";
+			this.side = side;
+			this.height = height;
+			this.getArea = function(){
+				return this.side * this.height / 2;
+			};
+		}
+
+		TwoDShape.prototype = new Shape();
+		Triangle.prototype = new TwoDShape();
+	</script>
+	<p>
+		明白上面发生了什么吗？在这里，我们将对象直接创建在TwoDShape对象的prototype属性中，并没有去扩展这些对象的原有原型。也就是说，我们用构造器Shape（）（通过new操作符）另建了一个新的对象，然后用它去覆盖TwoDShape构造器的prototype属性。Triangle对象也一样，他的prototype属性是由构造器TwoDShape()负责重建的（通过new操作符）。切记：JS是一种完全依靠对象的语言，其中没有类的概念。<b>因此我们需要直接用new Shape（）构造一个实体，然后才能通过该实体的属性完成相关的继承工作，而不能直接继承Shape（）构造器。</b>另外这也确保了在继承实现之后，我们对Shape（）所进行的任何修改、重写甚至删除，都不会对TwoDShape（）产生影响，因为我们所继承的只是有该构造器所建的一个实体。
+
+		正如在上一章中所提到的，当我们对对象的prototype属性进行完全替换时（这不同于向prototype指向的对象添加属性），有可能会对对象constructor属性产生一定的副作用。所以，在我们完成相关的继承关系设定后，对这些对象的constructor属性进行相应的重置是一个非常好的习惯。
+	</p>
+	<script>
+		TwoDShape.prototype.constructor = TwoDShape;
+		Triangle.prototype.constructor = Triangle;
+
+		var my = new Triangle(5,10);
+		my.getArea();  //25
+
+		my.toString();  //"Triangle"
+	</script>
+	<p>
+		尽管my对象中并没有属于自己的toString（）方法，但我们依然可以调用它所继承的toString（）方法。请注意，虽然我们这里调用的是一个继承方法，但this所指向的依然是my对象。
+	</p>
+	<ul>下面，我们来关注一下JS引擎在my.toString()被调用时究竟做了那些事：
+		<li>首先，他会遍历my对象中的所有属性，但没有找到一个叫做toString的方法。</li>
+		<li>接着再去查看my.__proto__所指向的对象，该对象应该是在继承关系构建过程中由new TwoDShape()所创建的实体。</li>
+		<li>显然，JS引擎在遍历TwoDShape实体的过程中依然不会找到toString（）方法，然后，它又会继续检查该实体的__proto__属性。这时候，该__proto__属性所指向的实体是由new Shape（）所创建的。</li>
+		<li>终于，在new Shape（）所创建的实体中找到了toString（）方法。</li>
+		<li>最后，该方法就会在my对象中被调用，并且其this也指向了my。</li>
+	</ul>
+	如果我们向my对象询问："您的构造器函数是哪一个？"他应该是能够给出正确答案的。因为我们在构建继承关系时已经对相关的constructor属性进行了重置。
+
+	通过instanceof操作符，我们可以验证my对象同时是上述三个构造器的实例：
+
+	同样的，当我们以my参数调用这些构造器原型的isPropertypeOf（）方法时，结果也是如此：
+
+	我们也可以用其他两个该构造器来创建对象，用new TwoDshape（）所创建的对象也可以获得继承自Shape（）的toString（）方法。
+	<script>
+		my.constructor===Triangle;  //true
+
+		my instanceof Shape;  //true
+		my instanceof TwoDShape;  //true
+		my instanceof Triangle;   //true
+		my instanceof Array;  //false
+
+		Shape.prototype.isPrototypeOf(my);  //true
+		TwoDShape.prototype.isPrototypeOf(my);  //true
+		Triangle.prototype.isPrototypeOf(my);  //true
+		String.prototype.isPrototypeOf(my);  //false
+
+		var td = new TwoDShape();
+		td.constructor === TwoDShape;  //true
+		td.toString();  //"2D shape"
+
+		var s = new Shape();
+		s.constructor === Shape;  //true
+
+	</script>
+
+	<h2>6.1.2 将共享属性迁移到原型中去</h2>
+	<p>
+		当我们用某一个构造器创建对象时，其属性就会被添加到this中去。并且当被添加的属性实际上不会随着实体改变时，这种做法就会显得很没有效率。譬如在上面的示例中，Shape（）构造器是这样定义的：
+
+		这种实现意味着我们用new Shape()创建的每个实体都会拥有一个全新的name属性，并在内存中拥有自己独立的存储空间。而事实上，我们也可以选择将name属性添加到原型上去，这样一来所有实体就可以共享这个属性了：
+
+		这样一来，当我们再用new Shape（）新建对象时，name属性就不再是新对象的私有属性了，而是被添加进了该对象的原型中。虽然这样做通常会更有效率，但这也只是针对对象实体中的不可变属性而言的，对象的共有方法尤其适合这种共享形式。
+
+		现在，让我们来改善一下之前的示例，将其所有的方法和那些符合条件的属性添加到原型对象中去，就Shape（）和TwoDShape（）而言，几乎所有东西都是可以共享的：
+
+		如您所见，我们通常会在对原型对象扩展之前，先完成相关的继承关系构建，否则TwoDShape.prototype中的后续新内容有可能会抹掉我们所继承来的东西。
+
+		而Triangle构造器的情况稍许有些不同，因为由new Triangle()所创建的各个对象所表示的三角形在尺寸上各有不同。因此，该对象的side和height属性必须保持自身所有，而其他属性则可以设置共享。例如，方法getArea（）的计算方式并不会随着每个Triangle实例而改变。<b>另外，需要再强调一次，我们必须在扩展原型对象之前完成继承关系的构建。
+		</b>
+
+		修改完成之后，之前所有的测试代码都可以同样的方式应用于当前版本，例如：
+
+		如您所见，实际上调用my.toString()的区别仅仅存在于幕后的某些少量操作。主要区别也就是方法的查找操作将更多的发生在Shape.prototype中，而不再需要向前面示例中，到由new Shape（）所创建的实体对象中查找了。
+
+		另外，我们也可以通过hasOwnProperty（）方法来明确对象自身属性与其原型链属性的区别。
+		
+	</p>
+	<script>
+		function Shape(){
+			this.name = "Shape";
+		}
+
+		//constructor
+		function Shape(){}
+		//augment prototype
+		Shape.prototype.name = "Shape";
+		Shape.prototype.toString = function(){
+			return this.name;
+		};
+
+		//another constructor
+		function TwoDShape(){}
+
+		//take care of inheritance
+		TwoDShape.prototype = new Shape();
+		TwoDShape.prototype.constructor = TwoDShape;
+
+		//augment prototype
+		TwoDShape.prototype.name = "2D shape";
+
+
+		function Triangle(side,height){
+			this.side = side;
+			this.height = height;
+		}
+		//take care of inheritance
+		Triangle.prototype = new TwoDShape();
+		Triangle.prototype.constructor = Triangle;
+
+		//augment prototype
+		Triangle.prototype.name = "Triangle";
+		Triangle.prototype.getArea = function(){
+			return this.side * this.height /2;
+		};
+
+		var my = new Triangle(5,10);
+		my.getArea();  //25
+		my.toString();   //"Triangle"
+
+
+		my.hasOwnProperty("side");  //true
+		my.hasOwnProperty("name");  //false
+
+		TwoDShape.prototype.isPrototypeOf(my);  //true
+		Triangle.prototype.isPrototypeOf(my);  //true
+
+		my instanceof Shape;  //true
+	</script>
+</body>
+</html>

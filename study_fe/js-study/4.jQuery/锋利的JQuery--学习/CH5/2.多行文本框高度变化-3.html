@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#tab{
+			width:200px;
+			height: 20px;
+		}
+		#tab span{
+			float: left;
+			width: 70px;
+			height: 20px;
+			background: #898989;
+			color: #fff;
+			cursor: pointer;
+			margin-right: 5px;
+			text-align: center;
+		}
+		textarea{
+			width:300px; 
+			height:100px;
+			border:1px solid #000;
+		}
+	</style>
+</head>
+<body>
+	<div id="tab">
+		<span class="up">向上</span>
+		<span class="down">向下</span>
+	</div>
+	<div>
+		<textarea name="" id="" cols="20" rows="8">多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.多行文本框高度变化.
+		</textarea>
+	</div>
+
+	<script src="../jquery.min.js"></script>
+	<script>
+		$(function(){
+			$("#tab .up").click(function(){
+				if(!$("textarea").is(":animated")){
+					$("textarea").animate({scrollTop:'-='+50},"slow");
+				}
+			});
+			$("#tab .down").click(function(){
+				if(!$("textarea").is(":animated")){
+					$("textarea").animate({scrollTop:'+=50'},"slow");
+				}
+			});
+		});
+	</script>
+</body>
+</html>

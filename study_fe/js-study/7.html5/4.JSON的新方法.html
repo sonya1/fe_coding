@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+	//在www.json.org网站下载json2.js文件，引入，否则ie8及以下浏览器不支持JSON的方法
+
+	//将字符串解析为js代码  eval()、JSON.parse()只能解析对象
+	//但是eval()不会检测恶意代码
+	
+
+		//var str = "function aa(){alert('haha');}";
+		//eval(str);
+		//aa();  //haha
+		
+
+		/*
+		
+		var str = "var a = {name:'lisi',age:20}";  
+		eval(str);
+		console.log(a.name);   //lisi
+
+		var str = "({name:'lisi',age:20})";  //字符串里有对象时，要加括号
+		var o = eval(str);
+		console.log(o.name);   //lisi
+
+		*/
+
+		/*
+		
+		var str = '{"name":"lisi","age":30}';   //单引号里面套双引号
+		var o = JSON.parse(str);
+		console.log(o.name);
+
+
+		var obj = {name:"zhangsan",age:50};
+		var str = JSON.stringify(obj);   //将对象转为字符串
+		console.log(str);
+
+		*/
+	//复制对象
+		var obj1 = {name:"lisi",age:34,brother:{name:"qqq"}};
+		/*var obj2 = {};
+		for(var p in obj1){
+			console.log(obj1[p]);   //lisi 34   //浅克隆
+			obj2[p] = obj1[p];
+		}*/
+		/*var str = JSON.stringify(obj1);     //深克隆
+		var obj2 = JSON.parse(str);
+		console.log(obj2);  //object{name:"lisi",age:34}*/
+
+//克隆函数实现
+		function clone(o1){
+			var o2 = {};
+			for(var p in o1){
+				/*if(typeof o1[p] === "object"){
+					//o2[p] = clone(o1[p]);
+					o2[p] = arguments.callee(o1[p]);
+				}else{
+					o2[p] = o1[p];
+				}*/
+				o2[p] = typeof o1[p] === "object"?arguments.callee(o1[p]):o1[p];
+			}
+			return o2;
+		}
+
+		var obj2 = clone(obj1);
+		obj2.brother.name = "aaa";
+		console.log(obj2);
+		console.log(obj1.brother.name);
+	</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function loadStyles(url){
+			var link = document.createElement("link");
+			link.rel = "stylesheet";
+
+			link.type = "text/css";
+			link.href = url;
+			var head = document.getElementsByTagNames("head")[0];
+			head.appendChild(link);
+		}
+
+		loadStyles("test.css");
+	</script>
+</body>
+</html>

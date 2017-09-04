@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6 关于this</title>
+</head>
+<body>
+	<script>
+	//6.2 this的误解:指向自身 （错误的）
+		function foo(num){
+			console.log("foo: "+num);
+			//记录foo被调用的次数
+			this.count ++;  //并不是指向此函数对象本身.
+			//实际上 创建了全局变量count 且值为NaN
+		}
+
+		foo.count = 0;  
+
+		var i;
+		for(i=0;i<10;i++){
+			if(i>5){
+				foo(i);
+			}
+		}
+		 //foo: 6
+		 //foo: 7
+		 //foo: 8
+		 //foo: 9
+		 //0
+		console.log(foo.count);  //0
+
+
+
+		//改进1:基于词法作用域，没用this
+		function foo(num){
+			console.log("foo: "+num);
+			//记录foo被调用的次数
+			data.count++;
+		}
+
+		var data = {count:0};
+		var i;
+		for(i=0;i<10;i++){
+			if(i>5){
+				foo(i);
+			}
+		}
+		//foo: 6
+		//foo: 7
+		//foo: 8
+		//foo: 9
+		console.log(data.count);//4
+
+
+
+		//改进2:基于词法作用域，没用this
+		function foo(num){
+			console.log("foo: "+num);
+			//记录foo被调用的次数
+			foo.count++;
+		}
+		foo.count = 0;
+		var i;
+		for(i=0;i<10;i++){
+			if(i>5){
+				foo(i);
+			}
+		}
+		//foo: 6
+		//foo: 7
+		//foo: 8
+		//foo: 9
+		console.log(data.count);//4
+
+		//改进3:强制this指向foo
+		function foo(num){
+			console.log("foo: "+num);
+			//记录foo被调用的次数
+			//注意在当前调用方式下，this确实指向foo
+			this.count++;
+		}
+		foo.count = 0;
+		var i;
+		for(i=0;i<10;i++){
+			if(i>5){
+				//使用call函数可以确保this指向函数对象foo本身
+				foo.call(foo,i);
+			}
+		}
+		//foo: 6
+		//foo: 7
+		//foo: 8
+		//foo: 9
+		console.log(data.count);//4
+
+
+
+		//this的误解：this指向函数的作用域 
+		//需要明确，this在任何情况下都不指向他的词法作用域
+		function foo(){
+			var a=2;
+			this.bar();    //无法实现调用，会报错 this.bar is not a function
+		}
+		function bar(){
+			console.log(this.a);  //错误引用a
+		}
+		foo();  //错误
+		
+	</script>
+	<p>
+		this实际上是在函数被调用时发生的绑定，它指向什么完全取决于函数在哪里被调用。
+	</p>
+	<script>
+		//this全面解析
+		function baz(){
+			//当前调用栈是：baz
+			//因此，当前调用位置是全局作用域
+			console.log("baz");
+			bar();  // <--bar的调用位置
+		}
+		function bar(){
+			//当前调用栈是：baz->bar
+			//因此，当前调用位置在baz中
+			console.log("bar");
+			foo();  // <--foo的调用位置
+		}
+		function foo(){
+			//当前调用栈是：baz->bar->foo
+			//因此，当前调用位置在bar中
+			console.log("foo");
+		}
+		baz();
+
+
+		
+
+
+	</script>
+</body>
+</html>

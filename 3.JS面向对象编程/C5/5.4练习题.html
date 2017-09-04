@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>5.4 练习题</title>
+</head>
+<body>
+	<script>
+		//1
+		var shape = {
+			type : "triangle",
+			getType : function(){
+				return this.type;
+			}
+		};
+
+		//2
+		function Triangle(a,b,c){
+			this.a = a;
+			this.b = b;
+			this.c = c;
+		}
+		Triangle.prototype = shape;
+
+
+		//3
+		Triangle.prototype.getPerimeter = function(){
+			return this.a + this.b + this.c;
+		};
+
+		//4
+		var t = new Triangle(1,2,3);
+		t.constructor = Triangle;   //当我们重写某对象的prototype时，需要重置相应的constructor属性。
+		t.constructor === Triangle;  //true
+
+		shape.isPrototypeOf(t);  //true
+
+		t.getPerimeter();   //6
+
+		t.getType();  //"triangle"
+
+
+		//5
+		for(var prop in t){
+			if(t.hasOwnProperty(prop)){
+				console.log(t[prop]);   //1 2 3 
+			}
+		}
+
+		//6 实现随机打乱函数 shuffle()
+
+		//若a小于b，在排序后的数组中a应该出现在b之前，则返回一个小于0的值。
+		//若a等于b，则返回0。
+		//若a大于b，则返回一个大于0的值。
+		function randomsort(a, b) {
+			//用Math.random()函数生成0~1之间的随机数与0.5比较，返回-1或1
+		      console.log(a+':'+b);
+			return Math.random() > .5 ? -1 : 1;
+		}
+		Array.prototype.shuffle = function(){
+			return this.sort(randomsort);
+		};
+		[1,2,3,4,5,6,7,8,9].shuffle();   //
+		
+
+		function sortNumber(a,b){
+		      console.log(a+':'+b);
+		      return a - b
+		}
+		var arr = new Array(6)
+		arr[0] = "8"
+		arr[1] = "5"
+		arr[2] = "4"
+		arr[3] = "6"
+		arr[4] = "2"
+		arr[5] = "1"
+
+		console.log(arr)
+		console.log(arr.sort(sortNumber));
+	</script>
+</body>
+</html>

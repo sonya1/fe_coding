@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<button id="btn">click</button>
+	<span class="aa">11</span>
+	<span class="aa">22</span>
+	<span></span>
+	<script>
+		var oBtn = document.querySelector("#btn"); //ie8 及以下不支持
+		oBtn.onclick = function(){
+			alert(1);
+		};
+
+		var aSpan = document.querySelector(".aa");
+		console.log(aSpan);  //span 11
+
+
+		var aSpan = document.querySelectorAll(".aa");
+		console.log(aSpan);  //span11 span22
+	</script>
+</body>
+</html>

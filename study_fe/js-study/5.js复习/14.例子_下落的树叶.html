@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		img{
+			position: absolute;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		function Leaf(){
+			this.width = parseInt(Math.random()*25+75); //75-100
+			this.pos = {
+				left:parseInt(Math.random()*(document.documentElement.clientWidth-this.width)),  //0-clientWidth-this.width
+				top:0
+			};
+			this.speed = parseInt(Math.random()*40+10); //10-50
+			this.time = parseInt(Math.random()*900+100); //100-1000
+
+			this.oImg = new Image(); //创建img对象
+			this.oImg.src = "img/apple_"+parseInt((Math.random()*4+1))+".jpg";
+			this.oImg.style.left = this.pos.left + "px";
+			this.oImg.style.top = this.top;
+			this.oImg.style.width = this.width + "px";
+			document.body.appendChild(this.oImg);
+		}
+		Leaf.prototype.fall = function(){
+			var that = this;   
+			setInterval(function(){
+				that.oImg.style.top = that.oImg.offsetTop + 10 + "px";
+			},this.speed);
+		};
+
+		for(var i=0;i<8;i++){
+			var leaf = new Leaf();
+			(function(leaf){  //函数立即调用，闭包
+				setTimeout(function(){
+					leaf.fall();
+				},leaf.time);
+			})(leaf);
+
+			/*setTimeout(function(){
+					leaf.fall();
+				},leaf.time);*/
+		}
+	</script>
+</body>
+</html>

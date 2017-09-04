@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		select{
+			width: 100px;
+			height: 160px;
+			margin-bottom: 5px;
+		}
+		div{
+			float: left;
+			margin-right: 10px;
+		}
+		span{
+			display: block;
+			padding: 8px;
+			background: #898989;
+			color: #fff;
+			text-align: center;
+			font-size: 10px;
+			margin-right: 5px;
+			margin-bottom: 2px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div id="left">
+		<select name="left" id="" multiple="multiple">
+			<option value="选项 1">选项 1</option>
+			<option value="选项 2">选项 2</option>
+			<option value="选项 3">选项 3</option>
+			<option value="选项 4">选项 4</option>
+			<option value="选项 5">选项 5</option>
+			<option value="选项 6">选项 6</option>
+			<option value="选项 7">选项 7</option>
+		</select>
+		<br>
+		<span id="addRight">选中添加到右边&gt;&gt;</span>
+		<span id="addAllRight">全部添加到右边&gt;&gt;</span>
+	</div>
+	<div id="right">
+		<select name="right" id="" multiple="multiple">
+			<option value="选项 8">选项 8</option>
+		</select>
+		<br>
+		<span id="delLeft">&lt;&lt;选中删除到左边</span>
+		<span id="delAllLeft">&lt;&lt;全部删除到左边</span>		
+	</div>
+	
+	<script type="text/javascript" src="../jquery.min.js"></script>
+	<script>
+		$(function(){
+			var $left = $("[name=left]");
+			var $right = $("[name=right]");
+			$("#addRight").click(function(){
+				$left.children(":selected").appendTo($right);
+			});
+
+			$("#addAllRight").click(function(){
+				$left.children().appendTo($right);
+			});
+
+			$("#delLeft").click(function(){
+				$right.children(":selected").appendTo($left);
+			});
+
+			$("#delAllLeft").click(function(){
+				$right.children().appendTo($left);
+			});
+
+			$left.dblclick(function(){
+				$(this).children(":selected").appendTo($right);
+			});
+			$right.dblclick(function(){
+				$(this).children(":selected").appendTo($left);
+			});
+		});
+	
+	</script>
+</body>
+</html>

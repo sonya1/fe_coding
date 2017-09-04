@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#div1{
+			background: #ccc;
+			height:300px;
+		}
+		
+		@media (min-width: 960px){  /* >=960 green*/
+			#div1{
+				background: green;
+			}
+		}
+		@media (min-width: 1200px){   /* >=1200 red*/
+			#div1{
+				background: red;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div id="div1"></div>
+</body>
+</html>

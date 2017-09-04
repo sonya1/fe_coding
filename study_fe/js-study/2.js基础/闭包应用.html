@@ -1,0 +1,32 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<ul id="ul1">
+		<li>111</li>
+		<li>222</li>
+		<li>333</li>
+	</ul>
+
+
+	<script type="text/javascript">
+		var oUl = document.getElementById("ul1");
+		var aLi = oUl.getElementsByTagName("li");
+
+		for(var i=0;i<aLi.length;i++){
+
+			(function (index){
+				aLi[i].onclick = function(){
+					alert(index);  
+				};
+
+			})(i);
+
+			
+		}
+
+
+	</script>
+</body>
+</html>

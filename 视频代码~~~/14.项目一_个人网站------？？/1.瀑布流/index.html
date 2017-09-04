@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>瀑布流--谷歌浏览器不能加载json文件---</title>
+	<link rel="stylesheet" href="styles/common.css">
+	<style>
+		.col{
+			float: left;
+			margin-right: 20px;
+		}
+		.col li{
+			width: 150px;
+			border: 1px solid #000;
+			margin-bottom: 10px;
+			padding: 10px;
+
+		}
+		#loading{
+			width: 100%;
+			height: 50px;
+			background: #ccc;
+			color: #fff;
+			text-align: center;
+			line-height: 50px;
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div id="loading">loading...</div>
+	<ul class="col">
+		<!-- <li>
+			<img src="img/1.jpg" alt="">
+			<p>南大街爱上你</p>
+		</li>
+		<li>
+			<img src="img/1.jpg" alt="">
+			<p>南大街爱上你的静安寺脑洞大</p>
+		</li>
+		<li>
+			<img src="img/1.jpg" alt="">
+			<p>南大街爱上你的静安寺脑洞大开德克士大塑料袋</p>
+		</li> -->
+	</ul>
+	<ul class="col">
+		<!-- <li>
+			<img src="img/1.jpg" alt="">
+			<p>南大街爱上你的静安寺脑洞大开德克士大塑料袋南大街爱上
+				你的静安寺脑洞大开德克士大塑料袋</p>
+		</li>
+		<li>
+			<img src="img/1.jpg" alt="">
+			<p>南大街爱上你的静安</p>
+		</li>
+		<li>
+			<img src="img/1.jpg" alt="">
+			<p>南大街爱上你的静安寺脑洞大开德克士大塑料袋南大街爱上你的静安寺脑洞大开德克士大塑料袋</p>
+		</li> -->
+	</ul>
+	<ul class="col">
+		<!-- <li>
+			<img src="img/1.jpg" alt="">
+			<p>南大街爱上你的静安寺脑洞大开德克士大塑料袋南大街爱上你的静安寺脑洞大开德克士大塑料袋南大街爱上你的静安寺脑洞大开德克士大塑料袋南大街爱上你的静安寺脑洞大开德克士大塑料袋</p>
+		</li>
+		<li>
+			<img src="img/1.jpg" alt="">
+			<p>南大街爱上你的静安寺脑洞大开德克士大塑料袋</p>
+		</li>
+		<li>
+			<img src="img/1.jpg" alt="">
+			<p>南大街爱上</p>
+		</li> -->
+	</ul>
+	<script src="js/jquery.js"></script>
+	<script>
+		$(function(){
+			function loadData(){
+				$('#loading').show();
+				$.getJSON('js/blogs.json',function(data){
+					console.log(data);
+					setTimeout(function(){
+						for(var i=0;i<data.length;i++){
+							var blog = data[i];
+							var $minUl = getMinUl();
+							//alert(blog.img_src);
+							$minUl.append('<li><h2>'+blog.title+'</h2><img src="'+blog.img_src+'" alt=""><p>'+blog.content+'</p></li>');
+						}
+						$('#loading').hide();
+					},1000);
+					
+				});
+			}
+
+			loadData();
+
+			$(window).on('scroll',function(){
+				var $minUl = getMinUl();
+				var scrollTop = $(window).scrollTop();
+				if(scrollTop + $(window).height() >= $minUl.height()){  //滚动条+浏览器的高度
+					loadData();
+				}
+			});
+
+			function getMinUl(){  //取最短的ul的列
+				var $minUl = $('.col').eq(0);
+				for(var i=1;i<3;i++){
+					if($minUl.height() > $('.col').eq(i).height()){
+						$minUl = $('.col').eq(i);
+					}
+				}
+				return $minUl;
+			}
+		});
+	</script>
+</body>
+</html>

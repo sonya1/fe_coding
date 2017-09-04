@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6.2 只继承于原型</title>
+</head>
+<body>
+	<p>
+		正如上面所说，出于效率考虑，我们应该尽可能的将一些可重用的属性和方法添加到原型中去。如果形成了这样一个好习惯，我们仅仅依靠原型就能完成继承关系的构建了。由于原型中的所有代码都是可重用的，这意味着继承自Shape.prototype比继承自new Shape（）所创建的实体要好得多。毕竟，new Shape（）方式会将Shape的属性设定为对象自身属性，这样的代码是不可重用的（因而要将其设置在原型中），但我们可采取以下方式对效率做一些改善：
+		<ul>
+			<li>不要单独为继承关系创建新对象。</li>
+			<li>尽量减少运行时方法搜索（例如toString（））。</li>
+		</ul>
+		下面就是更改后的代码：
+	</p>
+	<script>
+		function Shape(){}
+
+		Shape.prototype.name = "shape";
+		Shape.prototype.toString = function(){
+			return this.name;
+		};
+
+		function TwoDShape(){}
+
+		TwoDShape.prototype = Shape.prototype;  //change here!
+		TwoDShape.prototype.constructor = TwoDShape;
+		TwoDShape.prototype.name = "2D shape";
+
+		function Triangle(side,height){
+			this.side = side;
+			this.height = height;
+		}
+		Triangle.prototype = TwoDShape.prototype;
+		Triangle.prototype.constructor = Triangle;
+		Triangle.prototype.name = "triangle";
+		Triangle.prototype.getArea = function(){
+			return this.side * this.height /2 ;
+		};
+
+		var my = new Triangle(5,10);
+		my.getArea();  //25
+		my.toString();  //"triangle"
+	</script>
+
+	<p>
+		但是，这样做会令my.toString()方法的查找有什么不同么？首先，JS引擎同样会先查看my对象中有没有toString（）方法。自然，他不会找到，于是就会转而去搜索该对象的原型属性。此时该原型已经指向了TwoDShape的原型，而后者指向的又是Shape.prototype。更重要的是，由于这里所采用的都是引用传递而不是值传递，所以这里的方法查询步骤由（之前示例中的）四步或（本章首例中的）三步直接被精简成两步。
+
+		<b>
+			这样简单的拷贝原型从效率上来说固然会更好一些，但也有它的副作用。由于子对象与父对象指向的是同一个对象，所以一旦子对象对其原型进行了修改，父对象也会随即被改变，甚至所有的继承关系也都是如此。	
+		</b>
+		例如下面这行代码：
+		他对name属性进行了修改，于是Shape.prototype.name也随之被改变了。也就是说，当我们再用new Shape()创建对象时，新对象的name属性也会是Triangle：
+
+		因而，这种方法虽然效率更高，但在很多应用场景中并不适合使用。
+	</p>
+	<script>
+		Triangle.prototype.name = "Triangle";
+
+		var s = new Shape();
+		s.name;  //"triangle"
+
+		var td = new TwoDShape();
+		td.name;  //"triangle"
+	</script>
+
+	<h3>临时构造器——new F()</h3>
+	<p>
+		正如上面所说，如果所有prototype属性都指向了一个相同的对象，父对象就会受到子对象属性的影响。要解决这个问题，就必须利用某种中介来打破这种连锁关系。我们可以用一个临时构造函数来充当中介。即我们创建一个空函数F()，并将其原型设置为父级构造器。然后，我们既可以用new F()来创建一些不包含父对象属性的对象，同时又可以从父对象prototype属性中继承一切了。
+
+		下面是修改之后的代码：
+	</p>
+	<script>
+		function Shape(){}
+		Shape.prototype.name = "Shape";
+		Shape.prototype.toString = function(){
+			return this.name;
+		};
+
+		function TwoDShape(){}
+		//---Change Here
+		var F = function(){};  
+		F.prototype = Shape.prototype;  
+		TwoDShape.prototype = new F();
+		//------
+		
+		TwoDShape.prototype.constructor = TwoDShape;
+		TwoDShape.prototype.name = "2D shape";
+
+		function Triangle(side,height){
+			this.side = side;
+			this.height = height;
+		}
+
+		var F = function(){};
+		F.prototype = TwoDShape.prototype;
+		Triangle.prototype = new F();
+		Triangle.prototype.constructor = Triangle;
+
+		Triangle.prototype.name = "triangle";
+		Triangle.prototype.getArea = function(){
+			return this.side *this.height /2;
+		};
+
+		var my = new Triangle(5,10);
+		my.getArea();  //25
+		my.toString();  //"triangle"
+
+		//通过这种方法，我们就可以保持住原型链
+		my.__proto__  === Triangle.prototype;  //true
+		my.__proto__.constructor === Triangle;  //true
+		my.__proto__.__proto__ === TwoDShape.prototype;  //true
+		my.__proto__.__proto__.__proto__.constructor === Shape;  //true
+
+		//并且父对象的属性不会被子对象所覆盖：
+		var s = new Shape();
+		s.name;  //"Shape"
+		"I am a " + new TwoDShape();  //calling toString()  "I am a 2D shape"
+	</script>
+
+	<p>
+		与此同时，该方法也对一种意见提供了支持：将所有要共享的属性与方法添加到原型中，然后只围绕原型构建继承关系。也就是说，这种主张不鼓励将对象的自身属性纳入继承关系，因为自身属性往往随对象的不同而差别甚大，无法重用。
+	</p>
+</body>
+</html>

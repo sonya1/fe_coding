@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		#tab .li1{
+			float: left;
+		    width: 120px;
+		    height: 30px;
+		    margin-right: 5px;
+		    border: 1px solid #ccc;
+		    text-align: center;
+		    line-height: 30px;
+		    cursor: pointer;
+		}
+		#tab .li1 ul{
+			display: none;
+		}
+		.selected{
+			display: block;
+			border: 1px solid #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div id="containter">
+		<ul id="tab">
+			<li class="li1">1
+				<ul>
+					<li>01</li>
+					<li>02</li>
+					<li>03</li>
+					<li>04</li>
+				</ul>	
+			</li>
+			<li class="li1">2
+				<ul>
+					<li>01</li>
+					<li>02</li>
+					<li>03</li>
+					<li>04</li>
+				</ul>
+			</li>
+			<li class="li1">3
+				<ul>
+					<li>01</li>
+					<li>02</li>
+					<li>03</li>
+					<li>04</li>
+				</ul>
+			</li>
+			<li class="li1">4
+				<ul>
+					<li>01</li>
+					<li>02</li>
+					<li>03</li>
+					<li>04</li>
+				</ul>
+			</li>
+		</ul>
+
+	</div>
+
+	<script>
+		var oUl = document.getElementById("tab");
+		var aLi = oUl.children;
+
+		//alert(aLi.length);
+		for(var i=0;i<aLi.length;i++){
+			aLi[i].index = i;
+			aLi[i].onmouseover = function(){
+				var oUl1 = this.getElementsByTagName("ul")[0];
+				oUl1.className = "selected";
+				oUl1.style.display = "block";
+			};
+			aLi[i].onmouseout = function(){
+				var oUl1 = this.getElementsByTagName("ul")[0];
+				oUl1.className = "";
+				oUl1.style.display = "none";
+			};
+		}
+	</script>
+</body>
+</html>

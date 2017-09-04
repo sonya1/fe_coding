@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="div1">
+		<h1 class="aa">题目</h1>
+		<p>
+			小说蚊子小说蚊子小说蚊子小说蚊子小说蚊子<br>
+			小说蚊子小说蚊子小说蚊子小说蚊子小说蚊子
+			小说蚊子小说蚊子小说蚊子小说蚊子小说蚊子<br>
+			小说蚊子小说蚊子小说蚊子小说蚊子小说蚊子
+		</p>
+	</div>
+
+	<script>
+		var oDiv1 = document.getElementById("div1");
+		var str = oDiv1.innerHTML;
+		var re = /<[^>]+>/gi;
+		str = str.replace(re,"");
+		console.log(str);
+	</script>
+</body>
+</html>

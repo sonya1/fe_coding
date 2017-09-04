@@ -1,0 +1,181 @@
+<html>
+<head>
+	<title>js test</title>	
+</head>
+<body>
+	<script type="text/javascript">
+		//3.1练习一
+		/*var x = Math.random()*10;
+		var y = Math.random()*10;
+		var max1 = x>y?x:y;
+		document.write("x="+x);
+		document.write("<br/>y="+y);
+		document.write("<br/>max1="+max1);*/
+
+		//3.1练习二
+		var date = new Date();
+		var year = date.getFullYear();
+		var is_leap_year = (year%4==0 && year%100!=0) || (year%400==0);
+		document.write("本年"+year);
+		document.write(is_leap_year?"是闰年":"不是闰年");
+
+		//4.1
+		/*var x = prompt("输入你的年龄","18");
+		if(x<14){
+			document.write("你是儿童");
+		}else if(x<24){
+			document.write("你是青少年");
+		}else if(x<40){
+			document.write("你是青年");
+		}else if(x<60){
+			document.write("你是中年");
+		}else {
+			document.write("你是老年");
+		}*/
+
+		//4.2
+		/*var x = prompt("输入数字0~6");
+		x = parseInt(x);
+		switch(x){
+			case 0:alert("Sunday");break;
+			case 1:alert("Monday");break;
+			case 2:alert("Tuesday");break;
+			case 3:alert("Wedsday");break;
+			case 4:alert("Thursday");break;
+			case 5:alert("Friday");break;
+			case 6:alert("Saturday");break;
+			dafault:alert("error!");break;
+		}*/
+
+		//4.3
+		/*function jiecheng(n){
+			var x=1;
+			while(n>1){
+				x = x*n;
+				n--;
+				if(n==1){
+					break;
+				}
+			}
+			return x;
+			
+		}
+		document.write("10!="+jiecheng(10));
+		var fac=1,i;
+		for(i=1;i<=10;i++){
+			fac*=i;
+		}
+		alert("10!="+fac);*/
+
+		//4.4
+		/*var sum=0,fac=1,i,j;
+		for(i=1;i<=10;i++){
+			fac*=i;
+			sum +=fac;
+		}
+		alert("1!+2!+...+10!="+sum);*/
+
+		//4.5
+		/*var i,j;
+		for(i=1;i<=5;i++){
+			for(j=1;j<=i;j++){
+				document.write(j+" ");
+			}
+			document.write("<br/><br/>");
+		}*/
+
+		//4.6
+		/*var i,j;
+		for(i=1;i<=5;i++){
+			document.write("      ");
+			for(j=1;j<=5-i;j++){
+				document.write(" ");
+			}
+			for(j=1;j<=i;j++){
+				document.write("*");
+				if (j>0) document.write(" ");
+			}
+			document.write("<br/>");
+		}
+
+		var i,j;
+		for(i=1;i<=5;i++){
+			for(j=1;j<=i;j++){
+				document.write("* ");
+			}
+			document.write("<br/>");
+		}*/
+		
+		/*var i,line;
+		for(line=1;line<=5;line++)
+		{
+			//document.write("    ");
+			for(i=1;i<=5-line;i++) document.write("&nbsp;");
+			for(i=1;i<=line;i++)
+			{
+				document.write("*");
+				if (i>0) document.write("&nbsp;");
+			}
+			document.write("<br>");
+		}
+	
+		for(line=1;line<=5;line++){
+			for(i=1;i<=5-line;i++){document.write("&nbsp;");}
+			for(i=1;i<=line;i++){
+				document.write("*");
+				document.write("&nbsp;");
+			}
+			document.write("<br>");
+		}*/
+
+		//4.7
+		/*var x;
+		for(x=100;x<1000;x++){
+			if(x%4==2 && x%7==3 && x%9==5){
+				document.write(x+"<br>");
+			}
+		}*/
+
+		//4.8
+		/*var x;
+		for(x=1000;x<10000;x++){
+			var a = Math.floor(x/1000);
+			var b =  Math.floor((x-1000*a)/100);
+			var c = Math.floor((x-1000*a-100*b)/10);
+			if(x%13==0 && b+c==a){
+				document.write(x+"<br>");
+			}
+		}*/
+		
+		/////////////////////////////////////////////////5.1//////////////////
+		/*function f(x){
+			var n = 4*x*x+3*x+2;
+			return n;
+		}
+		var  x = prompt("input a number");
+		alert(f(x));*/
+
+		///5.2
+		/*var x = prompt("input x:",10);
+		var y = prompt("input y:",8);
+		x = parseInt(x);
+		y = parseInt(y);
+		function Min(x,y){
+			return x<y?x:y;
+		}
+		document.write("x="+x+"<br>");
+		document.write("y="+y+"<br>");
+		document.write("min="+Min(x,y)+"<br>");
+
+		var c = 12;
+		//c++;
+		alert(c++);
+		//c--;
+		alert(c--);*/
+
+		/*var a="";
+		var b = 3;
+		alert(a*b);*/
+	</script>	
+</body>
+</html>

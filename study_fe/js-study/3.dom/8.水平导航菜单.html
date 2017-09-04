@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		.li1{
+			float: left;
+			width: 120px;
+			height: 30px;
+			margin-right: 5px;
+			border:1px solid #ccc;
+			text-align: center;
+			line-height: 30px;
+			cursor: pointer;
+		}
+		.li1 ul{
+			border:1px solid #ccc;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div id="nav">
+		<ul id="ul1">
+			<li class="li1">item 1
+				<ul>
+					<li>item 01</li>
+					<li>item 02</li>
+					<li>item 03</li>
+					<li>item 04</li>
+				</ul>
+			</li>
+			<li class="li1">item 2
+				<ul>
+					<li>item 01</li>
+					<li>item 02</li>
+					<li>item 03</li>
+					<li>item 04</li>
+				</ul>
+			</li>
+			<li class="li1">item 3
+				<ul>
+					<li>item 01</li>
+					<li>item 02</li>
+					<li>item 03</li>
+					<li>item 04</li>
+				</ul>
+			</li>
+			<li class="li1">item 4
+				<ul>
+					<li>item 01</li>
+					<li>item 02</li>
+					<li>item 03</li>
+					<li>item 04</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+	<script type="text/javascript">
+		var oUl1 = document.getElementById("ul1");
+		var aLi = oUl1.children;
+		//alert(aLi.length);
+		for(var i=0;i<aLi.length;i++){
+			aLi[i].onmouseover = function(){
+				var oUl = this.getElementsByTagName("ul")[0];
+				oUl.style.display = "block";
+			};
+			aLi[i].onmouseout = function(){
+				var oUl = this.getElementsByTagName("ul")[0];
+				oUl.style.display = "none";
+			};
+		}
+	</script>
+</body>
+</html>

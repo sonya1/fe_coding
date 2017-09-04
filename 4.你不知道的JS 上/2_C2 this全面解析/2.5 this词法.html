@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2.5 this词法</title>
+</head>
+<body>
+
+	<script>
+		//箭头函数的词法作用域
+		function foo(){
+			//返回一个箭头函数
+			return 	(a) => {
+				//this继承自foo()
+				console.log(this.a);
+			};
+		}
+
+		var obj1 = {a:2};
+		var obj2 = {a:3};
+		var bar = foo.call(obj1);  
+		bar.call(obj2); //2，不是3！
+	</script>
+	<p>
+		foo()内部创建的箭头函数会捕获调用时foo的this。由于foo的this绑定到obj1，bar（引用箭头函数）的this也会绑定到obj1，<b>箭头函数的绑定无法被修改！</b>（new 也不行！）
+	</p>
+	<script>
+		//箭头函数最常用于回调函数中，例如事件处理器或者定时器：
+		function foo(){
+			setTimeout(() => {
+				//这里的this在词法上继承自foo()
+				console.log(this.a);
+			}, 100);
+		}
+
+		var obj = {a:2};
+		foo.call(obj); //2
+
+
+
+		//
+		function foo(){
+			var self = this;
+			setTimeout(function(){
+				console.log(self.a);
+			}, 100);
+		} 
+
+		var obj = {a:2};
+		foo.call(obj);  //2
+	</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var o1 = new Object();  //对象
+
+		var o2 = {   //对象直接量
+			name:"lisi",
+			age:20
+		};
+
+		var a = new Array();
+		var a1 = new Array(20);  //20个元素，没定义的话为undefined
+		var a2 = new Array("red","blue","green");
+
+		var a3 = [1,2,3,4,5];   //数组直接量
+		var a4 = [];  //创建空数组
+
+		console.log(a instanceof Array);  // 返回true，检查是否为数组 instanceof
+		console.log(typeof a);  //返回 object
+
+		console.log(Array.isArray(a));  //true  ie8及之前不支持
+
+	</script>
+</body>
+</html>

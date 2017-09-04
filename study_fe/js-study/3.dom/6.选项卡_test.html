@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+			height:30px;
+		}
+		img{
+			border: 0;
+		}
+		#containter{
+			width: 400px;
+		    height: 200px;
+		    margin: 50px auto;	
+		}
+		#tab li{
+			float: left;			
+		    width: 120px;
+		    height: 30px;
+		    margin-right: 5px;
+		    background: #ccc;
+		    text-align: center;
+		    line-height: 30px;
+		    cursor: pointer;
+		}
+		#tab li.selected{
+			background: grey;
+		}
+		#content{
+			    width: 400px;
+			    height: 240px;
+			    border-top: 1px solid #000;
+			    background: #ccc;
+		}
+		#content div{
+			display: none;
+			height: 240px;
+			width: 400px;
+		}
+		#content div.selected{
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div id="containter">
+		<ul id="tab">
+			<li class="selected">JQuery</li>
+			<li>JavaScript</li>
+			<li>CSS</li>
+		</ul>
+		<div id="content">
+			<div class="selected">111</div>
+			<div>222</div>
+			<div>333</div>
+		</div>		
+	</div>	
+
+	<script>
+		var oUl = document.getElementById("tab");
+		var aLi = oUl.getElementsByTagName("li");
+
+		var oDiv = document.getElementById("content");
+		var aDiv = oDiv.getElementsByTagName("div");
+
+		for(var i=0;i<aLi.length;i++){
+			aLi[i].index = i;
+			//alert(i);    0,1,2
+			aLi[i].onclick = function(){
+				//alert("/"+i);   3
+				for(var j=0;j<aLi.length;j++){
+					//alert("***"+i);   3,3,3 
+					aLi[j].className = "";
+					aDiv[j].className = "";
+				}
+				this.className = "selected";
+				aDiv[this.index].className = "selected";
+			};
+		}
+
+	</script>
+</body>
+</html>

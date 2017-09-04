@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//自定义一个类似的MyArray（）构造器。
+		
+		function MyArray(){
+			var s = "";
+			for(var i in arguments){
+				s += arguments[i];   //字符串
+				this[i] = arguments[i];
+				s += ",";
+			}
+			s = s.substring(0,s.length-1);
+			this.s = s;  //字符串   1,2,3,"test"
+			this.toString = toString;
+			this.length = this.s.split(",").length;
+			this.push = push;
+			this.pop = pop;
+			this.join = join;
+		}
+		function toString(){
+			return this.s;
+		}
+		function push(str){
+			this.s = this.toString() + "," +str;
+			return ++this.length; 
+		}
+		function pop(){
+			--this.length;  //4
+			var pop = this.toString().split(",")[this.length];
+			var idx = this.s.lastIndexOf(",");
+			this.s = this.toString().substring(0,idx);
+			return pop;
+		}
+		function join(str){
+			return this.toString().replace(/,/g,str);
+		}
+
+//百度搜的
+ function MyArray(){
+        this.length=arguments.length;
+        for(var i=0;i<this.length;i++){
+            this[i]=arguments[i];
+        }
+
+        this.toString=function(){
+            var resultStr="";
+            for(var i=0;i<this.length;i++){
+                if(i===this.length-1){
+                    resultStr+=this[i].toString();
+                }else{
+                    resultStr+=this[i].toString()+",";
+                }
+            }
+            return resultStr;
+        };
+        this.push=function(obj){
+            this[this.length]=obj;
+            this.length++;
+            return this.length;
+        };
+        this.pop=function(){
+            if(this.length===0){
+                return null;
+            }
+            result=this[this.length-1];
+            this[this.length-1]=undefined;
+            this.length--;
+            return result;
+        };
+        this.join=function(str){
+            var resultStr="";
+            for(var i=0;i<this.length;i++){
+                if(i===this.length-1){
+                    resultStr+=this[i].toString();
+                }else{
+                    resultStr+=this[i].toString()+str;
+                }
+            }
+            return resultStr;
+        }
+    }
+
+		var a = new MyArray(1,2,3,"test");
+		a.toString();   //"1,2,3,test"
+		a.length;  //4
+		a[a.length-1];  //"test"   
+		a.push("boo");  //5     
+		a.toString();  //"1,2,3,test,boo"
+		a.pop(); //[boo]    "boo"???
+		a.toString();  //"1,2,3,test"   
+		a.join(",");  //"1,2,3,test"
+		a.join(" isn't ");  //"1 isn't 2 isn't 3 isn't test"
+
+	</script>
+</body>
+</html>

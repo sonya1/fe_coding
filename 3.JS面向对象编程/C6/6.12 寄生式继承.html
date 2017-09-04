@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6.12 寄生式继承</title>
+</head>
+<body>
+	<p>
+		JS中能够实现继承的方式有很多。如果您渴望多了解一些这方面的知识，这里可以再为您介绍一种叫做寄生式继承的模式。这是由DC所提出的技术，基本思路是，我们可以在创建对象的函数中直接吸收其他对象的功能，然后对其进行扩展并返回。“就好像所有的工作都是自己做的一样”。
+
+		下面，我们用对象标识法定义了一个普通对象，这时他还看不出有任何被寄生的可能性：
+		<ul>然后我们来编写用于创建triangle对象的函数。
+			<li>将twoD对象克隆进一个叫做that的对象，这一步可以使用我们之前所讨论过的任何方法，例如使用object（）函数或者执行全部拷贝。</li>
+			<li>扩展that对象，添加更多的属性。</li>
+			<li>返回that对象。</li>
+		</ul>
+	</p>
+	<script>
+		function object(p){
+			function F(){};
+			F.prototype = p;
+			var n = new F();
+			n.uber = p;
+			return n;
+		}
+
+		var twoD = {
+			name:"2D shape",
+			dimensions:2
+		};
+
+		function triagnle(s,h){
+			var that = object(twoD);
+			that.name = "Triangle";
+			that.getArea = function(){
+				return this.side*this.height/2;
+			};
+			that.side =s;
+			that.height = h;
+			return that;
+		}
+
+		var t = triagnle(5,10);
+		t.dimensions;  //2
+		var t2 = new triagnle(5,5);
+		t2.getArea();  //12.5
+	</script>
+	<p>	
+		由于triangle（）只是一个一般函数，不属于构造器，所以调用它通常是不需要new操作符的。但由于该函数返回的是一个对象，所以即便我们在函数调用时错误的使用了new操作符，他也会按照预定的方式工作。
+	</p>
+</body>
+</html>

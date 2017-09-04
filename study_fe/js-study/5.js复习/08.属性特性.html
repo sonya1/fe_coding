@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var o = new Object();
+		o.name = "lisi";
+
+		Object.defineProperty(o,"sex",{  //设置o对象sex属性为不可写，不可修改的
+			writable:false,
+			value:"female"
+		});
+
+		o.sex = "male";
+		alert(o.sex);  //female
+		
+	</script>
+</body>
+</html>

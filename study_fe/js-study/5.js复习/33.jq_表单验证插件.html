@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="http://www.qq.com" id="myForm">
+		<p>
+			<label for="username">用户名：</label>
+			<input type="text" id="username">
+		</p>
+		<p>
+			<label for="password">密码：</label>
+			<input type="password" id="password">
+		</p>
+		<p>
+			<label for="email">邮箱：</label>
+			<input type="text" id="email">
+		</p>
+		<p>
+			<input type="submit">
+		</p>
+	</form>
+
+
+	<script src="jquery-1.9.1.min.js"></script>
+	<script src="33.jquery.validate.js"></script>
+	<script>		
+		$("#myForm").validate({
+			rules:[
+				{
+					selector:"#username",
+					rule:"required|6-15",
+					error:"用户名是必填项哦！"
+				},
+				{
+					selector:"#password",
+					rule:"required|6-10",
+					error:"密码是必填项哦！"
+				},
+				{
+					selector:"#email",
+					rule:"email"
+				}
+			]
+		}).css("background","red");
+		/*var oForm = document.getElementById("myForm");
+		oForm.onsubmit = function(){
+
+			return false;
+		};*/
+	</script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		img{
+			border: 0;
+		}
+		a{
+			text-decoration: none;
+		}
+		#container{
+			width: 594px;
+			height: 196px;
+			margin: 20px 60px;
+		}
+		#header{
+			height: 35px;
+			width: 100%;
+			background: url(img/btn_cartoon.gif) 0 0;
+		}
+		#header span.logo{
+			width: 82px;
+			height: 36px;
+			display: inline-block;			
+			background: url(img/btn_cartoon.gif) 0 -99px;			
+		}
+		#header ul{
+			width: 50px;			
+			display: inline-block;
+			margin-left: 8px;
+			margin-bottom: 13px;
+		}
+		#header ul li{
+			float: left;
+			width: 8px;
+			height: 8px;
+			background: url(img/btn_cartoon.gif) 0 -320px;
+			margin-right: 3px;
+		}
+		#header ul li.current{
+			background: url(img/btn_cartoon.gif) 0 -219px;
+		}
+		#header #prev{
+			width: 30px;
+			height: 25px;
+			display: inline-block;
+			background: url(img/btn_cartoon.gif) 0 -400px;
+			margin-bottom: 4px;
+			margin-right: 0;
+			cursor: pointer;
+		}
+		#header #next{
+			width: 30px;
+			height: 25px;
+			display: inline-block;
+			background: url(img/btn_cartoon.gif) -30px -400px;
+			margin-bottom: 4px;
+			cursor: pointer;
+		}
+		.more{
+			float: right;
+			font-size: 10px;
+		}
+		#content{
+			width: 594px;
+			height: 161px;
+			border: 1px solid #e7e7e7;
+			border-top: 0;		
+			overflow: hidden;	
+			position: relative;
+		}
+		#list{
+			height: 161px;			
+			position: absolute;
+			top:0;
+			left:0;
+		}
+		#list li{
+			float: left;
+			padding: 8px;
+			font-size: 10px;
+			margin:10px 2px 0;
+		}
+		#list li a{
+			display: block;
+		}
+		.title{
+			color: #2b93d2;
+			padding: 5px 0;
+		}
+		.title:hover{
+			color: red;
+			text-decoration: underline;
+		}
+		#list li span{
+			font-size: 10px;
+			color: #666;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div id="header">	
+			<span class="logo"></span>
+			<ul class="spot">
+				<li class="current"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+			<span class="arrow">
+				<span id="prev"></span><span id="next"></span>
+			</span>
+			<a href="" class="title more">更多&gt;&gt;</a>
+		</div>
+		<div id="content">
+			<ul id="list">
+				<li>
+					<a href=""><img src="img/01.jpg" alt=""></a>
+					<a class="title">海贼王</a>
+					<span>播放：<em>28,276</em></span>
+				</li>
+				<li>
+					<a href=""><img src="img/01.jpg" alt=""></a>
+					<a class="title">海贼王</a>
+					<span>播放：<em>28,276</em></span>
+				</li>
+				<li>
+					<a href=""><img src="img/01.jpg" alt=""></a>
+					<a class="title">海贼王</a>
+					<span>播放：<em>28,276</em></span>
+				</li>
+				<li>
+					<a href=""><img src="img/01.jpg" alt=""></a>
+					<a class="title">海贼王</a>
+					<span>播放：<em>28,276</em></span>
+				</li>
+				<li>
+					<a href=""><img src="img/02.jpg" alt=""></a>
+					<a class="title">哆啦A梦</a>
+					<span>播放：<em>28,276</em></span>
+				</li>
+				<li>
+					<a href=""><img src="img/02.jpg" alt=""></a>
+					<a class="title">哆啦A梦</a>
+					<span>播放：<em>28,276</em></span>
+				</li>
+				<li>
+					<a href=""><img src="img/02.jpg" alt=""></a>
+					<a class="title">哆啦A梦</a>
+					<span>播放：<em>28,276</em></span>
+				</li>
+				<li>
+					<a href=""><img src="img/02.jpg" alt=""></a>
+					<a class="title">哆啦A梦</a>
+					<span>播放：<em>28,276</em></span>
+				</li>
+				<li>
+					<a href=""><img src="img/03.jpg" alt=""></a>
+					<a class="title">火影忍者</a>
+					<span>播放：<em>28,276</em></span>
+				</li>
+				<li>
+					<a href=""><img src="img/03.jpg" alt=""></a>
+					<a class="title">火影忍者</a>
+					<span>播放：<em>28,276</em></span>
+				</li>
+				<li>
+					<a href=""><img src="img/03.jpg" alt=""></a>
+					<a class="title">火影忍者</a>
+					<span>播放：<em>28,276</em></span>
+				</li>
+				<li>
+					<a href=""><img src="img/03.jpg" alt=""></a>
+					<a class="title">火影忍者</a>
+					<span>播放：<em>28,276</em></span>
+				</li>
+				<li>
+					<a href=""><img src="img/04.jpg" alt=""></a>
+					<a class="title">龙珠</a>
+					<span>播放：<em>28,276</em></span>
+				</li>
+				<li>
+					<a href=""><img src="img/04.jpg" alt=""></a>
+					<a class="title">龙珠</a>
+					<span>播放：<em>28,276</em></span>
+				</li>
+				<li>
+					<a href=""><img src="img/04.jpg" alt=""></a>
+					<a class="title">龙珠</a>
+					<span>播放：<em>28,276</em></span>
+				</li>
+				<li>
+					<a href=""><img src="img/04.jpg" alt=""></a>
+					<a class="title">龙珠</a>
+					<span>播放：<em>28,276</em></span>
+				</li>
+			</ul>		
+		</div>
+		
+	</div>
+
+	<script type="text/javascript" src="../../jquery-1.9.1.min.js"></script>
+	<script>
+		$(function(){
+			var j = 4;  //每版的个数
+			var $lists = $("#list li");
+			var total = $lists.length;  //图片总数
+			var num = Math.ceil(total / j); //版面个数
+			var page = 1;  //当前版面
+
+			$("#list").width(total * ($lists[0].offsetWidth+4) + 2); //ul总宽度
+			
+			var width = $("#content").width();
+		
+			$("#prev").click(function(){
+				if(!$("#list").is(":animated")){
+					if(page == 1){
+						$("#list").animate({left:'-='+width * (num-1)},"slow"); 
+						page = num;
+					}else{
+						$("#list").animate({left:'+='+width},"slow"); 
+						page--;
+					}
+					$("#header ul li").eq(page-1).addClass("current")
+												.siblings().removeClass("current");
+				}
+				/*$("#list").offset({left: '-='+width});  ???
+				offset({ top: 10, left: 30 });   //例子*/
+			});
+
+
+			$("#next").click(function(){
+				if(!$("#list").is(":animated")){
+					if(page == num){
+						$("#list").animate({left:0},"slow"); 
+						page = 1;
+					}else{
+						$("#list").animate({left:'-='+width},"slow"); 
+						page++;
+					}
+					$("#header ul li").eq(page-1).addClass("current")
+												.siblings().removeClass("current");
+				}
+			
+				/*$("#list").offset({left: '-='+width});  ???
+				offset({ top: 10, left: 30 });   //例子*/
+			});
+		});		
+	</script>
+</body>
+</html>

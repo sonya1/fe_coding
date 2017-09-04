@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="div1" data-aa="q" data-bb="bb">haha</div>
+	<script>
+		/*
+		
+		var oDiv = document.querySelector("#div1");
+		console.log(oDiv.dataset);  //DOMStringMap {aa: "q", bb: "bb"}
+		console.log(oDiv.dataset.aa);  //q
+ 		*/
+ 	
+ 	//JS异步加载
+ 		var oScript = document.createElement("script");
+ 		if(oScript.readyState){  //ie
+ 			oScript.onreadystatechange = function(){
+ 				if(oScript.readyState == "loaded" || oScript.readyState == "complete"){
+ 					aa();
+ 				}
+ 			};
+ 		}else{  //ff,op
+ 			oScript.onload = function(){
+ 				aa();
+ 			};
+ 		}
+
+ 		oScript.src="5.defer.js";
+ 		document.body.appendChild(oScript);
+
+	</script>
+</body>
+</html>

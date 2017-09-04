@@ -1,0 +1,35 @@
+加载css link与@import的区别：
+
+其实 link 与 @import 在显示效果上还是有很大区别的，基本上来看 link 的加在会在页面显示之前全部加在完全，而 @import 会是读取完文件之后加在，所以如果网速很好或很快的情况下，会出现先开始无css定义，而后加载css定义。@import加载页面时开始的瞬间会有闪烁（无样式表的页面），然后才恢复正常（加载样式后的页面），Link没有这个问题。
+
+他们从方法上是一样的，只是在浏览器识别上有点差距，link在支持CSS的浏览器上都支持而@import只在5.0以上的版本有效，而且还能用于浏览器过滤也就是hack的使用，兼容一些老版本的浏览器。所以最好还是使用link通用型更强，但是对于高版本的浏览器，也就是现在的浏览器来说，其实都一样，这是个没有太大意义的区分 。
+
+例外一个说明：
+
+@import url（/css/a.css） 很简单但出现了兼容问题，在ff下无法调用样式，大家都以为是@import搞的怪，但用link后问题依然出现。经过一番讨论原来是绝对路径在ff下是不认的。
+
+
+下面对@import url（）做一下总结：
+
+   1，@import url（）机制是不同于link的，link是在加载页面前把css加载完毕，而@import url（）则是读取完文件后在加载，所以会出现一开始没有css样式，闪烁一下出现样式后的页面(网速慢的情况下)。
+
+2，@import 是css2里面的，所以古老的ie5不支持。
+
+3，当使用javascript控制dom去改变样式的时候，只能使用link标签，因为@import不是dom可以控制的。
+
+4，link除了能加载css外还能定义RSS，定义rel连接属性，@import只能加载css
+
+所以我认为结合来使用就最好，比如：<link href="css/main.css" rel="stylesheet" type="text/css">
+
+引用了一个main.css文件，在main.css里面再引用@import url(footer.css);@import url(head.css);
+
+这样达到一个清晰明了的作用.
+
+
+github  个人博客??发文章
+
+js高级程序设计 书
+
+做个 项目
+
+做 笔试题

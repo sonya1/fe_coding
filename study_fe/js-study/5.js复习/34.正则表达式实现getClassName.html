@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<h1 class="cc aa dd">h1</h1>
+	<h2>h2</h2>
+	<p class="aa">p1</p>
+	<p>p2</p>
+
+	<script>
+		//var elems = document.getElementsByClassName("aa");  //ie8及以下不支持
+		var elems = getByClassName("aa");
+		for(var i=0;i<elems.length;i++){
+			elems[i].style.background = "red";
+		}
+
+		function getByClassName(clsName){
+			var result = [];
+			var all = document.getElementsByTagName("*");
+			var reg = new RegExp("\\b"+clsName+"\\b");  //  /\b/正则 边界
+			for(var i=0;i<all.length;i++){
+				if(reg.test(all[i].className)){
+					result.push(all[i]);
+				}
+			}
+			return result; 
+		}
+	</script>
+</body>
+</html>

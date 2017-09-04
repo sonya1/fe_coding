@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function ClassA(scolor){
+			this.color = scolor;
+		}
+		ClassA.prototype.sayColor = function(){
+			alert(this.color);
+		};
+
+		function ClassB(scolor){   //call() 对象冒充 实现 类的继承
+			ClassA.call(this,scolor);
+		}
+		ClassB.prototype = new ClassA();
+		ClassB.prototype.constructor = ClassB;  //改变constructor
+
+		var o = new ClassB("red");
+		o.sayColor();
+
+		alert(o.constructor);   //classA，所以需要改变constructor 见上
+	</script>
+</body>
+</html>

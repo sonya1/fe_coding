@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function Person(){
+			this.name = "lisi";
+			var sex = "male";   //局部变量/私有属性：外面访问不了
+			this.sayHello = function(){  //特权方法
+
+			};
+			var sayHello = function(){  //私有方法：外面不能调用
+
+			};
+
+			sayHello();  //内部调用私有方法
+
+		}
+
+		Person.prototype.sayHello = function(){  //公有方法
+
+		};
+
+		//特权>公有  (特权屏蔽了公有)
+		var p1 = new Person();
+		alert(p1.name);
+
+	</script>
+</body>
+</html>

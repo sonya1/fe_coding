@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#ul1 li:first-child{
+			background: red;
+		}
+		#p1{
+			width: 200px;
+			word-break:break-all;  /*解决英文 超宽 */
+			text-shadow:10px 10px 0 rgba(255,0,0,0.2);  /*文字阴影*/
+		}
+		#p1:first-line{
+			color:red;
+		}
+
+		#p2{
+			width: 200px;
+			overflow: hidden;
+			white-space:nowrap;  /*不换行,三句结合，出现省略号*/
+			text-overflow:ellipsis;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="div1">div1</div>
+	<div id="div2">div2</div>
+
+	<ul id="ul1">
+		<li>11</li>
+		<li>22</li>
+		<li>33</li>
+	</ul>
+
+	<p id="p1">hahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahhaahahahahahahahahahahahahahahahhahahaahahahha</p>
+
+	<p id="p2">及所得税的咖啡你看到了非常空手道难翻身的开发大师傅呢</p>
+</body>
+</html>

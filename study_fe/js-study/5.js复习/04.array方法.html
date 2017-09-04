@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var a = ["a123","b2","c3"];
+		var b = [1,2,3,4,5,6,7];
+		
+		//1.forEach()调用与实现 ie8及以下不好使
+		/*a.forEach(function(v,i){    
+			console.log(i+"-"+v);
+		});*/
+		/*function forEach(arr,fn){
+			for(var i=0;i<arr.length;i++){
+				fn(arr[i],i);
+			}
+		}
+		forEach(a,function(v,i){
+			console.log(i+"-"+v);
+		});*/
+
+		
+		//2.map() 调用与实现 ie8及以下不好使
+		/*var a2 = a.map(function(item,index){
+			return item[0].toUpperCase() + item.substring(1);
+		});
+		console.log(a2);*/
+
+		/*function map(arr,fn){
+			var array = [];
+			for(var i=0;i<arr.length;i++){
+				array.push(fn(arr[i],i));
+			}
+			return array;
+		}
+		var a2 = map(a,function(item,index){
+			return item[0].toUpperCase() + item.substring(1);
+		});
+		console.log(a2);*/
+
+
+		//3.every()
+		/*var b1 = b.every(function(item,index){
+			return (item>2);
+		});
+		alert(b1);*/
+		/*function every(arr,fn){
+			var boo = true;
+			for(var i=0;i<arr.length;i++){
+				boo = boo && fn(arr[i],i);
+			}
+			return boo;
+		}
+		var b1 = every(b,function(item,index){
+			return (item>2);
+		});
+		alert(b1);*/
+
+
+		//4.some()
+		/*var b2 = b.some(function(item,index){
+			return (item>2);
+		});
+		alert(b2);*/
+		/*function some(arr,fn){
+			var boo = false;
+			for(var i=0;i<arr.length;i++){
+				boo = boo ||  fn(arr[i],i);
+			}
+			return boo;
+		}
+		var b1 = some(b,function(item,index){
+			return (item>2);
+		});
+		alert(b1);*/
+
+
+		//5.filter()
+		/*var b1 = b.filter(function(item,index){
+			return (item>2);
+		});
+		alert(b1);*/
+		/*function filter(arr,fn){
+			var array = [];
+			for(var i=0;i<arr.length;i++){
+				if(fn(arr[i])){
+					array.push(arr[i]);
+				}
+			}
+			return array;
+		}
+		var b1 = filter(b,function(item,index){
+			return (item>2);
+		});
+		alert(b1);*/
+
+		//reduce()、reduceRight()
+	</script>
+</body>
+</html>

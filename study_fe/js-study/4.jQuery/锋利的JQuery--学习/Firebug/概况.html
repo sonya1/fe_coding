@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<button id="btn1">执行循环1</button>
+	<button id="btn2">执行循环2</button>
+	<button id="btn3">执行循环3</button>
+	<script>
+		var f1 = function(){
+			for(var i=0;i<1000;i++){
+				for(var j=0;j<1000;j++){
+						;
+				}
+			}
+		}; 
+
+		function f2(){
+			for(var i=0;i<1000;i++){
+				for(var j=0;j<1000;j++){
+						;
+				}
+			}
+		}
+
+		document.getElementById('btn1').onclick = f1;
+		document.getElementById('btn2').onclick = f2;
+		document.getElementById('btn1').onclick = function(){
+			for(var i=0;i<1000;i++){
+				for(var j=0;j<1000;j++){
+						;
+				}
+			}
+		};
+	</script>
+</body>
+</html>

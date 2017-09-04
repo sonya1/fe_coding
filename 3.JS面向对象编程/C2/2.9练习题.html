@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2.9练习题</title>
+</head>
+<body>
+
+	1.执行下列语句，给出结果。
+	<script>
+	var a;
+typeof a;
+"undefined"
+var s="ls";
+s++;
+NaN
+!!"false"
+true
+!!undefined
+false
+typeof -Infinity
+"number"
+10%"0"
+NaN
+undefined==null;
+true
+undefined===null;
+false
+false==="";
+false
+typeof "2E+2";
+"string"
+a=3e+3;a++;
+3000
+</script>
+	2.执行下列语句，给出结果。
+	<script>
+		var v=v||10;v
+		10
+
+		var v=100;
+		v=v||10;
+		v
+		100
+
+		var v=0;
+		v=v||10;
+		v
+		10
+
+		var v=null;
+		v=v||10;
+		v
+		10
+	</script>
+	3.打印乘法口诀表。
+	<script>
+		var i,j,res="";
+		for(i=1;i<10;i++){
+			for(j=1;j<=i;j++){
+				res+=i+"*"+j+"="+i*j+" ";
+			}
+			res+="\n";
+		}
+		console.log(res);
+	</script>
+</body>
+</html>

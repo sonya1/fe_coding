@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//localhost环境下
+		var now = new Date();
+		now.setDate(10);
+		alert(now);
+		document.cookie = "name=lisi; expires="+now;
+	</script>
+</body>
+</html>

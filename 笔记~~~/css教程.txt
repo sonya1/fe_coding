@@ -1,0 +1,73 @@
+css教程
+
+position
+Static 定位
+
+HTML元素的默认值，即没有定位，元素出现在正常的流中。
+静态定位的元素不会受到top, bottom, left, right影响。
+
+Fixed 定位
+
+元素的位置相对于浏览器窗口是固定位置。
+即使窗口是滚动的它也不会移动：
+
+Relative 定位
+
+相对定位元素的定位是相对其正常位置。
+可以移动的相对定位元素的内容和相互重叠的元素，它原本所占的空间不会改变。
+实例
+
+相对定位元素经常被用来作为绝对定位元素的容器块。
+
+绝对定位的元素的位置相对于最近的已定位父元素，如果元素没有已定位的父元素，那么它的位置相对于<html>:
+
+Absolutely定位使元素的位置与文档流无关，因此不占据空间。
+Absolutely定位的元素和其他元素重叠。
+
+
+float clear
+
+
+块元素对齐
+
+块元素是一个元素，占用了全宽，前后都是换行符。
+块元素的例子：
+<h1>
+<p>
+<div>
+
+在 CSS3 中包含了四种组合方式:
+后代选取器(以空格分隔)
+子元素选择器(以大于号分隔）
+相邻兄弟选择器（以加号分隔）
+普通兄弟选择器（以破折号分隔）
+
+
+伪类
+有顺序的（lvha）
+a:link {color:#FF0000;} /* 未访问的链接 */
+a:visited {color:#00FF00;} /* 已访问的链接 */
+a:hover {color:#FF00FF;} /* 鼠标划过链接 */
+a:active {color:#0000FF;} /* 已选中的链接 */
+
+:first-child
+
+伪元素：
+:first-line(应用于块元素)
+:first-letter(应用于块元素)
+:before
+:after 
+
+
+1.display:none;与visibility:hidden;
+display:none 不为被隐藏的对象保留其物理空间 visibility：hidden 为被隐藏的对象保留其物理空间
+也就是display:;当他的值变成block 的时候，它所在的结构才会被加载进来。
+而visibility就会在加载页面的同时就已经把它加载进来了，因为他的值为hidden的时候，它所占的空间还在。
+
+
+2.border:none;与border:0;的区别体现有两点：一是理论上的性能差异二是浏览器兼容性的差异。
+对比border:0;与border:none;之间的区别在于有渲染和没渲染，感觉他们和display:none;与visibility:hidden;的关系类似，而对于border属性的渲染性能对比暂时没找测试的方法，虽然认为他们存在渲染性能上的差异但也只能说是理论上。
+
+如何让border:none;实现全兼容？只需要在同一选择符上添加背景属性即可，如下例Demo3：
+
+ 

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../jquery.min.js"></script>
+</head>
+<body>
+	<label for="str"></label>
+	<input type="text" id="str" value="sonya123" size="35">
+	<button id="btn" value="ajax传值"></button>
+
+	<script>
+		$('#btn').on('click',function(){
+			$.ajax({
+				url:"firebug4.php",
+				type:"get",
+				data:$("#str").val()
+			});
+		});
+		
+	</script>
+</body>
+</html>

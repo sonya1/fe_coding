@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6.4 将继承部分封装成函数</title>
+</head>
+<body>
+	<p>
+		下面，我们要将这些实现继承关系的代码提炼出来，并迁入一个叫做extend（）的可重用函数中：
+
+		通过应用这个函数，我们既可以使代码保持简洁，又能将其重用在构建继承关系的任务中。这种方式让我们能通过以下简单的调用来实现继承：
+	</p>
+	<script>
+		function extend(Child,Parent){
+			var F = function(){};
+			F.prototype = Parent.prototype;
+			Child.prototype  = new F();
+			Child.prototype.constructor = Child;
+			Child.uber = Parent.prototype;
+		}
+
+		extend(TwoDShape,Shape);
+		extend(Triangle,TwoDShape);
+
+		//完整的例子
+		function extend(Child,Parent){
+			var F = function(){};
+			F.prototype = Parent.prototype;
+			Child.prototype  = new F();
+			Child.prototype.constructor = Child;
+			Child.uber = Parent.prototype;
+		}
+		
+		function Shape(){};
+		Shape.prototype.name = "shape";
+		Shape.prototype.toString = function(){
+			return this.constructor.uber 
+					? this.constructor.uber.toString()+"," +this.name  //
+					:this.name;
+		};
+
+		function TwoDShape(){}
+		extend(TwoDShape,Shape);
+		TwoDShape.prototype.name = "2D shape";
+
+		function Triangle(side,height){
+			this.side = side;
+			this.height = height;
+		}
+		extend(Triangle,TwoDShape);
+		Triangle.prototype.name = "Triangle";
+		Triangle.prototype.getArea = function(){
+			return this.side *this.height/2;
+		};
+
+		new Triangle().toString();  //"shape,2D shape,Triangle"
+	</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>折叠菜单</title>
+	<link rel="stylesheet" href="../sonya.css">
+	<link rel="stylesheet" href="accordion.css">
+</head>
+<body>
+	<div class="container">
+		
+	</div>
+	<!--
+	<ul class="accordion">
+		<li>
+			<h4 class="accordion-head">11</h4>
+			<p>说地方和女生短发</p>
+		</li>
+		<li>
+			<h4 class="accordion-head">22</h4>
+			<p>多说两句冯绍峰那威风</p>
+		</li>
+		<li>
+			<h4 class="accordion-head">33</h4>
+			<p>航天员呵呵</p>
+		</li>
+	</ul>
+	-->
+
+	<script src="../jquery.js"></script>
+	<script src="accordion.js"></script>
+	<script>
+		$(function(){
+			$('.container').accordion({
+				animate:'fade',
+				/*data:[
+						{headTitle:'管理区',
+						 subMenu:[
+								{title:'qq',url:'http://www.qq.com'},
+								{title:'163',url:'http://www.163.com'}
+								]
+						},
+						{headTitle:'交流区',
+						 subMenu:[
+								{title:'33',url:'http://www.qq.com'},
+								{title:'44',url:'http://www.163.com'}
+								]
+
+						}
+					]*/
+				data:[{headTitle:11,content:'打死打死对方'},{headTitle:22,content:'佛山人分手费收费'}]
+			});
+		});
+	</script>
+</body>
+</html>

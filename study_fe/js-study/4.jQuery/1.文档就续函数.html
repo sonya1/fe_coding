@@ -1,0 +1,25 @@
+<html>
+<head>
+	<title>文档就绪函数</title>
+	<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+</head>
+<body>
+
+	<button id="btn">click!</button>
+	<script type="text/javascript">
+		$(function(){  //文档就绪函数
+			var oBtn = document.getElementById("btn");
+			oBtn.onclick = function(){
+				alert("1111");
+			}; 
+		});
+
+		$(function(){
+
+		});
+		
+		$();
+	</script>
+
+</body>
+</html>

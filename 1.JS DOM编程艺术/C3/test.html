@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{
+			background: black;
+			color:white;
+		}
+		p{
+			color:yellow;
+		}
+		ul{
+			border: 1px solid #fff;
+			padding: 10px 0;
+			color:#ccc;
+		}
+
+	</style>
+</head>
+<body>
+	<h1>What to buy</h1>
+	<p title="A Gentle reminder">Don't forget to buuy this stuff.</p>
+	<p>This is just a test</p>
+	<ul>
+		<li>A tin id beans</li>
+		<li>cheese</li>
+		<li>Milk</li>
+	</ul>
+
+	<script>
+		window.onload = function(){
+			var aP = document.getElementsByTagName("p");
+			for(var i=0;i<aP.length;i++){
+				if(aP[i].title){
+					alert(aP[i].title);
+				}
+			}
+		}
+
+	</script>
+</body>
+</html>

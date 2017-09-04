@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{
+			background: #eee;
+		}
+		img{
+			width: 200px;
+			background: #fff;
+			padding: 10px;
+			border:1px solid #ccc;
+			-webkit-box-shadow:3px 3px 2px rgba(50,50,50,0.4);
+			-webkit-transition:all 1s ease;
+			position: absolute; 
+		}
+		
+		img:nth-child(1){
+			-webkit-transform:rotate(-30deg);
+			transform:rotate(-30deg);
+			position: absolute;
+		}
+		img:nth-child(2){
+			-webkit-transform:rotate(-20deg);
+			position: absolute;
+			left:60px;
+			z-index: 1;
+		}
+		img:nth-child(3){
+			-webkit-transform:rotate(-15deg);
+		}
+		img:nth-child(4){
+			-webkit-transform:rotate(-10deg);
+		}
+		img:nth-child(5){
+			-webkit-transform:rotate(-15deg);
+		}
+		img:nth-child(6){
+			-webkit-transform:rotate(-17deg);
+		}
+		img:nth-child(7){
+			-webkit-transform:rotate(-16deg);
+		}
+		img:nth-child(8){
+			-webkit-transform:rotate(-12deg);
+		}
+		img:nth-child(9){
+			-webkit-transform:rotate(-21deg);
+		}
+		img:hover{
+			-webkit-transform:rotate(0deg) scale(1.2);
+			transform:rotate(0deg) scale(1.2);
+			-webkit-box-shadow:6px 6px 2px rgba(50,50,50,0.4);
+			z-index: 2;
+		}
+	</style>
+</head>
+<body>
+	<div id="pic">
+		<img src="../5.js复习/img/images/1.jpg" alt="">
+		<img src="../5.js复习/img/images/2.jpg" alt="">
+		<img src="../5.js复习/img/images/3.jpg" alt="">
+		<img src="../5.js复习/img/images/4.jpg" alt="">
+		<img src="../5.js复习/img/images/5.jpg" alt="">
+		<img src="../5.js复习/img/images/6.jpg" alt="">
+		<img src="../5.js复习/img/images/7.jpg" alt="">
+		<img src="../5.js复习/img/images/8.jpg" alt="">
+		<img src="../5.js复习/img/images/9.jpg" alt="">
+	</div>
+</body>
+</html>

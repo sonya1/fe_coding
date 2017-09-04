@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>5.2扩展内建对象</title>
+</head>
+<body>
+	<p>
+		在JS中，内建对象的构造器函数（例如Array、String、Object和Function）都是可以通过其原型来进行扩展的。这意味着我们可以做一些事情，例如只要往数组原型中添加新的方法，就可以使其在所有的数组可用。下面，我们就来试试看。
+
+		PHP中有一个叫做in_array（）的函数，主要用于查询数组中是否存在某个特定的值。JS中则没有一个叫做inArry()的方法（不过在ES5中有indexOf（）方法），因此，下面我们通过Array.prototype来实现一个。
+
+		假设我们的应用程序需要一个反转字符串的功能，并且也觉得String对象应该有一个reverse（）方法，毕竟Array对象是有reverse（）方法的。其实，在String（）的原型中添加一个reverse（）方法也很容易，我们可以借助于Array.prototype.reverse()方法。（这与第四章的某道习题很相似）。
+
+		在这段代码中，我们实际上是先利用split（）方法将目标字符串转换为数组，然后再调用该数组的reverse（）方法产生一个反向数组。最后通过join（）方法将结果转换为字符串。下面我们来测试一下这个新方法。
+	</p>
+	<script>
+		Array.prototype.inArray = function(needle){
+			for(var i=0,len=this.length;i<len;i++){
+				if(this[i] === needle){
+					return true;
+				}
+			}
+			return false;
+		};
+
+		var colors = ["red","green","blue"];
+		colors.inArray("red");   //true
+		colors.inArray("yellow");  //false
+
+		String.prototype.reverse = function(){
+			return Array.prototype.reverse
+						.apply(this.split("")).join("");
+		};
+
+		"bumblebee".reverse();  //"eebelbmub"
+	</script>
+
+	<h2>5.2.1 关于扩展内建对象的讨论</h2>
+	<p>
+		由于通过原型来扩展内建对象是一项非常强大的技术，有了它，我们几乎可以随心所欲的重塑JS语言的能力。但也正是由于他有如此强大的威力，我们在选择使用这项能力时就必须慎之又慎。
+
+		原因在于一旦开发者熟悉了JS，那么无论他在用哪些第三方库或者工具，他都会预期JS内建对象与方法和他的认知相同。一旦修改了内建对象，他们的行为会发生改变，代码的拥护与维护者就会觉得困惑，从而到时无法预期的错误。
+		
+		而且，JS自身也会发展，浏览器厂商支持的功能会越来越多，没转我们今天所缺失的，想通过原型来扩展的功能，明天就会出现在内建方法中。在这种情况下，我们设计的方法就不被需要了。另外，假设我们已经编写了大量的代码，这些代码都是基于基本对象扩展而来的自定义方法，而这些方法后来又被浏览器实现为内建方法了，但我们这些自定义方法又与新的内建方法有些许不同，这个时候会发生什么呢？
+
+		其实对基于相关内建原型来增加自定义方法这种技术来说，最常用且最能被接受的例子，是实现让老式浏览器支持新功能，而且应该是已经被ECMAScript委员会标准化了的、为现代浏览器所实现的新功能。例如让旧版IE支持ES5中的方法。我们通常把这类扩展叫做shims或polyfills。
+
+		另外，当您用自定义方法扩展原型时，首先应该检查该方法是否已经存在。这样一来，当浏览器内存在同名内建方法时，我们可以直接调用原生方法，这就避免了方法覆盖。在下面的例子中，我们将为String对象添加trim（）方法。该方法是ES5标准的一部分，但其在老式浏览器中并没有得到支持：
+
+	</p>
+	<script>
+		if(typeof String.prototype.trim !== "function"){
+			String.prototype.trim = function(){
+				return this.replace(/^\s+|\s+&/g,"");
+			};
+		}
+
+		" hello".trim();  //"hello"
+
+		"    d sd   ".trim();  //"d sd"
+	</script>
+	<h3>最佳实践</h3>
+	<p>
+		如果您想要通过原型为某个对象添加一个新属性，务必先检查一下该属性是否已经存在。	
+	</p>
+
+	<h2>5.2.2 原型陷阱 </h2>
+	<p>
+		在处理原型问题时，我们需要特别注意以下两种行为：
+		<ul>
+			<li>当我们对原型对象执行完全替换时，可能会触发原型链中某种异常（exception）</li>
+			<li>prototype.constructor属性是不可靠的。</li>
+		</ul>
+		下面，我们来新建一个简单的构造器函数，并用它再创建两个对象：
+
+		即便在benji和rusty对象创建之后，我们也依然能为Dog（）的原型添加属性，并且在属性被添加之前就已经存在的对象也可以随时访问这些新属性。现在，让我们放一个say（）方法进去：
+
+		上面的两个对象都可以访问该新方法了：
+
+		如果我们检查一下这些对象的构造器函数，就会发现一切正常。
+
+		现在，我们用一个自定义的新对象完全覆盖掉原有的原型对象：
+
+		事实证明，这会使原有对象不能访问原型的新增属性，他们会依然通过那个神秘的链接与原有的原型对象保持联系。
+
+		而我们之后创建的所有对象使用的都是被更新后的prototype对象。
+
+		并且，其秘密链接__proto__也指向了新的prototype对象。
+
+		但这时候，新对象的constructor属性就不能在保持正确了，原本应该是Dog（）的引用却指向了Object（）。
+
+		当然，我们可以通过重新设置constructor属性来解决上述所有的异常行为：
+	</p>
+
+	<h3>最佳实践</h3>
+	<p>
+		当我们重写某对象的prototype时，需要重置相应的constructor属性。
+	</p>
+
+	<script>
+		function Dog(){
+			this.tail = true;
+		}
+		var benji = new Dog();
+		var rusty = new Dog();
+
+		Dog.prototype.say = function(){
+			return "Woof!";
+		};
+
+		benji.say();//"Woof!"
+		rusty.say();  //"Woof!"
+
+		benji.constructor === Dog;  //true
+		rusty.constructor === Dog;  //true
+
+		Dog.prototype = {
+			paws :4,
+			haor:true
+		};
+
+		typeof benji.paws;  //"undefined"
+		benji.say();  //"Woof!"
+
+		typeof benji.__proto__.say;  //"function"
+		typeof benji.__proto__.paws;  //"undefined"
+
+		var lucy = new Dog();
+		lucy.say();  //ERROR!!!
+		lucy.paws;  //4
+
+		typeof lucy.__proto__.say;  //"undefined"
+		typeof lucy.__proto__.paws;  //"number"
+
+		lucy.constructor;  //function Object() { [native code] }
+
+		benji.constructor;  //function Dog(){this.tail = true;}
+
+		function Dog(){}
+		Dog.prototype = {};
+		new Dog().constructor === Dog;  //false
+		new Dog().constructor;  // function Object() { [native code] }
+		
+		Dog.prototype.constructor = Dog;
+		new Dog().constructor === Dog;  //true
+	</script>
+</body>
+</html>

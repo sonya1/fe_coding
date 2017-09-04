@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6.7 对象之间的继承</title>
+</head>
+<body>
+	<p>
+		到目前为止，本章所有的示例都是以构造器创建对象为前提的，并且，我们在这些用于创建对象的构造器中引入了从其他构造器中继承而来的属性。但实际上，我们也可以丢开构造器，直接通过对象标识法来创建对象，并且这样做还能减少我们的实际输入。但是，他们是如何实现继承的呢？
+
+		在Java或PHP中，我们是通过类定义来构建不同类之间的继承关系的。所谓传统意义上的面向对象是依靠类来完成的。但JS中没有类的概念，因此，那些具有传统编程背景的程序员自然而然的会将构造器函数当做类，因为两者在使用方式上是最为接近的。此外，JS中也提供了new操作符，这使得JS与java的相似程度更为接近。无论如何，所有的一切最终都要回到对象层面上来。例如在本章的第一个示例中，我们使用的语法是这样的：
+	</p>
+	<script>
+		Child.prototype = new Parent();
+	</script>
+	<p>
+		尽管这里的Child构造器（您也可以将其视为类）是从Parent继承而来的，但对象本身则是通过new Parent()调用来创建的，这就是为什么我们说这是一种仿传统的继承模式，他尽管很像传统继承，但终究不是（因为这里不存在任何类的调用）。
+
+		那么，我们为什么不能拿掉这个中间人（即构造器/类），直接在对象之间构建继承关系呢？在extend2（）方法中，父原型对象的属性被逐一拷贝给了子原型对象，而这两个原型本质上也都是对象。接下来，让我们将原型和构造器忘了，尝试在对象之间进行直接属性拷贝吧。
+
+		首先，我们用var o = {}语句创建一个没有任何私有属性的“空”对象作为“画板”，然后再逐步为其添加属性。但这次我们不通过this来实现，而是直接将现有对象的属性全部拷贝过来。例如在下面的实现中，函数将接受一个对象并返回他的副本。
+
+		单纯的属性全拷贝是一种非常简单直接的模式，但适用范围很广。下面来看看extendCopy（）的实际应用。首先，我们需要一个基本对象：
+
+		接着我们就可以根据这个旧对象来创建一个新的对象了，只需要调用extendCopy（）函数，该函数会返回一个新对象。然后，我们可以继续对这个新对象进行扩展，添加额外的功能。
+
+		下面，我们让triangle对象继承一个2D图形对象：
+	</p>
+	<script>
+		function extendCopy(p){
+			var c = {};
+			for(var i in p){
+				c[i] = p[i];
+			}
+			c.uber = p;
+			return c;
+		}
+
+		var shape = {
+			name:"Shape",
+			toString:function(){
+				console.log("1,"+this.name);
+				return this.name;
+			}
+		};
+
+		var twoDee = extendCopy(shape);
+		twoDee.name = "2D shape";
+		twoDee.toString = function(){
+			console.log("2,"+this.name);
+			return this.uber.toString()+", "+this.name;
+		};
+
+		var triangle = extendCopy(twoDee);
+		triangle.name = "Triangle";
+		triangle.getArea = function(){
+			return this.side * this.height / 2;
+		};
+
+		triangle.side = 5;
+		triangle.height = 10;
+		triangle.getArea();  //25
+		triangle.toString();  //"Shape, 2D shape, Triangle"
+		//2,Triangle
+ 		//2,2D shape
+		//1,Shape
+	</script>
+	<p>
+		对于这种方法而言，可能的问题就在于初始化一个新triangle对象的过程过于繁琐。因为我们必须要对该对象的side和height值进行手动设置，这与之前直接相关的值作为参数传递给构造器函数是不一样的。但这方面的问题只需要调用一个函数就能轻易解决，例如与构造器函数类似的init（）方法（如果您使用PHP5，可调用__constructor()函数），我们只需要在调用时将这两个值以参数形式传递给他即可。又或者，我们可以将extendCopy（）函数设计为接受两个参数：第一个参数不变，第二个参数是包含我们需要的额外属性的对象，然后我们就可以在函数体中，使用这些额外属性对所返回的拷贝进行扩展，或者换一种说法，将第一个参数的拷贝与第二个参数合并。
+	</p>
+</body>
+</html>

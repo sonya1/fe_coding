@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2.2 绑定规则</title>
+</head>
+<body>
+	<script>
+		//this绑定规则
+		//2.2.1 默认绑定
+		function foo(){
+			console.log(this.a);
+		}
+		var a = 2;
+		foo();  //2
+
+
+
+
+		//2
+		function foo(){
+			"use strict";
+			console.log(this.a);
+		}
+		var a =2;
+		
+		foo();  //Uncaught TypeError: Cannot read property 'a' of undefined
+		
+
+
+
+
+		//3
+		function foo(){
+			console.log(this.a);
+		}
+		var a =2;
+		(function (){  //立即调用
+			"use strict";
+			foo();   //2
+		})();
+
+
+		
+	</script>
+</body>
+</html>

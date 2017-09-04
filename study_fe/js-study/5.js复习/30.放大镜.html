@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#container{
+			margin-top: 20px;
+			margin-left: 20px;
+		}
+		#small-box{
+			border:1px solid #ccc;
+			float: left;
+			margin-right: 5px;
+			position: relative;
+			/*overflow: hidden;*/
+		}
+		#float-box{
+			width: 131px;
+			height: 131px;
+			border: 1px solid #ccc;
+			background: #fff;
+			opacity: 0.5;
+			filter:alpha(opcity=50);
+			position: absolute;
+			top:0;
+			left:0;
+			display: none;
+		}
+		#big-box{
+			width: 330px;
+			height: 350px;
+			border: 1px solid #ccc;
+			float: left;
+			overflow: hidden;
+			display: none;
+			position: relative;
+		}
+		#big-pic{
+			position: absolute;
+			top:0;
+			left:0;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div id="small-box">
+			<img src="img/blue_one_small.jpg" alt="" id="small-pic">
+			<div id="float-box"></div>
+		</div>
+		<div id="big-box">
+			<img src="img/blue_one_big.jpg" alt="" id="big-pic">
+		</div>		
+	</div>
+
+	<script src="jquery-1.9.1.min.js"></script>
+	<script>
+
+	//JS原生
+		/*var oSmall = document.getElementById("small-box");
+		var oFlout = document.getElementById("float-box");
+		var oBig = document.getElementById("big-box");
+		var oBigPic = document.getElementById("big-pic");
+		oSmall.onmouseover = function(){
+			oFlout.style.display = "block";
+			oBig.style.display = "block";
+		};
+		oSmall.onmouseout = function(){
+			oFlout.style.display = "none";
+			oBig.style.display = "none";
+		};
+		oSmall.onmousemove = function(e){
+			e = e || window.event;
+			var oFleft = e.clientX - oSmall.offsetLeft - oFlout.offsetWidth / 2 ;
+			var oFtop = e.clientY - oSmall.offsetTop - oFlout.offsetHeight/2 ; 
+			if(oFleft > oSmall.offsetWidth - oFlout.offsetWidth){
+				oFleft = oSmall.offsetWidth - oFlout.offsetWidth;
+			}
+			if(oFleft < 0){
+				oFleft = 0;
+			}
+			if(oFtop > oSmall.offsetHeight - oFlout.offsetHeight){
+				oFtop = oSmall.offsetHeight - oFlout.offsetHeight;
+			}
+			if(oFtop < 0 ){
+				oFtop = 0;
+			}
+			oFlout.style.left = oFleft + "px";
+			oFlout.style.top = oFtop + "px";
+
+			//比率：
+			var iBleft = oFleft / (oSmall.offsetWidth - oFlout.offsetWidth);
+			var iBtop = oFtop / (oSmall.offsetHeight - oFlout.offsetHeight);
+			oBigPic.style.left = -iBleft * (oBigPic.offsetWidth - oBig.offsetWidth) + "px";
+			oBigPic.style.top = -iBtop * (oBigPic.offsetHeight - oBig.offsetHeight) + "px";
+		};*/
+
+		//jquery
+		$(function(){
+			var $smallBox = $("#small-box"),
+				$floatBox = $("#float-box"),
+				$bigBox = $("#big-box"),
+				$bigPic = $("#big-pic");
+			$smallBox.hover(function(){
+				$floatBox.show();
+				$bigBox.show();
+			},function(){
+				$floatBox.hide();
+				$bigBox.hide();
+			}).on("mousemove",function(e){
+				var iLeft = e.pageX - $(this).offset().left - $floatBox.width() / 2 ;
+				var iTop = e.pageY - $(this).offset().top - $floatBox.height() / 2 ;
+				if(iLeft > $(this).width() - $floatBox.width()){
+					iLeft = $(this).width() - $floatBox.width();
+				}
+				if(iLeft < 0){
+					iLeft = 0;
+				}
+				if(iTop > $(this).height() - $floatBox.height()){
+					iTop = $(this).height() - $floatBox.height();
+				}
+				if(iTop < 0 ){
+					iTop = 0;
+				}
+
+				$floatBox.css({  //定位，不加单位
+					left:iLeft ,
+					top:iTop 
+				});
+				
+				//比率：
+				var iBleft = iLeft / ($(this).width() - $floatBox.width());
+				var iBtop = iTop / ($(this).height() - $floatBox.height());
+
+				$bigPic.css({
+					left:-iBleft * ($bigPic.width() - $bigBox.width()),
+					top:-iBtop * ($bigPic.height() - $bigBox.height())
+				});
+			});
+		});
+	</script>
+</body>
+</html>

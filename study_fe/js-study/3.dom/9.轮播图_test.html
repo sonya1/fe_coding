@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		#containter{
+			width: 533px;
+    		height: 300px;
+    		position: relative;
+		}
+		#imgs img{
+			width: 533px;
+    		height: 300px;
+    		display: none;
+		}
+		#imgs .selected{
+			display: block;
+		}
+		#list{
+			width: 100px;
+			height: 20px;
+			position: absolute;
+			bottom: 8px;
+			right: 3px;
+		}
+		#list .selected{
+			background: orange;
+		}
+		li{
+			float: left;
+			margin-right: 5px;
+			width: 20px;
+		    height: 20px;
+		    background: #000;
+		    color: #fff;
+		    text-align: center;
+		    line-height: 20px;
+		    cursor: pointer;
+		}
+		#arrow{
+			position: absolute;
+			left: 3px;
+			bottom:8px;	
+		}
+		
+
+	</style>
+</head>
+<body>
+	<div id="containter">
+		<div id="imgs">
+			<img src="pic0.jpg" alt="" class="selected">
+			<img src="pic1.jpg" alt="">
+			<img src="pic2.jpg" alt="">
+			<img src="pic3.jpg" alt="">		
+		</div>
+		<ul id="list">
+			<li class="selected">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<ul id="arrow">
+			<li id="prev">&lt;</li>
+			<li id="next">&gt;</li>
+		</ul>
+	</div>
+
+	<script>
+		var oList = document.getElementById("list");
+		var aList = oList.getElementsByTagName("li");
+
+		var oImgs = document.getElementById("imgs");
+		var aImg = oImgs.getElementsByTagName("img");
+
+		var oPrev = document.getElementById("prev");
+		var oNext = document.getElementById("next");
+
+		var index = 0;
+
+		for(var i=0;i<aList.length;i++){
+			aList[i].index = i;
+			aList[i].onmouseover = function(){
+				changeImg(this.index);
+				index = this.index;
+			};
+		} 
+
+		function changeImg(index){
+				for(var j=0;j<aList.length;j++){
+					aList[j].className = "";
+					aImg[j].className = "";
+				}
+				aList[index].className = "selected";
+				aImg[index].className = "selected";
+		}
+
+		oPrev.onclick = function(){			
+			index-- ;
+			if(index < 0 ){
+				index = aList.length - 1;
+			}
+			changeImg(index);
+		};
+
+		oNext.onclick = function(){			
+			index++ ;
+			if(index >= aList.length){
+				index = 0;
+			}
+			changeImg(index);
+		};
+
+		var timer ;
+		function play(){
+			timer = setInterval(function(){
+				index++ ;
+				if(index >= aList.length){
+					index = 0;
+				}
+				changeImg(index);
+			},2000);
+		}
+
+		play();
+
+		var oContainter = document.getElementById("containter");
+		oContainter.onmouseover = function(){
+			clearInterval(timer);
+		};
+		oContainter.onmouseout = function(){
+			play();
+		};
+	</script>
+</body>
+</html>

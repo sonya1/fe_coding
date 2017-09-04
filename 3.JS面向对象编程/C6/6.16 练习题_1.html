@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6.16 练习题</title>
+</head>
+<body>
+	
+	<script>
+		//1：使用原型继承模式（而不是属性拷贝的方式）实现多重继承。例如：
+		//属性additional应该是私有属性，而其他属性则应该归并入prototype。
+		function objectMulti(){
+			var child = function(p){
+				for(var j in p){
+					child[j] = p[j];
+				}
+			};
+			var len = arguments.length;
+			for(var i=0;i<len-1;i++){
+				var mixme = arguments[i];
+				for(var prop in mixme){
+					child.prototype[prop] = mixme[prop];  //原型属性
+				}
+				
+			}
+			return new child(arguments[len-1]);
+		}
+
+		var my = objectMulti(obj,another_obj,a_third,{
+			additional:"properties"
+		});
+
+		/*function objectMulti() {
+		     var Constr,
+		     i,
+		     prop,
+		     mixme;
+		     // constructor that sets own properties
+		     var Constr = function (props) {
+		         for (var prop in props) {
+		             this[prop] = props[prop];
+		         }
+		     };
+		     // mix into the prototype
+		     for (var i = 0; i < arguments.length - 1; i++) {
+		        var mixme = arguments[i];
+		        for (var prop in mixme) {
+		             Constr.prototype[prop] = mixme[prop];
+	
+		        }
+		     }
+		     return new Constr(arguments[arguments.length - 1]);
+		}*/
+
+		
+	</script>
+</body>
+</html>

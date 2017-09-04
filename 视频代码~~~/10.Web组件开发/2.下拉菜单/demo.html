@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>下拉菜单</title>
+	<link rel="stylesheet" href="../sonya.css">
+	<link rel="stylesheet" href="navbar.css">
+	<link rel="stylesheet" href="dropdown.css">
+</head>
+<body>
+	<div class="navbar">
+		<ul class="nav">
+			<li class="dropdown level1">
+				<a href="#">菜单1</a>
+				<b class="caret"></b>
+				 <ul class="dropdown-menu" >
+				    <li><a href="#">Action</a></li>
+				    <li><a href="#">Another</a></li>
+				    <li><a href="#">Something</a></li>
+				  
+				  </ul>
+			</li>
+			<li>
+				<a href="#">菜单2</a>
+				
+			</li>
+		</ul>
+	</div>
+
+	<script src="../jquery.js"></script>
+	<script src="dropdown.js"></script>
+	<script>
+		$('.level1').dropdown({
+			animate:true
+		});
+	</script>
+</body>
+</html>

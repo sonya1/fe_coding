@@ -1,0 +1,53 @@
+.alert_div{
+	border:1px solid #000;
+/*水平竖直居中*/
+	position: fixed;
+	z-index: 1;
+	/*top:50%;
+	margin-top: -100px;
+	left:50%;
+	margin-left: -200px;*/
+}
+
+.alert_header{
+	height: 30px;
+	background: #000;
+	color: #fff;
+	text-align: center;
+	line-height: 30px;
+}
+.alert_body{
+	padding: 10px 10px;
+}
+.alert_footer{
+	width: 100%;
+	height: 30px;
+	position: absolute;
+	bottom:0;
+	text-align: center;
+}
+.alert_ok{
+	width: 100px;
+	cursor: pointer;
+}
+.close_btn{
+	float: right;
+	margin-right:15px;
+	font-size: 20px;
+	color: #fff;
+	cursor: pointer;
+}
+.close_btn:hover{
+	color: red;
+}
+
+.window_mask{
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.5);
+	position: absolute;
+	top:0;
+	left:0;
+
+}
+

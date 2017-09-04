@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		var myObject = {};
+
+		myObject[true] = "foo";
+		myObject[3] = "bar";
+		myObject[myObject] = "baz";
+
+		myObject["true"] ;  //"foo"
+		myObject["3"];   //"bar"
+		myObject["[object Object]"];  //"baz"
+
+		//对象属性名中一定是字符串，其他类型也会被转成字符串的！
+	</script>
+
+
+	<script>
+		//可计算属性名
+		var prefix = "foo";
+		var myObject = {
+			[prefix+"bar"]:"hello",
+			[prefix+"baz"]:"world"
+		};
+
+		myObject["foobar"];  //"hello"
+		myObject["foobaz"];  //"world"
+	</script>
+
+	<script>
+		//数组
+		var myArr = ["foo",42,"bar"];
+		myArr.length; //3
+		myArr[0]; //"foo"
+		myArr[2]; //"bar"
+
+		myArr.baz="baz"; //"baz"
+		myArr.length;  //3   添加命名属性 length不变
+		myArr.baz;//"baz"
+
+		myArr["3"] = "son";
+		myArr.length; //4
+		myArr[3]; //"son"
+	</script>
+	
+
+	<script>
+		//3.3.5属性描述符
+		//
+		var myObject = {};
+		Object.defineProperty(myObject,"a",{
+			value:2,
+			writable:true,   //
+			configurable:true, //
+			enumerable:true
+		});
+
+		myObject.a;  //2
+
+
+
+		//1.writable：决定是否可以修改属性的值
+		var myObject = {};
+		Object.defineProperty(myObject,"a",{
+			value:2,
+			writable:false,   //不可写！
+			configurable:true, //
+			enumerable:true
+		});
+
+		myObject.a = 3;
+		myObject.a;  //2
+
+		//严格模式会报错
+		"use strict";
+		var myObject = {};
+		Object.defineProperty(myObject,"a",{
+			value:2,
+			writable:false,   //不可写！
+			configurable:true, //
+			enumerable:true
+		});
+
+		myObject.a = 3; // TypeError: Cannot assign to read only property 'a' of object '#<Object>'
+
+
+
+		//2.configurable:修改属性描述符
+		var myObject = {a:2};
+		myObject.a = 3;
+		myObject.a;  //3
+
+		Object.defineProperty(myObject,"a",{
+			value:4,
+			writable:true,
+			configurable:false,  //不可配置
+			enumerable:true
+		});
+
+		myObject.a;  //4
+		myObject.a = 5;
+		myObject.a;  //5
+
+		Object.defineProperty(myObject,"a",{
+			value:6,
+			writable:true,
+			configurable:true,
+			enumerable:true
+		});//Uncaught TypeError: Cannot redefine property: a
+
+		//把configurable修改成false是单向操作，无法撤销！
+		//
+		//小例外：configurable为false，我们还是可以把writable的状态由true改为false，但是无法由false改为true。
+		
+		//除了无法修改，configurable：false还会禁止删除这个属性：
+		var myObject = {a:2};
+		myObject.a;  //2
+
+		delete myObject.a,
+		myObject.a;  //undefined
+
+		Object.defineProperty(myObject,"a",{
+			value:2,
+			writable:true,
+			configurable:false,
+			enumerable:true
+		});
+
+		myObject.a;  //2
+		delete myObject.a;
+		myObject.a;  //2 删不了
+
+
+		//3.enumerable：控制属性是否会出现在对象的属性枚举中
+		//（for...in循环的时候）
+	</script>
+
+	<script>
+		//3.3.6 不变性
+		
+		//1.对象常量
+		var myObject = {};
+		//创建真正的常量属性，不可修改，重定义，删除。
+		Object.defineProperty(myObject,"FAVORITE_NUMBER",{
+			value:42,
+			writable:false,
+			configurable:flase
+		});
+
+		//2.禁止扩展
+		var myObject = {a:2};
+
+		Object.preventExtensions(myObject);  //禁止添加新属性并且保留已有属性
+
+		myObject.b = 3;
+		myObject.b;  //undefined
+
+
+		//3.密封 
+		//Object.seal();  -->Object.preventExtensions,且configurable:false
+		//密封之后不能添加新属性，也不能重新配置或者删除任何现有属性。
+		
+
+
+
+
+		//4.冻结
+		//Object.freeze() -->Object.seal()且writable:false
+		//
+		
+	</script>
+	
+
+
+	<script>
+		//3.3.9 Getter和Setter
+		
+		var myObject = {
+			//给a定义一个getter
+			get a(){
+					return 2;
+			}
+		};
+
+		Object.defineProperty(myObject,"b",{
+			//描述符
+			//给b设置一个getter
+			get:function(){
+				return this.a*2
+			},
+			//确保b会出现在对象的属性列表中
+			enumerable:true
+		});
+
+		myObject.a;  //2
+		myObject.b;  //4
+
+
+		//
+		var myObject = {
+			//给a定义一个getter
+			get a(){
+					return 2;
+			}
+		};
+		myObject.a = 3;
+		myObject.a;  //2!!!
+
+
+		//
+		var myObject = {
+			//给a定义一个getter
+			get a(){
+					return this._a_;
+			},
+			set a(val){
+				this._a_ = val*2;
+			}
+		};
+
+		myObject.a = 2;
+		myObject.a;   //4
+	</script>
+
+	<script>
+		//3.3.10 存在性
+		var myObject = {a:2};
+		("a" in myObject);  //true
+		"b" in myObject;  //false
+
+		myObject.hasOwnProperty("a");  //true
+		myObject.hasOwnProperty("b");  //false
+
+		//in操作符会检查属性是否在对象及其[[prototype]]原型链中，而hasOwnProperty()只会检查属性是否在当前对象中，不会检查原型链。
+		//
+		4 in [2,4,6];  //false
+		//in实际上检查的是某个属性名是否存在
+		//【2,4,6】的属性名是0,1,2，所以返回false
+		
+		//1.枚举
+		var myObject = {};
+		Object.defineProperty(myObject,"a",{
+			//让a像普通属性一样可枚举
+			enumerable:true,
+			value:2
+		});
+		Object.defineProperty(myObject,"b",{
+			//让b不可枚举
+			enumerable:false,
+			value:3
+		});
+
+		myObject.b;  //3
+		("b" in myObject);  //true
+		myObject.hasOwnProperty("b");  //true
+
+		for(var k in myObject){
+			console.log(k,myObject[k]);  //"a" 2
+		}
+
+		//遍历对象 用for in，
+		//遍历数组 用for循环，因为不仅会包含数值索引，还会包含所有可枚举属性
+		//
+		var myObject = {};
+		Object.defineProperty(myObject,"a",{
+			enumerable:true,
+			value:2
+		});
+		Object.defineProperty(myObject,"b",{
+			enumerable:false,
+			value:3
+		});
+
+		myObject.propertyIsEnumerable("a");  //true 只检查此对象，不检查原型链
+		myObject.propertyIsEnumerable("b"); //false
+
+		Object.keys(myObject);  //["a"] 返回所有可枚举属性，数组，只检查此对象，不检查原型链
+		Object.getOwnPropertyNames(myObject);  //["a","b"]，返回所有属性的数组，只检查此对象，不检查原型链
+	</script>
+</body>
+</html>

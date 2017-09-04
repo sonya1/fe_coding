@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<ul id="ul1">
+		<li>111</li>
+		<li>222</li>
+		<li>333</li>
+	</ul>
+	<script>
+
+		var oUl = document.getElementById("ul1");
+		var aLi = oUl.getElementsByTagName("li");
+		/*for(var i=0;i<aLi.length;i++){
+			aLi[i].index = i;
+			aLi[i].onclick = function(){
+				alert(this.index);
+			};
+			
+		}*/
+		for(var i=0;i<aLi.length;i++){
+			(function(idx){
+				aLi[i].onclick = function(){
+					alert(idx);
+				};
+			})(i);			
+		}
+	//闭包：外部函数内部声明内部函数，内部函数引用外部函数中的局部变量，这样当外部函数执行完以后，局部变量不释放
+	//
+	//且 外部函数和内部函数 执行时间不同
+		function aa(){
+			var c = 5;
+			function bb(){
+				return c;
+			}
+			return bb;
+		}
+
+		var d = aa();
+		alert( d() );
+
+
+
+	</script>
+</body>
+</html>

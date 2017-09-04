@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播</title>
+	<link rel="stylesheet" href="../sonya.css">
+	<link rel="stylesheet" href="carousel.css">
+	<style>
+		#container{
+			width: 870px;
+			margin:50px auto;
+			border:10px solid #000;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">	
+		<!--
+		<div class="carousel">
+			<div class="carousel-loading">loading...</div>
+			<ul class="carousel-imgs">
+				<li><img src="bootstrap-mdo-sfmoma-01.jpg" alt=""></li>
+				<li><img src="bootstrap-mdo-sfmoma-02.jpg" alt=""></li>
+				<li><img src="bootstrap-mdo-sfmoma-03.jpg" alt=""></li>
+			</ul>	
+		</div>
+		-->
+	</div>
+	<script src="../jquery.js"></script>
+	<script src="carousel.js"></script>
+	<script>
+		$('#container').carousel({
+			imgData:[
+				{
+					src:'bootstrap-mdo-sfmoma-01.jpg',
+					title:'111',
+					desc:'和撒旦华纳大'
+				},
+				{
+					src:'bootstrap-mdo-sfmoma-02.jpg',
+					title:'222',
+					desc:'看了卡卡卡卡破'
+				},
+				{
+					src:'bootstrap-mdo-sfmoma-03.jpg',
+					title:'333',
+					desc:'水电费是否'
+				}
+			]
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2.6t条件与循环</title>
+</head>
+<body>
+	<h2>2.6.1 if条件表达式</h2>
+	<h2>2.6.2 else语句</h2>
+	<h2>2.6.3 代码块</h2>
+	<p>
+		所谓的代码块，实际上指的是被包括在大括号中的、由0个或多个表达式组成的一段代码。
+		并且每个代码块中都还可以在内嵌另一个代码块。
+		<ul>最佳实践
+			<li>尽量使用分号来作为每一行的结束。尽管这在语法上是可选的，但对于开发来说是一个很好的习惯。为了让代码获得最佳的可读性，我们在代码块中的表达式最好是一行一个，并用分号彼此隔开。</li>
+			<li>尽量对代码块中的所有代码使用缩进格式。有些人会用Tab来做缩进，而有些则会使用四个或两个空格。这都无关紧要，只要保持前后一致就行。</li>
+			<li>尽量使用大括号。当代码块中只有一个表达式时，大括号实际上是可选的。但为了增加代码的可读性和可维护性，我们最好还是养成加大括号的习惯，即使这不是必须的。</li>
+		</ul>
+	</p>
+	<h2>2.6.4检查变量是否存在</h2>
+	<p>
+		下面让我们来实际使用一下条件语句。if表达式在检查一个变量是否存在时往往非常有用。其中，最懒的方法就是其条件部分中直接使用变量，例如if(somevar){...}。但这样做并不一定是最合适的。我们可以来测试一下。在下面这段代码中，我们将会检查程序中是否存在一个叫做somevar的变量，如果存在，就将result设置为yes。
+	</p>
+	<script>
+	var result="";
+	if(somevar){
+		result="yes";
+	}
+</script>
+<p>这段代码显然是起作用了，因为最终的结果肯定不会是yes。但首先，这段代码会产生一个警告信息：“somevar is not defined”,作为一个JS高手，您肯定不会希望自己的代码多此一举。其次，就算if
+（somevar）返回的是false，也并不意味着somevar就一定没有意义，他也可能是任何一种被初始化为falsy值（0或false）的已声明变量。
+所以在检查变量是否存在时，更好的选择是使用typeof。
+<script>
+	var result="";
+	if(typeof somevar!=="undefined"){
+		result="yes";
+	}
+	result
+	""
+</script>
+在这种情况下，typeof返回的是一个字符串，这样就可以与字符串‘undefined’进行直接比对。但需要注意的是，如果这里的somevar是一个已经声明但尚未赋值的变量，结果也是相同的。也就是说，我们实际上是在用typeof测试一个变量是否已经被初始化（或者是否为undefined）。
+<script>
+	var result="";
+	var somevar;  //声明
+	if(typeof somevar!=="undefined"){
+		result="yes";
+	}
+	result
+	""
+
+
+	somevar=undefined；
+	if(typeof somevar!=="undefined"){
+		result="yes";
+	}
+	result
+	""
+</script>
+而当一个已被定义的变量被赋值为非undefined的任何值后，该变量的typeof结果就不再是undefined了。
+</p>
+
+<h3>2.6.4.1替代if表达式</h3>
+<p>如果我们所面对的条件表达式非常简单，就可以考虑用其他形式来替代if表达式。例如下面的代码:</p>
+<script>
+	var a=1;
+	var result="";
+	if(a===1){
+		result="a is one";
+	}else{
+		result="a is not one";
+	}
+</script>
+我们完全可以将其简化为：
+<script>
+	var a=1;
+	var result = (a===1)?"a is one":"a is not one";
+</script>
+<p>但需要提醒的是，这种语法通常只用于一些非常简单的条件逻辑，千万不要滥用。因为这样做很容易使我们的代码变得难以理解。以下是一个滥用的例子。
+	假设我们需要判断一个变量是否在某个区间（50-100）内。如变量不在这个区间，程序就会将最接近当前值的那个区间边界赋值给变量。
+</p>
+<script>
+	var a=123;
+	a=a>100?100:a<50?50:a;
+	a;
+	100
+</script>
+<p>由于这里执行了两次？：操作，这会使我们无法一眼判断表达式的运行顺序。为了让表达式显得更清晰一些，我们最好还是在其中加入一些括号。</p>
+<script>
+	var a=123;
+	a=(a>100?100:a<50)?50:a;
+	a;
+	50
+
+	var a=123;
+	a=a>100?100:(a<50?50:a);
+	a;
+	100
+</script>
+<p>这里的？：操作符叫做三元运算符，因为他需要三个操作数。</p>
+
+<h3>2.6.4.2 switch语句</h3>
+<p>
+当我们发现自己在if表达式中使用了太多的else if子句时，就应该要考虑用switch语句来替代if了。
+让我们看看switch表达式主要由哪几部分组成。
+<ul>
+	<li>switch子句</li>
+	<li>括号中的表达式。他通常会是个变量，但也可以是其他任何能提供返回值的东西。</li>
+	<li>包含在大括号中的case序列块</li>
+	<li>每个case语句后面有一个表达式，该表达式的结果将会与switch语句的表达式进行对比。如果比对的结果为true，则case语句中冒号后面的代码将会被执行。</li>
+	<li>break语句是可选的，它实际上是case块的结束符，即当代码执行到break语句时，整个switch语句就执行完成了，否则就继续执行下一个case块。</li>
+	<li>使用关键字default标记的默认条件代码块。如果其他case条件都不为true的话，default条件就会被执行。</li>
+</ul>
+换句话说，整个switch语句的执行应该可以分为以下几个步骤：
+<ol>
+	<li>对switch语句后面的括号部分进行求值，并记录结果。</li>
+	<li>移动到第一个case条件，将它的值与步骤1的结果进行比对。</li>
+	<li>如果步骤2中的比对结果为true，则执行该case块中的代码。</li>
+	<li>在相关case块执行完成之后，如果遇到break语句就直接退出switch。</li>
+	<li>如没有遇到break或步骤2中的对比结果为false，就继续下一个case块。</li>
+	<li>重复2-5中的操作。</li>
+	<li>如果依然还没有结束（也就是始终未能按照步骤4的方式退出），就执行default语句后面的代码块。</li>
+</ol>
+</p>
+
+<h3>2.6.5循环</h3>
+<p>在JS中，循环主要由以下四种类型：</p>
+<ol>
+	<li>while</li>
+	<li>do-while</li>
+	<li>for</li>
+	<li>for-in</li>
+</ol>
+
+	<script>
+		var res="\n";
+		for(var i=0;i<10;i++){
+			for(var j=0;j<10;j++){
+				res+="* ";
+			}
+			res +="\n";
+		}
+		console.log(res);
+
+		var res="\n",i,j;
+		for(i=1;i<=7;i++){
+			for(j=1;j<=15;j++){
+				res+=(i*j)%8?" ":"*";
+			}
+			res+="\n";
+		}
+		console.log(res);
+
+	</script>
+
+	<h3>2.6.5.4 for-in循环</h3>
+	<p>
+		for-in循环往往被用来遍历某个数组（或对象，这个以后讨论）中的元素。这似乎也是他唯一的用处，该循环不能用来替代for或while循环，执行某些一般性的重复操作。下面，我们来看一个for-in遍历数组元素的示例。当然，例子仅供参考。毕竟对于for-in循环来说，他最适用的场合依然是对象，以及用于常规for循环的数组。
+	</p>	
+	<p>在下面的示例中，我们将遍历数组中的所有元素，并打印出当前所在的索引位置和元素值。
+	</p>
+	<script>
+		var a=["a","b","c","x","y","z"];
+		var result = "\n";
+		for(var i in a){
+			result +="index:"+i+",value:"+a[i]+"\n";
+		}
+		console.log(result);
+	</script>
+</body>
+</html>

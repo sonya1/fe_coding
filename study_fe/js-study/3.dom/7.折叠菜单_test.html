@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+			display: none;
+		}
+		h3{
+			cursor: pointer;
+		    width: 100px;
+		    height: 30px;
+		    border: 1px solid #ccc;
+		    line-height: 30px;
+		    text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<h3>JS</h3>
+		<ul>  
+			<li><a href="">111</a></li>
+			<li><a href="">222</a></li>
+			<li><a href="">333</a></li>
+		</ul>
+		<h3>CSS</h3>
+		<ul>  
+			<li><a href="">444</a></li>
+			<li><a href="">555</a></li>
+			<li><a href="">666</a></li>
+		</ul>
+	</div>
+
+	<script type="text/javascript">
+		var oH3 = document.getElementsByTagName("h3");
+		var oUl = document.getElementsByTagName("ul");
+
+		for(var i=0;i<oH3.length;i++){
+			oH3[i].index = i;
+			oH3[i].onclick = function(){
+				//alert(oUl[this.index].style.display);
+				if(oUl[this.index].style.display == "" || oUl[this.index].style.display == "none"){
+					oUl[this.index].style.display = "block";
+				}else{
+					oUl[this.index].style.display = "none";
+				}
+			};
+		}
+
+	</script>
+</body>
+</html>

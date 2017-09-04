@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>parent</title>
+</head>
+<body>
+
+
+	this is parent. 
+	<button id="btn">open</button>
+	<button id="btn2">click</button>
+<br>
+
+	<script>
+
+	//localhost环境下
+		var oBtn = document.getElementById("btn");
+		var oBtn2 = document.getElementById("btn2");
+
+		var oWin = null;
+		oBtn.onclick = function(){
+			oWin = window.open("9.跨文档消息通信_opened.html");
+		};
+		oBtn2.onclick = function(){
+			oWin.document.body.style.background = "red";
+		};
+	</script>
+
+</body>
+</html>

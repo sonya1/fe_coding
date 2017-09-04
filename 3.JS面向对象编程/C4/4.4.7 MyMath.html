@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//在Math对象不存在的情况下，创建一个类似的MyMath对象，并为其添加以下方法：
+		//MyMath.rand(min,max,inclusive);  ——随机返回min到max区间中的一个数，inclusive为true时为闭区间（这也是默认情况）
+		//MyMath.min(array); ——返回目标数组中的最小值
+		//MyMath.max(array); ——返回目标数组中的最大值
+		function MyMath(){}  //给方法 对象添加方法
+		var MyMath = {};   //给对象添加方法 
+		MyMath.rand = function(min,max,flag){
+			var x ;
+			var f = (flag==undefined)?true:flag;
+			if(f){  //true []
+				x = min + (max-min)*Math.random();   //[0,1)
+			}else{   //()
+				//排除0
+				var tmp = Math.random();
+				while(tmp==0){
+					tmp = Math.random();
+				}
+				x = min + (max-min)*tmp;   //(0,1)
+			}
+			return x;
+		};
+		MyMath.min = function(){
+			if(arguments.length==0){
+				throw new Error("no parameter");
+			}
+			var min = arguments[0];
+
+			for(var i=0;i<arguments.length;i++){
+				if(typeof arguments[i]!="number"){
+					throw new Error("parameter error");
+				}
+				if(arguments[i]<min){
+					min = arguments[i];
+				}
+			}
+			return min;
+		};
+		MyMath.max = function(){
+			if(arguments.length==0){
+				throw new Error("no parameter");
+			}
+			var max = arguments[0];
+			for(var i=0;i<arguments.length;i++){
+				if(typeof arguments[i]!="number"){
+					throw new Error("parameter error");
+				}
+				if(arguments[i]>max){
+					max = arguments[i];
+				}
+			}
+			return max;
+		};
+		MyMath.rand(5,10);
+	    MyMath.rand(5,10,true);  
+		MyMath.min(1,0,4,5,3,11,7);  //0
+		MyMath.max(1,0,4,5,3,11,7);  //11
+
+
+		//百度搜的
+		/*function MyMath(){
+
+	    }
+	    MyMath.rand=function(min,max,inclusive){
+	        if(typeof min!=="number"){
+	            throw new Error("type error");
+	            return;
+	        }
+	        if(typeof max!=="number"){
+	            throw new Error("type error");
+	            return;
+	        }
+	        if(min>max){
+	            throw new Error("parameter error");
+	            return;
+	        }
+	        if(typeof inclusive==="undefined"){
+	            inclusive=true;
+	        }else{
+	            inclusive=!!inclusive;
+	        }
+	        if(inclusive){
+	            if(Math.random()>0.5){
+	                return min+(max-min)*Math.random();
+	            }else{
+	                return max-(max-min)*Math.random();
+	            }
+	        }else{
+	            //不闭合区间，先排除0的可能
+	            var randomNum=Math.random();
+	            while(randomNum===0){
+	                randomNum=Math.random();
+	            }
+	            return min+(max-min)*randomNum;
+	        }
+	    };
+	    MyMath.min=function(){
+	        if(arguments.length===0){
+	            throw new Error("no parameter");
+	            return;
+	        }
+	        var minValue;
+	        var l=arguments.length;
+	        for(var i=0;i<l;i++){
+	            var param=arguments[i];
+	            if(typeof param!=="number"){
+	                throw new Error("parameter error");
+	                return;
+	            }
+	            if(i===0){
+	                minValue=param;
+	            }
+	            if(minValue>param){
+	                minValue=param;
+	            }
+	        }
+	        return minValue;
+	    };
+	    MyMath.max=function(){
+	        if(arguments.length===0){
+	            throw new Error("no parameter");
+	            return;
+	        }
+	        var maxValue;
+	        var l=arguments.length;
+	        for(var i=0;i<l;i++){
+	            var param=arguments[i];
+	            if(typeof param!=="number"){
+	                throw new Error("parameter error");
+	                return;
+	            }
+	            if(i===0){
+	                maxValue=param;
+	            }
+	            if(maxValue<param){
+	                maxValue=param;
+	            }
+	        }
+	        return maxValue;
+	    };*/
+
+	   
+	</script>
+</body>
+</html>

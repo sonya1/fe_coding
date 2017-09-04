@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>7.5 事件</title>
+</head>
+<body>
+	<h2>7.5.3 DOM的事件监听器</h2>
+	对于浏览器来说，最佳的事件处理方式当然莫过于出自DOM Level2的事件监听器了。通过这种方式，我们可以为一个事件指定多个监听器函数。当事件被触发时，所有的监听器函数都会被执行。而且，这些监听器之间不需要知道彼此的存在，他们的工作是
+	<p id="closer">final</p>
+	<script>
+		var mypara = document.getElementById("closer");
+		mypara.addEventListener("click", function(){
+			alert("Boo!");
+		}, false);
+
+		mypara.addEventListener("click",console.log.bind(console), false);
+		//mypara.addEventListener("click",console.log(11), false);
+	</script>
+
+	<h2>7.5.4 捕捉法与冒泡法</h2>
+	在之前调用addEventListener（）方法的过程中，我们还传入了第三个参数false。下面我们来看看这个参数是什么。
+	假设我们有一个链接，他被嵌套在一个无序列表标签内，例如：
+	<ul>
+		<li><a href="http://phpied.com">my blog</a></li>
+	</ul>
+	当我们单击该链接时，实际上我们也单击了列表项<li>、列表<ul>、<body>乃至于整个document对象，这种行为称之为传播（propagation）。换句话说，对该链接的单击也可以看做对document对象的单击。事件传播过程通常有两种方式：
+
+	1.事件捕捉（event capturing）：单击首先发生在document上，然后依次传递给body、列表、列表项，并最终到达该链接，成为捕捉法。
+	2.事件冒泡（event bubbling）：单击首先发生在链接上，然后逐层向上冒泡，直至document对象，称为冒泡法。
+
+	按照DOM Level 2的建议，事件传播应该分为三个阶段 ：先是捕捉标签，然后到达对象，再冒泡。也就是说，事件传播的路径应该是先从document到相关链接（标签），然后再回到document。如果想要了解某一事件当前所处的阶段，我们可以去访问事件对象的eventPhase属性。
+	
+	从历史上来说，IE和NetScape的相关实现是高度不统一的。IE使用冒泡法，而NetScape则使用捕捉法。而在当今，也就是DOM标准建立之后，现代浏览器们终于统一实现了这个阶段。
+
+	<ul>我们可以通过如下方式处理事件捕获：
+		<li>通过addEventListener（）的第三个参数，我们可以决定是否采用捕捉法来处理事件。然而，为了让我们的代码适用于更多的浏览器，最好还是始终将其设置为false，即只使用冒泡法来处理事件。</li>
+		<li>我们也可以在监听器函数中阻断事件的传播，令其停止向上冒泡，这样一来，事件就不会再到达document对象那里了。为了做到这一点，我们就必须去调用相关事件对象的stopPropagation()方法。</li>
+		<li>另外，我们还可以采用事件委托。例如，如果某个div中有10个按钮，那么，通常每个按钮都需要一个事件监听器，这样一来，我们就要设置10个监听器函数。而更聪明的做法是，我们只为整个div设置一个监听器，当事件发生时，让它自己去判断被单击的是哪一个按钮。</li>
+	</ul>
+	作为参考，我们还是要介绍一下在旧版本的IE中使用事件捕捉的方式，即使用setCapture（）和releaseCapture（）方法，但是这种方式只是用于处理鼠标类事件，对于其他类型的事件（例如键盘类事件）则不起作用。
+
+	<h2>7.5.5 阻断传播</h2>
+	
+	下面，我们来演示一下如何让事件停止他的冒泡式传播。首先，我们回到之前的测试文档，现有的标签是:
+	<p id="closer">final</p>
+	然后，我们来定义一个用于处理该段落单击事件的函数：
+	<script>
+		function paraHandler(){
+			alert("clicked paragraph");
+		}
+
+		var para = document.getElementById("closer");
+
+		para.addEventListener("click", paraHandler, false);
+
+		document.body.addEventListener("click", function(){
+			alert("clicked body");
+		}, false);
+
+		document.addEventListener("click", function(){
+			alert("clicked doc");
+		}, false);
+
+		document.body.addEventListener("click", function(){
+			alert("clicked window");
+		}, false);
+
+	</script>
+	<p>
+		需要注意的是，按照DOM标准来说，window事件是不存在的。这就是为什么DOM指的是文档而不是浏览器。因此，实际上浏览器对于window事件的实现与DOM事件的实现并不一致。
+
+		现在，如果我们单击一下该段落，就会看到四个警告框，他们分别是：
+		1.clicked paragraph
+		2.clicked body
+		3.clicked window
+		4.clicked doc
+
+		这诠释了同一事件从具体标签向整个窗口传播的全过程（也就是向上冒泡的全过程）。
+
+		addEventListener（）方法的对立面就是removeEventListener（），该方法的参数与前者相同。下面，我们移除该段落上的监听器。
+	</p>
+	<script>
+		para.removeEventListener("click", paraHandler, false);
+	</script>
+	<p>
+		现在如果再次单击段落，就只会弹出body、window、doc了。
+
+		下面，我们来阻断时间的传播。首先要定义一个以事件对象为参数的函数，并在函数内对该对象调用stopPropagation（）方法：
+	</p>
+	<script>
+		function paraHandler(e){
+			alert("clicked paragraph");
+			e.stopPropagation();  //阻断传播
+		}
+		//然后我们添加修改后的监听器：
+		para.addEventListener("click",paraHandler, false);
+
+		docuemnt.body.removeEventListener("click", function(){
+			alert("clicked body");
+		}, false);
+	</script>
+	现在如果我们再单击段落，就会看到弹出窗只有一个了，因为该事件不会再被上传给body、document、window了。
+
+	要提醒的是，如果我们要移除某个监听器，就必须获得之前那一个指定为监听器函数的指针。否则，即便他们的函数体完全相同也无济于事，因为它们两者不是同一个函数。
+
+	<h2>7.5.6 防止默认行为</h2>
+	<p>
+		在浏览器模型中，有些事件自身就存在一些预定义行为。例如，单击链接会载入另一个页面。对此，我们可以为该连接设置监听器，并使用preventDefault（）方法禁用其默认行为。
+
+		下面，我们来麻烦一下我们的访客，让他们在每次单击链接之后，回答一个问题：“Are you sure you want to follw this link?”.每当他们单击的是Cancle（即confirm（）返回false）时，preventDefault（）方法就会被调用：
+	</p>
+	<script>
+		var all_links = document.getElementsByTagName("a");
+		for(var i=0;i<all_links.length;i++){
+			all_links[i].addEventListener("click", function(e){
+				if(!confirm("Are you sure you want to follw this link?")){
+					e.preventDefault();
+				}
+			}, false);  //冒泡
+		}
+
+	</script>
+	<p>
+		需要提醒的是，并不是所有事件的默认行为都是可禁止的。尽管大部分事件是可以的，但如果真的有必要确定一下，我们可以去检测事件对象的cancellable属性。
+	</p>
+
+	<h2>7.5.7 跨浏览器的事件监听器</h2>
+	<p>
+		正如我们所说过的，现在绝大部分的浏览器都已经完全实现了DOM Level 1标准。然而，事件方面的标准化是到DOM Level 2才完成的。这就导致了IE9以前的版本与其他现代浏览器在这方面的实现有着不少的差异。
+
+		让我们再引入一个事件示例，该示例将会在控制台中返回被单击元素（即目标元素）的nodeName值
+	</p>
+	<script>
+		document.addEventListener("click",function(e){
+			console.log(e.target.nodeName);
+		} ,false);
+	</script>
+	<p>
+		接下来，我们仔细看看IE的实现究竟有哪些不同之处。
+		<ul>
+			<li>IE中没有addEventListener()方法，但他们从IE5开始就提供了一个叫做attachEvent（）的等效方法。对于更早期的版本，我们就只能通过属性方法（例如onclick属性）来解决问题了。</li>
+			<li>对于单击事件来说，使用attachEvent（）就等同于使用onclick属性。</li>
+			<li>如果我们使用老式手法来进行事件监听（例如，通过将某个函数赋值给onclick属性），那么当该回调函数被使用时，他不会获得相关的事件参数。但只要我们设置了事件监听器，IE中总会有一个全局对象window.event会指向该事件。</li>
+			<li>在IE的事件对象中，没有用于反映触发事件目标元素的terget属性，但我们可以使用他的等效属性srcElement。</li>
+			<li>正如之前所提到的，IE不支持事件捕捉法，而只使用冒泡法来运作。</li>
+			<li>IE中没有stopPropagation（）方法，我们可以通过将IE-only属性cancleBubble设置为true来完成相关的操作。</li>
+			<li>IE中没有preventDefault（）方法，我们可以通过将IE-only属性returnValue设置为false来完成相关的操作</li>
+			<li>对于事件的取消监听操作，IE中使用的不是removeEventListener（）方法，我们要调用的是detachEvent（）方法。</li>
+		</ul>
+		这样一来，我们就将原型的代码修改成跨浏览器版本了：
+	</p>
+	<script>
+		function callback(evt){
+			evt = evt || window.event;
+			var target = evt.target || evt.srcElement;
+
+			console.log(target.nodeName);
+		}
+
+		if(document.addEventListener){
+			document.addEventListener("click", callback, false);
+		}else if(document.attachEvent){
+			document.attachEvent("onclick",callback);
+		}else{
+			document.onclick = callback;
+		}
+	</script>
+</body>
+</html>

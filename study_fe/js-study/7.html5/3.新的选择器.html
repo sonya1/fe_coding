@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="div1" class="aa bb cc">div1</div>
+	<div id="div2" class="aa">div2</div>
+	<div id="div3" class="aa bb">div3</div>
+	<script>
+		//var oDiv = document.querySelector("#div1");
+		//alert(oDiv.innerHTML);   //div1
+		
+		//var oDiv = document.querySelector(".aa");
+		//alert(oDiv.innerHTML);  //div1
+		
+		var aDiv = document.querySelectorAll(".aa");
+		alert(aDiv);  //object nodelist
+		console.log(aDiv);  //一个数组 三个值
+	</script>
+</body>
+</html>
