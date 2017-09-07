@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>class selector</title>
+</head>
+<body>
+	<ul id="ul">
+		<li class="aabb">item 1</li>
+		<li class="aa bb">item 2</li>
+		<li class="aa">item 3</li>
+	</ul>
+	<script>
+		//var aLi = document.getElementsByClassName('aa');
+		function getByClass(className,context){
+			context = context || document;
+			if(context.getElementsByClassName){
+				return context.getElementsByClassName(className);
+			}
+
+			var all = context.getElementsByTagName("*");
+			var result = [];
+			var re = new RegExp('\\b'+className+'\\b');  //var re=/className/; 不是变量className了，而是字符串‘className’,\b为匹配边界，需转义
+			for(var i=0;i<all.length;i++){
+				if(re.test(all[i].className) ){  //以aa为边界
+					result.push(all[i]);
+				}
+			}
+			return result;
+		}
+
+		var aLi = getByClass("aa");
+		for(var j=0;j<aLi.length;j++){
+			aLi[j].style.background = "red";
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>addClass removeClass</title>
+	<style>
+		.aa{
+			width: 200px;
+			height: 200px;
+			background: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="div" class="aabb aa"></div>
+	<script src="myjslib.js"></script>
+	<script>
+		var oDiv = $("#div")[0];
+		//addClass(oDiv,"aa");
+		removeClass(oDiv,"aa");
+
+
+		function addClass(elem,className){
+			var re = new RegExp('\\b'+className+'\\b');
+			//原来没有就添加
+			if(!re.test(elem.className)){
+				elem.className = elem.className + " " + className;
+			}
+		}
+
+		function removeClass(elem,className){
+			var re = new RegExp('\\b'+className+'\\b');
+			elem.className = trim( elem.className.replace(re,"") );
+		}
+
+		function trim(str){
+			return str.replace(/^\s*|\s*$/g,"");
+		}
+
+	</script>
+</body>
+</html>

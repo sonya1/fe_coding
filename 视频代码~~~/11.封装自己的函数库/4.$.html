@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>$</title>
+</head>
+<body>
+	<button id="btn">click</button>
+	<ul id="ul">
+		<li class="aabb">item 1</li>
+		<li class="aa bb">item 2</li>
+		<li class="aa">item 3</li>
+	</ul>
+	
+	<script src="myjslib.js"></script>
+	
+	<script>
+		function $(selector,context){
+			var firstLetter = selector.charAt(0);
+			switch(firstLetter){
+				case "#":
+					return [ id(selector.substring(1)) ]; //都返回数组
+					break;
+				case ".":
+					return getByClass(selector.substring(1),context);
+					break;
+				default:
+					return tag(selector);
+			}
+		}
+		var oBtn = $("#btn")[0];
+		oBtn = $("button")[0];
+		oBtn.onclick = function(){
+			alert(1);
+		};
+		var aLi = $(".aa");
+		for(var i=0;i<aLi.length;i++){
+			aLi[i].style.background = "red";
+		}
+	</script>
+</body>
+</html>

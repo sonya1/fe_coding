@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>attr</title>
+</head>
+<body>
+	<div id="div">qwe</div>
+	<script src="myjslib.js"></script>
+	<script>
+		function attr(elem,attr,value){
+			if(value){
+				elem.setAttribute(attr, value);
+			}else{
+				return elem.getAttribute(attr);
+			}
+		}
+		var oDiv = $("#div")[0];
+		attr(oDiv,"aa","bb");
+		alert(attr(oDiv,"aa"));
+	</script>
+</body>
+</html>

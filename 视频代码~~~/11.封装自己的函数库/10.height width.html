@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>height width</title>
+	<style>
+		#div{
+			width: 200px;
+			height: 200px;
+			background: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="div"></div>
+	<script src="myjslib.js"></script>
+	<script>
+		function width(elem,value){
+			if(value){
+				elem.style.width = parseInt(value) + 'px';
+			}else{
+				return parseInt( css(elem,'width') );
+			}
+		}
+
+		function height(elem,value){
+			if(value){
+				elem.style.height = parseInt(value) + 'px';
+			}else{
+				return parseInt( css(elem,'height') );
+			}
+		}
+
+
+		var oDiv = $('#div')[0];
+		//width(oDiv,100);
+		alert(width(oDiv));
+	</script>
+</body>
+</html>

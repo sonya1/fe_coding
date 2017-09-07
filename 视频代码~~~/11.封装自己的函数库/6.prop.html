@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>prop</title>
+</head>
+<body>
+	<div id="div">qwe</div>
+	<script src="myjslib.js"></script>
+	<script>
+		function prop(elem,prop,value){
+			if(value){
+				elem[prop] = value;
+			}else{
+				return elem[prop];
+			}
+		}
+		var oDiv = $("#div")[0];
+		prop(oDiv,"ww","qq");
+		alert(prop(oDiv,"ww"));
+	</script>
+</body>
+</html>

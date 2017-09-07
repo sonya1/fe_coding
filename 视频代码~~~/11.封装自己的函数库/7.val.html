@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>val</title>
+</head>
+<body>
+	<input type="text">
+	<script src="myjslib.js"></script>
+	<script>
+		function val(elem,value){
+			if(value){
+				elem.value = value;
+			}else{
+				return elem.value;
+			}
+		}
+		var oIpt = $("input")[0];
+		val(oIpt,"ww");
+		alert(val(oIpt));
+	</script>
+</body>
+</html>

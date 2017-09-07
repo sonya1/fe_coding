@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>css</title>
+	<style>
+		#div{
+			width: 200px;
+			height: 200px;
+			background: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="div"></div>
+
+	<script src="myjslib.js"></script>
+	<script>
+
+		function _getStyle(elem,prop){
+			//background-color => backgroundColor
+			//word 是 -c  =>C
+			prop = prop.replace(/\-[A-z]/g,function(word){
+				return word.substring(1).toUpperCase();
+			});
+			if(elem.currentStyle){  //IE支持
+				return elem.currentStyle[prop];
+			}else if(window.getComputedStyle){  //其他浏览器
+				return getComputedStyle(elem,false)[prop];
+			}else{
+				return elem.style[prop];  //返回内联样式
+			}
+		}
+
+
+		function _setStyle(elem,attr,value){
+			switch(attr){
+				case "width":
+				case "height":
+				case "padding":
+				case "paddingLeft":
+				case "paddingRight":
+				case "paddingTop":
+				case "paddingBottom":
+					value = /\%/.test(value)?value:Math.max(parseInt(value),0) + 'px';
+					break;
+				case "left":
+				case "top":
+				case "bottom":
+				case "right":
+				case "margin":
+				case "marginLeft":
+				case "marginRight":
+				case "marginTop":
+				case "marginBottom":
+					value = /\%/.test(value)?value:parseInt(value) + 'px';
+					break;
+			}
+			elem.style[attr] = value;
+		}
+
+
+		function css(elem,prop,value){  //prop可以是对象
+			if(value){
+				elem.style[prop] = value;
+			}else{
+				if(typeof prop == 'object'){
+					for(p in prop){
+						var p2 = p.replace(/\-[A-z]/g,function(word){
+							return word.substring(1).toUpperCase();
+						});
+						//elem.style[p] = prop[p];
+						_setStyle(elem,p2,prop[p]);  //可以传px 或不传都行
+					}
+				}
+				return _getStyle(elem,prop);
+			}
+		}
+
+		var oDiv = $("#div")[0];
+		//css(oDiv,"background","green");
+		css(oDiv,{
+			/*width:400,
+			height:400,
+			*/
+			width:'400px',
+			height:'400px',
+			backgroundColor:'green'
+		});
+		//alert(css(oDiv,"backgroundColor"));  //都支持
+		alert(css(oDiv,"background-color"));  //IE支持，其他不支持，所以转成C
+	</script>
+</body>
+</html>

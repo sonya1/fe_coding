@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>window width and window height</title>
+</head>
+<body>
+	<script src="myjslib.js"></script>
+	<script>
+		function windowWidth(){
+			var de = document.documentElement;  //html元素
+			return self.innerWidth  ||  //self是window的别名
+				(de && de.clientWidth) ||
+				document.body.clientWidth;
+		}
+
+		function windowHeight(){
+			var de = document.documentElement;  //html元素
+			return self.innerHeight  ||  //self是window的别名
+				(de && de.clientHeight) ||
+				document.body.clientHeight;
+		}
+
+		alert(windowHeight());
+		alert(windowWidth());
+	</script>
+</body>
+</html>
