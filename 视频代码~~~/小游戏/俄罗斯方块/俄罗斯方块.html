@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>俄罗斯方块</title>
+	<style>
+		#board{
+			border-collapse: collapse;
+			border:1px solid #000;
+			margin: 50px auto;
+		}
+		#board td{
+			width: 30px;
+			height: 30px;
+			border:1px dotted #0cc;
+		}
+	</style>
+</head>
+<body>
+	<table id="board"></table>
+	
+	<script>
+		//1.初始化游戏面板
+		
+		var oBoard = document.getElementById("board");
+		var grid = new Array(18);  //要创建的二维数组
+		for(var i=0;i<18;i++){
+			var oTr = oBoard.insertRow();
+			grid[i] = new Array(10);
+			for(var j=0;j<10;j++){
+				var oTd = oTr.insertCell();
+				grid[i][j] = 0;
+			}
+		}
+		
+		/*for(i=0;i<18;i++){
+			for(j=0;j<10;j++){
+				if(i==10 || j == 5){
+					//oBoard.rows[i].cells[j].style.background = "red";			
+					grid[i][j] = 1;
+				}
+			}
+		}
+
+		for(i=0;i<18;i++){
+			for(j=0;j<10;j++){
+				if(grid[i][j] == 1){
+					oBoard.rows[i].cells[j].style.background = "red";			
+				}
+			}
+		}*/
+		move(10,5);
+
+		function move(iRow,iCol){  //目标值
+				for(i=0;i<18;i++){
+					for(j=0;j<10;j++){
+						grid[i][j] = 0;
+						oBoard.rows[i].cells[j].style.background = "transparent";			
+					}
+				}
+
+				for(i=0;i<18;i++){
+					for(j=0;j<10;j++){
+						if(i==iRow || j == iCol){
+							//oBoard.rows[i].cells[j].style.background = "red";			
+							grid[i][j] = 1;
+						}
+					}
+				}
+
+				for(i=0;i<18;i++){
+					for(j=0;j<10;j++){
+						if(grid[i][j] == 1){
+							//alert(123);
+							oBoard.rows[i].cells[j].style.background = "red";			
+						}
+					}
+				}
+		}
+
+		document.onkeydown = function(e){
+			e = e || window.event;
+			var key = e.which || e.keycode;
+			var iRow = iCol = 0;
+
+			for(var i=0;i<10;i++){   //找哪列全是1
+				for(var j=0;j<18;j++){
+					if(grid[j][i] == 0){
+						break;
+					}
+				}
+				if(j == 18){
+					iCol = i;
+					break;
+				}
+			}
+
+			for(var i=0;i<18;i++){   //找哪行全是1
+				for(var j=0;j<10;j++){
+					if(grid[i][j] == 0){
+						break;
+					}
+				}
+				if(j == 10){
+					iRow = i;
+					break;
+				}
+			}
+
+
+
+			switch(key){
+				case 37:  //left
+					move(iRow,iCol-1<0?9:iCol-1);
+					break;
+				case 38:  //up
+					move(iRow-1<0?17:iRow-1,iCol);
+					break;
+				case 39:  //right
+					move(iRow,iCol+1>9?0:iCol+1);
+					break;
+				case 40:  //bottom
+					move(iRow+1>17?0:iRow+1,iCol);
+					break;
+
+			}
+		};
+
+		
+
+
+		
+
+
+
+		//2.生成方块
+		//3.移动方块
+		//4.方块变形
+		//5.消行计分
+		//6.游戏结束
+	</script>
+</body>
+</html>
