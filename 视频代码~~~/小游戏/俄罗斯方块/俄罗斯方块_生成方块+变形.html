@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>俄罗斯方块</title>
+	<style>
+		#board{
+			border-collapse: collapse;
+			border:1px solid #000;
+			margin: 50px auto;
+		}
+		#board td{
+			width: 30px;
+			height: 30px;
+			border:1px dotted #0cc;
+		}
+	</style>
+</head>
+<body>
+	<table id="board"></table>
+	
+	<script>
+		//1.初始化游戏面板
+		var oBoard = document.getElementById("board");
+		var grid = new Array(18);  //要创建的二维数组
+		for(var i=0;i<18;i++){
+			var oTr = oBoard.insertRow();
+			grid[i] = new Array(10);
+			for(var j=0;j<10;j++){
+				var oTd = oTr.insertCell();
+				grid[i][j] = 0;
+			}
+		}
+		
+		
+		//2.生成方块
+		var aBlock = [
+			[0xCC00],
+			[0x8888,0xF0],
+			[0x8C40,0X6C00],
+			[0X4C80,0XC600],
+			[0X44C0,0X8E00,0XC880,0XE200],
+			[0X88C0,0XE800,0XC440,0X2E00],
+			[0X4E00,0X8C80,0XE400,0X4C40]
+		];
+
+		var iRand = Math.floor(Math.random() * 7); //生成[0,6]的随机数
+		var sBlock = aBlock[iRand][0].toString(2); //随机抽取一个方块，将其转换为2进制表示形式，但可能不够16位，前导0被忽略
+		sBlock = new Array(17-sBlock.length).join("0")+sBlock;  //补充前导0，补齐至16位  
+		//console.log(sBlock);
+		/*
+			0100
+			1100
+			1000
+			0000
+		 */
+		
+		var aBlockMatrix = sBlock.match(/\d{4}/g); 
+		//将16位二进制转换为4个一组的矩阵["0100","1100","1000","0000"]
+		
+		var aBlockPos = [];  //[{x:4,y:0},{x:3,y:1},{x:4,y:1},{x:3,y:2}]   初始坐标
+
+		for(var i=0;i<4;i++){
+			var sValue = aBlockMatrix[i];
+			for(var j=0;j<sValue.length;j++){
+				if(sValue[j] == "1"){
+					//i:0,j:1 => 4,0
+					//i:1,j:0 => 3,1
+					//i:1,j:1 => 4,1
+					//i:2,j:0 => 3,2
+					aBlockPos.push({
+						x:j+3,
+						y:i
+					});
+				}
+			}
+		}
+
+		for(var i=0;i<4;i++){
+			oBoard.rows[aBlockPos[i].y].cells[aBlockPos[i].x].style.background="red";
+		}
+
+
+
+
+		//3.移动方块
+		function move(direction){
+			//清空上一次颜色
+			for(var i=0;i<4;i++){
+				oBoard.rows[aBlockPos[i].y].cells[aBlockPos[i].x].style.background="transparent";
+			}
+
+			if(direction == "down"){
+				for(var i=0;i<4;i++){
+					aBlockPos[i].y++;
+				}
+			}else if(direction == "left"){
+				for(var i=0;i<4;i++){
+					aBlockPos[i].x--;
+				}
+			}else if(direction == "right"){
+				for(var i=0;i<4;i++){
+					aBlockPos[i].x++;
+				}
+			}
+
+			for(var i=0;i<4;i++){
+				oBoard.rows[aBlockPos[i].y].cells[aBlockPos[i].x].style.background="red";
+			}
+
+		}
+
+		setInterval(function(){
+			move("down");
+		}, 1000);
+
+
+		var index = 0;
+		document.onkeydown = function(e){
+			e = e || window.event;
+			var key = e.which || e.keycode; 
+
+			switch(key){
+				case 37:  //left
+					move("left");
+					break;
+				case 38:  //up 变形
+					
+					//清空原有位置
+					for(var i=0;i<4;i++){
+						oBoard.rows[aBlockPos[i].y].cells[aBlockPos[i].x].style.background="transparent";
+					}
+
+					//变形
+					index++;
+					var sBlock = aBlock[iRand][index%aBlock[iRand].length].toString(2); //
+					sBlock = new Array(17-sBlock.length).join("0") + sBlock;
+
+					var aBlockMatrix = sBlock.match(/\d{4}/g);
+
+					//找变形所在位置 4个块中的x，y坐标最小值，即为16格矩阵的头
+					var iMinX = aBlockPos[0].x;
+					var iMinY = aBlockPos[0].y;
+					for(var i=1;i<4;i++){
+						if(aBlockPos[i].x < iMinX){
+							iMinX = aBlockPos[i].x;
+						}
+						if(aBlockPos[i].y < iMinY){
+							iMinY = aBlockPos[i].y;
+						}
+					}
+
+					aBlockPos = [];
+					for(var i=0;i<4;i++){
+						var sValue = aBlockMatrix[i];  //4个一组的二进制
+						for(var j=0;j<sValue.length;j++){
+							if(sValue.charAt(j) == "1"){
+								aBlockPos.push({
+									x:j+iMinX,
+									y:i+iMinY
+								});
+							}
+						}
+					}
+
+					for(var i=0;i<4;i++){
+						oBoard.rows[aBlockPos[i].y].cells[aBlockPos[i].x].style.background="red";
+					}
+
+
+
+
+
+					break;
+				case 39:  //right
+					move("right");
+					break;
+				case 40:  //bottom
+					move("down");
+					break;
+
+			}
+		}; 
+
+
+		//4.方块变形
+		
+
+
+
+
+
+
+
+
+
+
+
+
+		//5.消行计分
+		//6.游戏结束
+	</script>
+</body>
+</html>
