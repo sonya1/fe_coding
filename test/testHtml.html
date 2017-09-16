@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>testHTML</title>
+	<style>
+	body{
+		height:2000px;
+		background: url(https://ss3.bdstatic.com/lPoZeXSm1A5BphGlnYG/skin/154.jpg?2);
+		background-attachment: scroll;
+		background-attachment: fixed;
+		/*display：block； 默认*/
+	}
+	.img{
+		border-radius: 50%;
+		display: block;/*块级*/
+		display: inline; /*内联*/
+		display: inherit;/*继承父元素的值*/
+		display: inline-block; /*行内块元素，一行显示，但可设宽高*/
+		display: inline-table;  /**/
+		display: list-item;/**/
+		/*display: none;/**/
+	}
+	.a1{
+		text-decoration: none;
+		text-decoration: underline;
+		text-decoration: line-through;
+		text-decoration: overline;
+
+	 	/*text-decoration: blink;  no use*/ 
+	}
+	p{
+		/*word-spacing: 50px;
+		letter-spacing: 10px;*/
+		display: inherit;
+	}
+	.div{
+		background:yellow;
+		width: 300px;
+		height: 200px;
+
+		text-align: left;
+		text-align: center;
+		text-align: right;
+		text-align: justify;
+
+		vertical-align: top;	
+		vertical-align: middle;	
+		vertical-align: bottom;	
+		/*vertical-align: text-top;	
+		vertical-align: text-bottom;	
+		vertical-align: baseline;	*/
+
+		text-indent: 24px;
+	}
+	.back{
+		background-size: contain;
+		 background-size: cover; 
+		/* background-size: 100% 100%; */
+		background: url(2.jpg);
+		width: 200px;
+		height: 200px;
+	}
+	</style>
+</head>
+<body>
+	<img src="1.jpg" alt="" class="img">sdfsf
+	<img src="noexits.jpg" alt="will show this twxt">
+
+	<input type="text" required>
+	<h3>Colors:	</h3>
+	<label for="blue">blue</label><input type="radio" name="color">
+	<label for="pink">pink</label><input type="radio" name="color">
+	<label for="green">green</label><input type="radio" name="color">	
+	<h3>Colors:	</h3>
+	<label for="green">green</label><input type="checkbox" name="color">
+	<label for="pink">pink</label><input type="checkbox" name="color">
+	<label for="green">green</label><input type="checkbox" name="color">
+	
+	<a href="http://www.qq.com" class="a1">link!!!</a>dasdad
+	
+	<p>hello world! i am sonya. Could you not angry now?</p>
+	
+	<div class="div">
+		a独生女咖啡咖啡吧顺丰那地方H<sub>2</sub>O女生咖啡分手那地方你X<sup>2</sup>流口水南方愤怒设宽度浪费你烦死了您稍等付款了你死定了开放男南非第三轮妇女
+	</div>
+
+	<div class="back">
+		
+	</div>
+</body>
+</html>
