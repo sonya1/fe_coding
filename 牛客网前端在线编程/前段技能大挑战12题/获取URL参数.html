@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<pre>
+		获取 url 中的参数
+		1. 指定参数名称，返回该参数的值 或者 空字符串
+		2. 不指定参数名称，返回全部的参数对象 或者 {}
+		3. 如果存在多个同名参数，则返回数组
+		输入:
+		getUrlParam('http://www.nowcoder.com?key=1&key=2&key=3&test=4#hehe', 'key')
+
+		输出:
+		['1', '2', '3']
+	</pre>
+
+	<script>
+		//1
+		function getUrlParam(sUrl, sKey) {
+
+		    var r = [] , s = null  , i = 0;
+		    var regexp = new RegExp(/[?&]([\w]*)=([^&#]*)/g);
+
+		    while((s = regexp.exec(sUrl)) != null){
+		        if(!r[s[1]])r[s[1]] = s[2];
+		        else if(typeof(r[s[1]]) == 'object'){
+		            r[s[1]].push(s[2]);
+		        }else{
+		            r[s[1]] = [r[s[1]],s[2]];
+		        }
+		    }
+		    if(sKey){
+		        //有参数，返回参数值或空
+		        if(r[sKey]){
+		            return r[sKey];
+		        }else{
+		            return '';
+		        }
+		    }else{
+		        return r;
+		    }
+		}
+
+
+		//2
+		function getUrlParam(sUrl, sKey) {
+		    var param = sUrl.split('#')[0].split('?')[1];
+		    if (sKey){//指定参数名称
+		        var strs = param.split('&');
+		        var arrs = new Array();//如果存在多个同名参数，则返回数组
+		        for(var i = 0, len = strs.length; i < len; i++){
+		            var tmp = strs[i].split('=');
+		            if(tmp[0] == sKey){
+		                arrs.push(tmp[1]);
+		            }
+		        }
+		        if (arrs.length == 1){//返回该参数的值或者空字符串
+		            return arrs[0];
+		        } else if (arrs.length == 0){
+		            return "";
+		        } else {
+		            return arrs;
+		        }
+		    } else {//不指定参数名称，返回全部的参数对象 或者 {}
+		        if(param == undefined || param == ""){
+		            return {};
+		        } else {
+		            var strs = param.split('&');
+		            var arrObj = new Object();
+		            for(var i = 0, len = strs.length; i < len; i++){
+		                var tmp = strs[i].split('=');
+		                if (!(tmp[0] in arrObj)) {
+		                    arrObj[tmp[0]] = [];
+		                }
+		                arrObj[tmp[0]].push(tmp[1]);               
+		            }
+		            return arrObj;
+		        }
+		    }
+		}
+
+		
+		console.log(  getUrlParam("http://www.nowcoder.com?key=1&key=2&key=3&test=4#hehe","key")  );//[1,2,3]
+		console.log(  getUrlParam("http://www.nowcoder.com?key=1&key=2&key=3&test=4#hehe")  );//[1,2,3]
+	</script>
+</body>
+</html>

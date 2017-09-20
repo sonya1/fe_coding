@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<pre>
+	描述：
+	封装函数 f，使 f 的 this 指向指定的对象
+	输入:bindThis(function(a, b){return this.test + a + b}, {test: 1})(2, 3)
+	输出:6
+	思路：
+	我们可以观察到
+	1.bindThis这个函数接受两个参数，第一个参数为执行函数，第二个参数是要指定的对象。
+	2.bindThis函数返回一个匿名函数
+	</pre>
+	<script>
+		//1.
+		function bindThis(f, oTarget) {
+		    return f.bind(oTarget);
+		}
+
+
+		//2
+		function bindThis(f, oTarget) {
+		    return function(){
+		        var parames = Array.prototype.slice.call(arguments);
+		        return f.apply(oTarget,parames); //注意这里需要返回f的执行结果
+		    }
+		}
+
+		//3
+		function bindThis(f, oTarget) {
+		    return function(){
+		        return f.apply(oTarget,arguments);
+		    }
+		}
+
+		console.log(  bindThis(function(a, b){return this.test + a + b}, {test: 1})(2, 3)  );
+	</script>
+
+</body>
+</html>

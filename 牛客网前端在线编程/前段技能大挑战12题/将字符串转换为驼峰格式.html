@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function cssStyle2DomStyle(sName) {
+			if(sName.indexOf("-")==0){
+				sName = sName.substring(1);
+			}
+			console.log(sName);
+			var reg = /\-[a-z]/g;
+		    return sName.replace(reg,function(e){
+		    	console.log(e+","+typeof e);
+
+		    	return e.substring(1).toUpperCase();
+		    });
+		}
+
+
+		console.log(cssStyle2DomStyle("font-size"));
+		console.log(cssStyle2DomStyle("-webkit-border-image"));
+	</script>
+</body>
+</html>

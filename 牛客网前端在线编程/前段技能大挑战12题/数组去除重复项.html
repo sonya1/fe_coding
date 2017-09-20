@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<pre>
+	为 Array 对象添加一个去除重复项的方法
+	示例1
+	输入
+
+	[false, true, undefined, null, NaN, 0, 1, {}, {}, 'a', 'a', NaN]
+	输出
+
+	[false, true, undefined, null, NaN, 0, 1, {}, {}, 'a']
+	</pre>
+
+	思路： 新建一个新数组用于存放重复的数组元素，通过两个循环，比较两个数组元素是否相同。外循环控制第一个比较元素，内循环控制第二个比较元素，如果有重复元素则将该元素添加到新数组中，最后返回这个新数组。
+
+	<script>
+		
+
+		Array.prototype.uniq = function () {
+		    var ret = [];
+		    var flag = true;
+		    for(var i=0;i<this.length;i++){
+		        if(ret.indexOf(this[i])==-1){
+		        	if(this[i]!==this[i]){   //NaN
+		        		if(flag){
+							ret.push(this[i]);
+							flag = false;
+		        		}
+		        	}else{
+						ret.push(this[i]);
+		        	}
+		        }
+		    }
+		    return ret;
+		}
+
+		var arr = [false, true, undefined, null, NaN, 0, 1, {}, {}, 'a', 'a', NaN];
+		//var arr = [0,1,2,0,1];
+		console.log( arr.uniq() );
+
+
+	</script>
+</body>
+</html>

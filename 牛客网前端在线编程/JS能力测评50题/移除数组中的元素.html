@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		/*function remove(arr, item) {  //不会改变原数组
+			return arr.filter(function(it,index,array){
+		        return it!=item;
+		    });
+		}
+		var arr = [1, 2, 3, 4, 2];
+		console.log(remove(arr, 2));
+		console.log(arr);
+*/
+
+	/*	function removeWithoutCopy(arr, item) {  //会改变原数组
+			for(var i=0;i<arr.length;i++){
+		        if(arr[i]===item){
+		            arr.splice(i,1);
+		            i--;
+		        }
+		    }
+		    return arr;
+		}
+
+		var arr = [1, 2, 3, 4, 2];
+		console.log(removeWithoutCopy(arr, 2));
+		console.log(arr);*/
+
+
+		//添加元素，改变原数组
+		/*function append(arr, item) {
+			return arr.push(item);
+		}
+		var arr = [1, 2, 3, 4];
+		console.log(append(arr,  10));
+		console.log(arr);*/
+
+		//添加元素，不改变原数组
+		/*function append(arr, item) {
+			var tmp = [];
+			for(key in arr){
+				tmp[key] = arr[key];
+			}
+		    tmp.push(item);
+		    return tmp;
+		}
+		var arr = [1, 2, 3, 4];
+		console.log(append(arr,  10));
+		console.log(arr);*/
+
+		//找出数组 arr 中重复出现过的元素
+		/*function duplicates(arr) {
+			var ret = [];
+		    for(var i=0;i<arr.length;i++){
+		        for(var j=i+1;j<arr.length;){
+		            if(arr[i]===arr[j]){
+		            	ret.push(arr.splice(j,1)[0]);
+		                break;
+		            }else{
+		                j++;
+		            }
+		        }
+		    }
+		    return ret;
+		}
+
+		console.log(duplicates([1, 2, 4, 4, 3, 3, 1, 5, 3]));*/
+
+
+		//parseInt
+		/*function parse2Int(num) {
+		    return parseInt(num,10);
+		}
+
+		console.log(parse2Int("12"));
+		console.log(parse2Int("12px"));
+		console.log(parse2Int("0x12"));*/
+
+
+		//计时器
+		/*function count(start, end) {
+			var timer;
+			var tmp = start;
+			console.log(tmp);
+		    timer = setInterval(function(){
+		    	console.log(++tmp);
+		    	if(tmp>=end){
+		    		clearInterval(timer);
+		    	}
+		    }, 100);
+		    return {
+		    	cancel:function(){
+		    		clearInterval(timer);
+
+		    	}
+		    };
+		}
+
+		count(1,10);*/
+
+		
+		//将数组 arr 中的元素作为调用函数 fn 的参数
+		/*function argsAsArray(fn, arr) {
+			return fn.apply(this,arr);
+		}
+
+		console.log(argsAsArray(function (greeting, name, punctuation) {return greeting + ', ' + name + (punctuation || '!');}, ['Hello', 'Ellie', '!']));
+*/
+		//返回函数
+		/*function functionFunction(str) {
+			return function(){
+				 return str + ","+arguments[0];
+		    };
+		}
+
+		console.log(functionFunction('Hello')('world'));*/
+
+
+		//使用闭包  !!!!!!!
+		/*function makeClosures(arr, fn) {
+			var result = [];
+		    for(var i=0;i<arr.length;i++){
+		        result.push(
+		        	// function(idx){
+		        	// 	alert(i);
+		        	// 	return fn(arr[idx]);	
+		        	// }
+		        	function(num){
+		        		return function(){
+		        			return fn(arr[num]);
+		        		};
+		        	}(i)
+		        );
+		  }
+		    return result;
+		}
+
+		var arr = [1,2,3];
+		var f = function(x){
+			return x * x; 
+		}
+		var ff = makeClosures(arr,f);
+		//console.log(ff[1]);
+		console.log(ff[2]());*/
+
+
+		//二次封装函数
+		/*function partial(fn, str1, str2) {
+			var result;
+			result = function(s){
+				return fn(str1,str2,s);
+			};
+			// result = function(s1,s2){
+			// 	return function(s3){
+			// 		return fn(s1,s2,s3);
+			// 	};
+			// }(str1,str2);
+			return result;
+		}
+
+		var sayIt = function(greeting, name, punctuation) { 
+			return greeting + ', ' + name + (punctuation || '!'); 
+		};
+
+		//console.log(partial(sayIt, 'Hello', 'Ellie')('!!!'));  //Hello, Ellie!!!
+		var ff = partial(sayIt, 'Hello', 'Ellie');  //Hello, Ellie!!!
+		console.log("ff-->"+ff);
+		console.log(ff("!!!"));*/
+
+		/*function callIt(fn) {
+		    return fn.apply(this,arguments.slice(1));
+		}*/
+
+		function test(){
+			return Array.prototype.slice.call(arguments,1);
+		}
+		console.log(test(1,2,3,4,5));
+
+	</script>
+</body>
+</html>

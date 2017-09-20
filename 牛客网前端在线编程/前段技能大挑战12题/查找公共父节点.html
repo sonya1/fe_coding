@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<pre>
+		
+			2.dom 节点查找
+描述：查找两个节点的最近的一个共同父节点，可以包括节点自身
+思路：
+
+有两个dom的节点，dom1,dom2
+1.判断dom1节点是否包含dom2节点；包含则返回dom1,不包含继续向下运行；
+2.判断dom2节点是否包含dom1节点；包含则返回dom2，不包含继续向下运行；
+3.通过其中一个节点dom1去获取该节点的父节点,dom_p;
+4.通过父节点dom_p去查dom_f的子节点，看dom2是否在父节点dom_f的子节点中;
+5.如果dom2在dom_f的子节点中，则dom_f是最近的父节点;
+6.如dom2不在dom_f的子节点中，则以domf_f继续去查dom_f的父节点，重复1，2，3，4步骤最终得出父节点dom_f
+
+	</pre>
+	<script>
+
+//实现1：
+
+function commonParentNode(oNode1, oNode2) {
+    if(oNode1.contains(oNode2)){
+        return oNode1;
+    }else if(oNode2.contains(oNode1)){
+        return oNode2;
+    }else{
+        return commonParentNode(oNode1.parentNode,oNode2);
+    }
+}
+//实现2：
+
+function commonParentNode(oNode1, oNode2) {
+    if(oNode2.contains(oNode1)) return oNode2;
+    while(oNode1) {
+        if(oNode1.contains(oNode2)){
+            return oNode1;
+        }
+        oNode1 = oNode1.parentNode;
+    }
+}
+
+
+//3
+function commonParentNode(oNode1, oNode2) {
+    for(;oNode1;oNode1=oNode1.parentNode){
+        if(oNode1.contains(oNode2)){
+            return oNode1;
+        }
+    }
+}
+	</script>
+</body>
+</html>
