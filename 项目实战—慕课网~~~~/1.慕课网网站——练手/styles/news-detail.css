@@ -1,0 +1,19 @@
+.list-box h1{
+	font-size: 20px;
+	text-align: center;
+	margin:10px 0;
+}
+.list-box .newsInfo{
+	color:#666;
+	text-align: center;
+	border-bottom:1px dotted #666;
+}
+.list-box .newsContent{
+	padding:20px;
+	font-size: 14px;
+	line-height: 25px;
+	text-indent: 2em;
+}
+.list-box .newsContent .center{
+	text-align: center;
+}

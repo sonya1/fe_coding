@@ -1,0 +1,278 @@
+*{
+	margin:0;
+	padding:0;
+	font-size: 12px;
+}
+ul{
+	list-style: none;
+}
+img{
+	border:0;
+}
+a{
+	text-decoration: none;
+}
+
+/*-------index start---------*/
+body{
+	background: #F5F5F5;
+}
+
+/*-------top start---------*/
+.top{
+	height:27px;
+	background: url(../images/top_bg.jpg);
+}
+.top_wrap{
+	width: 1000px;
+	margin: 0 auto;
+}
+.top ul{
+	float: right;
+}
+.top ul li{
+	list-style: url(../images/arrow.jpg);
+	float: left;
+	margin-right: 20px;
+	line-height: 27px;
+}
+.top ul li a {
+	color:#8e8e8e;
+}
+.top ul li a:hover{
+	color:#c00;
+}
+
+/*-------top end---------*/
+
+/*-------content start---------*/
+.wrap{
+	width: 1000px;
+	margin:0 auto;
+}
+.logo{
+	height:80px;
+	background: #fff;
+}
+.logo .left{
+	width: 200px;
+	height: 80px;
+	background: url(../images/logo.jpg);
+	float: left;
+}
+.logo .right{
+	float: right;
+	width: 300px;
+	height: 80px;
+	background: url(../images/tel.jpg) left no-repeat;
+	background-position: 0 35px; 
+	line-height: 90px;
+	text-indent: 38px;
+	color: #8E8E8E;
+}
+.logo .right .tel{
+	font-size: 22px;
+	color:#c00;
+}
+
+
+
+.nav{
+	height: 40px;
+}
+.nav .nav-left{
+	background: url(../images/nav_left.jpg);
+	width: 10px;
+	height: 40px;
+	float: left;
+}
+.nav .nav-mid{
+	background: url(../images/nav_bg.jpg);
+	height: 40px;
+	margin-left: 10px;
+	margin-right: 10px;
+	
+}
+.nav .nav-mid li{
+	width: 100px;
+	height: 41px;
+	float: left;
+	line-height: 41px;	
+	text-align: center;
+}
+.nav .nav-mid li a{
+	font-size: 16px;
+	color:#fff;
+}
+.nav .nav-mid li a:hover{
+	color:yellow;
+}
+
+.nav-mid .search-ipt{
+	width: 190px;
+	height: 25px;
+	padding-right: 25px;
+	margin-top: 5px;
+	margin-left: 90px;
+	background: url(../images/search.jpg) no-repeat right center;
+	background-color: #fff;
+	border:1px solid #fff;
+}
+
+.nav .nav-right{
+	height: 40px;
+	width: 10px;
+	background: url(../images/nav_right.jpg);
+	float: right;
+}
+
+.ads{
+	height: 320px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	overflow: hidden;
+}
+
+.main,.news,.product{
+	height: 250px;
+	border: 1px solid #E8E8E8;
+	background: #fff;
+}
+
+.main .news{
+	width: 340px;
+	float: left;
+}
+.title{
+	height: 35px;
+	line-height: 35px;
+	border-bottom: 2px solid #E8E8E8;
+	color: #786F66;
+}
+.title h2{
+	float: left;
+	margin-left: 20px;
+}
+.title a{
+	color: #786F66;
+	float: right;
+	margin-right: 10px;
+}
+
+.pic-news{
+	height: 80px;
+	margin-top: 10px;
+	line-height: 22px;
+}
+.pic-news img{
+	width: 113px;
+	height: 77px;
+	float: left;
+	margin:0 5px;
+}
+.pic-news a,.pic-product a{
+	color:#c00;
+}
+.news-list{
+	margin-top: 20px;
+	margin-left: 5px;
+}
+.news-list li{
+	border-bottom: 1px dotted #ccc;
+	background: url(../images/list.jpg) no-repeat left center;
+	padding-left: 10px;
+	height: 17px;
+	line-height: 17px;
+	margin: 8px;
+}
+.news-list li a{
+	color:#000;
+}
+.news-list li a:hover{
+	color:red;
+}
+.news-list .date{
+	float: right;
+	color:#999;
+}
+
+.main .product{
+	width: 410px;
+	float: left;
+	margin: 0 7px;
+}
+.pic-product{
+	height: 120px;
+	margin-top: 10px;
+	line-height: 22px;
+}
+.pic-product img{
+	width: 158px;
+	height: 106px;
+	float: left;
+	margin:0 5px;
+}
+.product-list{
+	width: 372px;
+    height: 37px;
+    background: url(../images/product_type_bg.jpg) no-repeat;
+    margin: 20px auto;
+}
+.product-list li{
+	float: left;
+	margin: 0 15px;
+	line-height: 37px;
+}
+
+.main .sidebar{
+	float: left;
+	width: 230px;
+	height: 250px;
+}
+
+.sidebar .video{
+	height: 185px;
+    margin-bottom: 7px;
+    border: 1px solid #E8E8E8;
+}
+.sidebar .service{
+    border: 1px solid #E8E8E8;
+}
+/*-------content end---------*/
+
+
+
+
+
+/*-------footer start---------*/
+
+.footer{
+	clear: both;
+	height:200px;
+	background: #e8e8e8;
+}
+.footer .footer-wrap{
+	width: 1000px;
+	margin:0 auto;
+	height:200px;
+
+}
+.footer-wrap>ul{
+	padding-top: 20px;
+}
+.footer-wrap ul li{
+	width: 200px;
+	float: left;
+	font-size: 18px;
+	color:#999;
+	text-align: center;
+	background: url(../images/line.png) no-repeat right ;
+	line-height: 30px;
+}
+.footer-wrap ul li ul li{
+	font-size: 14px;
+	
+}
+
+/*-------footer end---------*/
+
