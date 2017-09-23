@@ -1,0 +1,62 @@
+html
+
+<q>标签，短文本引用。注意要引用的文本不用加双引号，浏览器会对q标签自动添加双引号。
+
+<blockquote>标签，长文本引用。浏览器对<blockquote>标签的解析是缩进样式。
+
+<address>标签，为网页加入地址信息。浏览器上显示的样式为斜体，如果不喜欢斜体，当然可以，可以在后面的课程中使用 css 样式来修改它<address>标签的默认样式。
+
+使用mailto在网页中链接Email地址。
+<a href="mailto:yy@imooc.com?subject=观了不起的盖茨比有感&body=你好，对此评论有些想法。">对此影评有何感想，发送邮件给我</a>
+
+CSS继承：color继承，border不继承。
+
+元素的实际内容为 width+padding+border
+
+
+CSS样式设置小技巧
+1.水平居中设置-行内元素
+如果被设置元素为文本、图片等行内元素时，水平居中是通过给父元素设置 text-align:center 来实现的。
+<body>
+  <div class="txtCenter">我想要在父容器中水平居中显示。</div>
+</body>
+
+<style>
+  .txtCenter{
+    text-align:center;
+  }
+</style>
+
+2.水平居中设置-定宽块状元素
+“左右margin”值为“auto”来实现居中的。
+
+3.水平居中总结-不定宽块状元素方法
+（1）加入 table 标签（或设置display:table;margin:0 auto;）
+（2）设置 display: inline 方法：与第一种类似，显示类型设为 行内元素，进行不定宽元素的属性设置
+(display: inline,父元素text-align:center;)但也存在着一些问题：它将块状元素的 display 类型改为 inline，变成了行内元素，所以少了一些功能，比如设定长度值。
+（3）过给父元素设置 float，然后给父元素设置 position:relative 和 left:50%，子元素设置 position:relative 和 left: -50% 来实现水平居中。
+
+
+1.垂直居中-父元素高度确定的单行文本
+父元素高度确定的单行文本的竖直居中的方法是通过设置父元素的 height 和 line-height 高度一致来实现的。
+2.垂直居中-父元素高度确定的多行文本（方法一）
+方法一：使用插入 table  (包括tbody、tr、td)标签，同时设置 vertical-align：middle。
+
+css 中有一个用于竖直居中的属性 vertical-align，在父元素设置此样式时，会对inline-block类型的子元素都有用。（因为 td 标签默认情况下就默认设置了 vertical-align 为 middle，所以我们不需要显式地设置了。）
+
+
+3.垂直居中-父元素高度确定的多行文本（方法二）
+在 chrome、firefox 及 IE8 以上的浏览器下可以设置块级元素的 display 为 table-cell（设置为表格单元显示），激活 vertical-align 属性，但注意 IE6、7 并不支持这个样式, 兼容性比较差。display:table-cell;/*IE8以上及Chrome、Firefox*/
+vertical-align:middle;/*
+
+
+---------------------------------------------
+有一个有趣的现象就是当为元素（不论之前是什么类型元素，display:none 除外）设置以下 2 个句之一：
+
+ 1. position : absolute 
+
+ 2. float : left 或 float:right 
+
+简单来说，只要html代码中出现以上两句之一，元素的display显示类型就会自动变为以 display:inline-block（块状元素）的方式显示，当然就可以设置元素的 width 和 height 了，且默认宽度不占满父元素。
+
+如下面的代码，小伙伴们都知道 a 标签是 行内元素 ，所以设置它的 width 是 没有效果的，但是设置为 position:absolute 以后，就可以了。
