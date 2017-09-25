@@ -12,15 +12,19 @@ img{
 	border:0;
 }
 
+
 /*-----------*/
 header{
 	height:600px;
-	background: url(../img/banner.jpg) center center;
-
+	background-color: rgba(0,0,0,0.4);
+	/* background: url(../img/banner.jpg) center center;
+	background-size: cover; */
 }
 nav{
 	height:40px;
 	line-height: 40px;
+	
+	color:#fff;
 }
 nav .logo{
 	float:left;
@@ -34,7 +38,7 @@ nav ul li{
 a{
 	display: block;
 	margin:0 20px;
-	color:#888;
+	color:#fff;
 }
 header a:hover{
 	color:red;
@@ -93,7 +97,7 @@ header a:hover{
 	color:#fff;
 	text-align: center;
 } 
-.green .wrapper{
+.wrapper{
 	max-width: 1080px;
 	margin:0 auto;
 }
@@ -107,12 +111,12 @@ header a:hover{
 .green p{
 	padding:20px;
 }
-.wrapper ul{
+.green .wrapper ul{
 	margin: 0 auto;
 	width: 400px;
 	height: 100px;
 }
-.wrapper ul li{
+.green .wrapper ul li{
 	float:left;
 	width: 80px;
 	height: 80px;
@@ -127,7 +131,7 @@ header a:hover{
 }
 
 .content .purple{
-	background: purple;
+	background: #373259;
 }
 
 .grey .left1{
@@ -157,5 +161,90 @@ header a:hover{
 	background-color: rgba(36,47,54,0.5);
 }
 
+.purple{
+	color:#fff;
+	text-align: center;
+	padding:50px;
+}
+
+.purple ul{
+	width: 700px;
+	margin:30px auto;
+	height:1200px;
+}
+
+.purple li{
+	width: 248px;
+	height: 200px;
+	float: left;
+	/* border:1px solid #fff; */
+	padding: 50px;
+	/* box-sizing:border-box; */
+}
+
+.purple li p{
+	font-size: 16px;
+	letter-spacing: 1px;
+	text-align: left;
+}
+
+.purple li:first-child{
+	background: rgba(0,0,0,0.04);
+}
+.purple li:nth-child(2){
+	background: rgba(0,0,0,0.08);
+}
+.purple li:nth-child(3){
+	background: rgba(0,0,0,0.12);
+}
+.purple li:nth-child(4){
+	background: rgba(0,0,0,0.16);
+}
+.purple li:nth-child(5){
+	background: rgba(0,0,0,0.20);
+}
+.purple li:nth-child(6){
+	background: rgba(0,0,0,0.24);
+}
+.purple li:nth-child(7){
+	background: rgba(0,0,0,0.28);
+}
+.purple li:last-child{
+	background: rgba(0,0,0,0.32);
+}
 
 
+/*-------------------*/
+footer{
+	background: #333;
+	text-align: center;
+	color:#fff;
+	max-height:150px;
+	padding-top:20px;
+}
+footer ul{
+	width: 500px;
+	margin:0 auto;
+	height: 90px;
+	text-align: center;
+}
+footer li{
+	float:left;
+	padding:20px;
+}
+footer .copy:before{
+	content:"";
+	display: block;
+	clear: both;
+}
+footer .copy{
+	padding-bottom:20px;
+	font-size: 12px;
+}
+
+
+.main-wraper{
+	background: url(../img/banner.jpg) no-repeat center center;
+	background-size: cover;
+	background-attachment: fixed;
+}
