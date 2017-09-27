@@ -1,0 +1,9 @@
+1.用CSS绘制图标：用border产生斜线。基本图型拼出复杂图形
+2.CSS多重边框：outline、outline-offset、但是圆角就不贴合了。所以使用box-shadow：0 0 0 5px red，0 0 0 10px blue，0 0 0 15px green；多重边框效果，且圆角也贴合
+
+3.用CSS实现内凹圆角：径向渐变radial-gradient:从透明到颜色。
+以实现圆润的标签页
+
+
+
+3本CSS好书：《CSS权威指南》、《精通CSS高级web标准解决方案》、《CSS CESRETS》《CSS的秘密》
