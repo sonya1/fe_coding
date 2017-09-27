@@ -1,81 +1,182 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>文本图标对齐与定位二三事</title>
-<style>
-body { margin: 0; font: 14px/1.4 "Microsoft YaHei"; background-color: #EDEFF0; }
-a { color: #50B6E5; }
-.constr { width: 1200px; margin-left: auto; margin-right: auto; }
-.regist-head { height: 60px; line-height: 60px; padding-left: 30px; background-color: #be3948; color: #fff; font-size: 18px; }
-.regist-body { min-height: 400px; padding: 100px 0; background-color: #fff; }
-.regist-main { width: 600px; margin-left: auto; margin-right: auto; }
-.regist-group { margin-top: 20px; overflow: hidden; }
-.regist-label { width: 70px; padding-top: 10px; float: left; }
-.regist-cell { display: table-cell; *display: inline-block; }
-.regist-input { height: 18px; line-height: 18px; width: 260px; padding: 10px 5px; margin: 0 10px 0 0; border: 1px solid #d0d6d9; vertical-align: top; }
-.regist-code-input { width: 130px; }
-.regist-btn { display: inline-block; width: 160px; line-height: 40px; background-color: #39b94e; color: #fff; text-align: center; text-decoration: none; }
-.regist-btn:hover { background-color: #33a646; }
-.icon-warn { display: inline-block; width: 20px; height: 21px; background: url(http://img.mukewang.com/5453084a00016ae300120012.gif) no-repeat center; }
+	<meta charset="UTF-8">
+	<title>注册页面</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		ul{
+			list-style: none;
+		}
+		a{
+			text-decoration: none;
+		}
+		img{
+			border:0;
+		}
+		body{
+			background: #EDEFF0;
+		}
+		
+		header{
+			height: 60px;
+			background:#be3948;
+			color:#fff;
+			text-indent: 2em;
+			line-height: 60px;
+		}
+		.container{
+			max-width: 1200px;
+			margin:0 auto;
+			background: #fff;
+		}
+		section{
+			min-height: 400px;
+			padding: 100px;
+		}
 
-.regist-star { position: absolute; margin-left: -1em; font-family: simsun; color: #f30; }
-.regist-remark { position: absolute; line-height: 21px; padding-top: 9px; color: #666; }
-.regist-warn { padding-left: 20px; color: #be3948; }
-.regist-warn > .icon-warn { position: absolute; margin-left: -20px; }
-</style>
+		section form{
+			width: 600px;
+			margin:0 auto;
+		}
+		label{
+			width: 70px;
+			float: left;
+			margin-right: 12px;
+			padding-top: 15px;
+		}
+		
+		.text_ipt{
+			width: 260px;
+			height: 18px;
+			line-height: 18px;
+			padding: 10px 5px;
+		}
+		.code_ipt{
+			width: 140px;
+		}
+		.regist-group{
+			margin-bottom: 20px;
+		}
+		.regist-group span.require{
+			color:red;
+			position: absolute;
+			margin: 5px 0 0 -20px;
+		}
+		.regist_btn{
+			width: 160px;
+			height: 40px;
+			background: #39b94e;
+			color:#fff;
+			line-height: 40px;
+			text-align: center;
+			border:0;
+			cursor: pointer;
+		}
+		.regist_btn{
+			background-color:  #33a646;
+		}
+		.table_cell a{
+			color: #50B6E5;
+			text-decoration: underline;
+		}
+		.table_cell span{
+			margin:10px 10px;
+			position: absolute;
+			font-size: 14px;
+		}
+		.table_cell span.agree{
+			font-size: 14px;
+			margin: 0;
+		}
+		.table_cell span.warning{
+			color:#be3948;
+		}
+		.table_cell span.warning i{
+			display: inline-block;
+			width: 12px;
+			height: 12px;
+			vertical-align: middle;
+			background: url(warning.gif) no-repeat center;
+		}
+		.yanzhengma{
+			position: absolute;
+		}
+		/* input[type="checkbox"]{
+			margin:-10px 0 0 10px;
+		} */
+	</style>
 </head>
-
 <body>
-<div class="constr">
-    <div class="regist-head">注册</div>
-    <div class="regist-body">
-    	<div class="regist-main">
-        	<div class="regist-group">
-            	<label class="regist-label"><span class="regist-star">*</span>登录邮箱</label>
-                <div class="regist-cell">
-                	<input type="email" class="regist-input"><span class="regist-remark regist-warn">
-                    	<i class="icon-warn"></i>邮箱格式不准确（演示）
-                    </span>
-                </div>
-            </div>
-            <div class="regist-group">
-            	<label class="regist-label"><span class="regist-star">*</span>登录密码</label>
-                <div class="regist-cell">
-                	<input type="password" class="regist-input"><span class="regist-remark">
-                    	请输入6-16位密码，区分大小写，不能使用空格
-                    </span>
-                </div>
-            </div>
-            <div class="regist-group">
-            	<label class="regist-label"><span class="regist-star">*</span>用户昵称</label>
-                <div class="regist-cell">
-                	<input type="password" class="regist-input">
-                </div>
-            </div>
-            <div class="regist-group">
-            	<label class="regist-label">手机号码</label>
-                <div class="regist-cell">
-                	<input type="tel" class="regist-input">
-                </div>
-            </div>
-            <div class="regist-group">
-            	<label class="regist-label"><span class="regist-star">*</span>验 证 码</label>
-                <div class="regist-cell">
-                	<input class="regist-input regist-code-input"><img src="http://img.mukewang.com/545308540001678401500040.jpg">
-                </div>
-            </div>
-            <div class="regist-group">
-            	<label class="regist-label">&nbsp;</label>
-                <div class="regist-cell">
-                	<input type="checkbox" checked><label>我已阅读并同意<a href="##">慕课协议</a>。</label>
-                    <p>
-                    	<a href="javascript:" class="regist-btn">立即注册</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+	
+	<div class="container">
+		<header>注册</header>
+		<section>
+			<form action="">
+				<div class="regist-group">
+					<label for="email"><span class="require">*</span>登录邮箱</label>
+					<div class="table_cell">
+						<input type="email" name="email" class="text_ipt">
+						<span class="warning"><i></i>邮箱格式不准确（演示）</span>
+					</div>
+				</div>
+
+				<div class="regist-group">
+					<label for="password"><span class="require">*</span>登录密码</label>
+					<div class="table_cell">
+						<input type="text" name="password" class="text_ipt">
+						<span class="tips">请输入6-16位密码，区分大小写，不能使用空格</span>
+					</div>
+				</div>
+
+				<div class="regist-group">
+					<label for="nickname"><span class="require">*</span>用户昵称</label>
+					<div class="table_cell">
+						<input type="text" name="nickname" class="text_ipt">
+					</div>
+				</div>
+
+				<div class="regist-group">
+					<label for="tel">手机号码</label>
+					<div class="table_cell">
+						<input type="text" name="tel" class="text_ipt">
+					</div>
+				</div>
+
+				<div class="regist-group">
+					<label for="check"><span class="require">*</span>验证码</label>
+					<div class="table_cell">
+						<input type="text" name="check" class="text_ipt code_ipt"><img src="http://img.mukewang.com/545308540001678401500040.jpg" alt="" class="yanzhengma">
+					</div>
+				</div>
+	
+				<div class="regist-group">
+					<label for="">&nbsp;</label>
+					<div class="table_cell">
+						<input type="checkbox" checked><span class="agree">我已阅读并同意<a href="#">慕课协议。</a></span>
+						 <p>
+	                    	<input type="submit" value="立即注册" class="regist_btn">
+	                    </p>
+					</div>
+				</div>
+				<!-- <div class="regist-group">
+					<label for="">&nbsp;</label>
+					<div class="table_cell">
+						<input type="checkbox" checked><span class="agree">我已阅读并同意<a href="#">慕课协议。</a></span>
+					</div>
+				</div>
+				
+				<div class="regist-group">
+					<label for="">&nbsp;</label>
+					<div class="table_cell">
+						<input type="submit" value="立即注册" class="regist_btn">
+					</div>
+				</div> -->
+			</form>
+		</section>
+	</div>
 </body>
 </html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		ul{
+			list-style: none;
+		}
+		a{
+			text-decoration: none;
+		}
+		img{
+			border:0;
+		}
+		.container{
+			width: 185px;
+			background: rgb(235,243,250);
+			padding:12px;
+			margin: 150px auto;
+		}
+		input[type="text"]{
+			width: 180px;
+			height: 30px;
+			text-indent: 1em;
+		}
+		input[type="checkbox"]{
+			vertical-align: middle;
+		}
+		p{
+			margin-bottom: 15px;
+		}
+		p span{
+			font-size: 12px;
+		}
+		p span.auto_login{
+			float: left;
+			margin-left: 5px;
+		}
+		p span.forget{
+			float: right;
+			margin-right: 5px;
+		}
+		p.line_info:after{
+			content:"";
+			display: block;
+			clear: both;
+		}
+		i{
+			background: url(login.jpg);
+			width: 190px;
+			height: 37px;
+			margin-bottom: 2px;
+			display: block;
+			cursor: pointer;
+		}
+		.login{
+			background-position: 0 0;
+		}
+		.regist{
+			background-position: 0 -38px;
+		}
+		input[type="image"]{
+			background: url(login.jpg);
+			width: 190px;
+			height: 37px;
+			margin-bottom: 2px;
+			display: block;
+		}
+		input[type="image"].regist{
+			background-position: 0 -38px;
+			
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<p><input type="text" placeholder="邮箱/手机号/用户名"></p>
+		<p><input type="text" placeholder="请输入密码"></p>
+		<p class="line_info"><span class="auto_login"><input type="checkbox">下次自动登录</span><span class="forget"><a href="#">忘记密码？</a></span></p>
+		<i class="login"></i>
+		<i class="regist"></i>
+		<form action="">
+			<input type="image" value="" class="login">
+			<input type="image" value="" class="regist">
+		</form>
+	</div>
+</body>
+</html>

@@ -18,21 +18,21 @@
 	<div class="container">
 		<img src="http://img.mukewang.com/54447b06000171a002560191.jpg" alt="">
 	</div>
-	<button>容器absolute化</button>
+	<button>图片absolute化</button>
 	<script>
-		var oCon = document.getElementsByTagName("div")[0],
+		var oImg = document.getElementsByTagName("img")[0],
 			oBtn = document.getElementsByTagName("button")[0];
 
-		if(oCon && oBtn){
+		if(oImg && oBtn){
 			var btn_initValue = oBtn.value;
 			oBtn.onclick = function(){
 				if(this.absolute){
-					oCon.style.position = "";
+					oImg.style.position = "";
 					this.value = btn_initValue;
 					this.absolute = false;
 				}else{
-					oCon.style.position = "absolute";
-					this.value = "容器去absolute";
+					oImg.style.position = "absolute";
+					this.value = "图片去absolute";
 					this.absolute = true;
 				}
 			};
