@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		html,body{
+			margin:0;
+			padding:0;
+			width: 100%;
+			height: 100%;
+		}
+		.page{
+			position: absolute;
+			top:0;
+			left:0;
+			right:0;
+			bottom:0;
+			background: red;
+		}
+		.list{
+			width: 33.33%;
+			height: 33.33%;
+			float: left;
+			position: relative;
+		}
+		.list:before{
+			background: #cad5eb;
+			border-radius: 15px;
+			content:"";
+			position: absolute;
+			top:10px;
+			left:10px;
+			right:10px;
+			bottom:10px;
+		}
+		.list:after{
+			content:attr(data-index);
+			height: 0px;
+			position: absolute;
+			top:0;
+			left:0;
+			right:0;
+			bottom:0;
+			text-align: center;
+			margin: auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="page">
+		<div class="list" data-index="1"></div>
+		<div class="list" data-index="2"></div>
+		<div class="list" data-index="3"></div>
+		<div class="list" data-index="4"></div>
+		<div class="list" data-index="5"></div>
+		<div class="list" data-index="6"></div>
+		<div class="list" data-index="7"></div>
+		<div class="list" data-index="8"></div>
+		<div class="list" data-index="9"></div>
+	</div>
+</body>
+</html>

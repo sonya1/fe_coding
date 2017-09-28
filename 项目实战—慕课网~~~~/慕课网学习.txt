@@ -17,7 +17,7 @@ CSS雪碧图应用
 
 
 CSS动画实用技巧（看了一点）
-CSS深入理解之absolute （待写）
+CSS深入理解之absolute 
 
 
 H5+JS+CSS3实现七夕言情  ？？
