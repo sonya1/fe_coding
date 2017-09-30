@@ -18,8 +18,12 @@ CSS雪碧图应用
 
 CSS动画实用技巧（看了一点）
 CSS深入理解之absolute 
+<<<<<<< HEAD
 CSS深入理解之absolute（待写）
 CSS深入理解之overflow（待看）
+=======
+分页页码制作（代写）
+>>>>>>> origin/master
 
 H5+JS+CSS3实现七夕言情  ？？
 手把手教你实现电商网站开发 ？？ （待写）
@@ -36,3 +40,25 @@ ps切图：
 
 2.jpeg图片
 找到图层后，框选出要切的位置区域，图像--剪裁--保存即可
+
+：first-child：
+
+选择列表中的第一个 <li> 元素并设置其样式：
+li:first-child
+{
+background:yellow;
+}
+
+：after{
+content:"";
+display:block;
+clear:both;
+}
+
+:before{
+	content:"";
+
+}
+
+
+

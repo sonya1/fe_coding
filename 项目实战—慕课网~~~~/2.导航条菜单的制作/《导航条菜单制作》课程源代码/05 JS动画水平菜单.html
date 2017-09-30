@@ -18,9 +18,12 @@ window.onload=function(){
 	var aA=oNav.getElementsByTagName('a');
 	for(var i=0; i<aA.length; i++){
 		aA[i].onmouseover=function(){
+			//alert(this);
 			if(this.className!="on"){
 				clearInterval(this.timer);
 				var This=this;
+						console.log(this+","+this.offsetWidth);
+
 				This.time=setInterval(function(){
 					This.style.width=This.offsetWidth+8+"px";
 					if(This.offsetWidth>=120)
