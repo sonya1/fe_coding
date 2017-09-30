@@ -18,12 +18,12 @@ CSS雪碧图应用
 
 CSS动画实用技巧（看了一点）
 CSS深入理解之absolute 
-<<<<<<< HEAD
+
 CSS深入理解之absolute（待写）
 CSS深入理解之overflow（待看）
-=======
-分页页码制作（代写）
->>>>>>> origin/master
+
+分页页码制作（差最后两个）
+
 
 H5+JS+CSS3实现七夕言情  ？？
 手把手教你实现电商网站开发 ？？ （待写）
