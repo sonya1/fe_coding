@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.page{
+			text-align: center;
+			font-size: 0;
+			/* width: 500px;
+			margin:0 auto;
+			background: #666; */
+		}
+		.page a{
+			font-size: 14px;
+			border:1px solid rgb(255,155,0);
+			color:rgb(255,101,0);
+			background-color: #fff;
+			padding: 5px 7px;
+			text-decoration: none;
+			margin-right: 10px;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+		}
+		.page a.current{
+			border:1px solid rgb(255,101,0);
+			color:rgb(255,101,0);
+			background-color: rgb(255,190,148);
+		}
+		.page a:hover{
+			border:1px solid rgb(255,101,0);
+			color:rgb(255,101,0);
+			background-color: rgb(255,190,148);
+		}
+		.page a.prev{
+			border:1px solid rgb(255,227,70);
+			color:rgb(255,227,70);
+			background-color: #fff;
+		}
+		a i{
+			display: inline-block;
+			width: 5px;
+			height: 8px;
+			background: url("源代码/img/bg_hotsale.gif");
+		}
+		a i.prev_icon{
+			margin-right: 5px;
+			background-position: -79px -608px;
+		}
+		a i.next_icon{
+			margin-left: 5px;
+			background-position: -62px -608px;
+		}
+	</style>
+</head>
+<body>
+	<div class="page">
+		<a href="javascript:;" class="prev"><i class="prev_icon"></i>上一页</a>
+		<a href="javascript:;" class="current">1</a>
+		<a href="javascript:;">2</a>
+		<a href="javascript:;">3</a>
+		<a href="javascript:;">4</a>
+		<a href="javascript:;">5</a>
+		<a href="javascript:;">6</a>
+		<a href="javascript:;">7</a>
+		<a href="javascript:;">...</a>
+		<a href="javascript:;">199</a>
+		<a href="javascript:;">200</a>
+		<a href="javascript:;">下一页<i class="next_icon"></i></a>
+	</div>
+</body>
+</html>

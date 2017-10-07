@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.tb{
+			width: 1190px;
+			height: 2787px;
+			background: url(tb_bg.jpg);
+			margin:0 auto;
+		}
+		#btn{
+			width: 40px;
+			height: 40px;
+			background: url(top_bg.png) no-repeat left top;
+			position: fixed;
+			right: 30px;
+			bottom:20px;
+		}
+		#btn:hover{
+			background-position: left bottom;
+		}
+	</style>
+</head>
+<body>
+	<a href="javascript:;" id="btn"></a>
+	<div class="tb"></div>
+
+	<script>
+	window.onload = function(){
+		var oBtn = document.getElementById("btn"),
+			timer = null,
+			isScroll = true;
+
+		//滚动条滚动时触发  滚轮也会触发啊
+		window.onscroll = function(){
+			//console.log("滚定中。。。");
+			if(!isScroll){
+				console.log(11);
+				clearInterval(timer);
+			}
+			isScroll = false;
+		};
+
+		oBtn.onclick = function(){
+			timer = setInterval(function(){
+				var iTop = document.documentElement.scrollTop || document.body.scrollTop;
+				var iSpeed = Math.ceil(iTop / 5);  //越来越小
+
+				document.documentElement.scrollTop = document.body.scrollTop -= iSpeed;  //由快到慢
+				//console.log(iTop);
+				isScroll = true;
+				if(iTop == 0){
+					clearInterval(timer);
+				}
+
+			},30);
+		};
+		
+	};
+	</script>
+</body>
+</html>
