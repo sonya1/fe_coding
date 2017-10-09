@@ -60,7 +60,7 @@
 }
 @-webkit-keyframes spinner {
   0% {
-    -webkit-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);/*旋转*/
     transform: rotate(0deg);
   }
   100% {
@@ -106,7 +106,7 @@
 .love:before{
 	z-index: 1;
 	color: #ea515e;
-	-webkit-transform: scale(0);
+	-webkit-transform: scale(0); /*缩放*/
 	-moz-transform: scale(0);
 	-ms-transform: scale(0);
 	transform: scale(0);
