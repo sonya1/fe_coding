@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.test{
+			width: 200px;
+			height: 200px;
+			border:100px solid #fff;
+			border-top-color:yellow; 
+			border-bottom-color:green; 
+			border-left-color:blue; 
+			border-right-color:#000; 
+			border-radius: 50%;
+			animation:snipper 1s infinite linear;
+			-webkit-animation:snipper 1s infinite linear;
+		}
+
+		@keyframes snipper{
+			0%{
+				transform:rotate(0deg);
+				-webkit-transform:rotate(0deg);
+			}
+			100%{
+				transform:rotate(360deg);
+				-webkit-transform:rotate(360deg);
+			}
+		}
+
+	</style>
+</head>
+<body>
+	<h2>转盘啦啦啦~~</h2>
+	<div class="test"></div>
+</body>
+</html>

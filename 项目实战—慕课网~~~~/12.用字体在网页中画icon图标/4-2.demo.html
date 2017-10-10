@@ -24,6 +24,7 @@
 			float: left;
 			width: 250px;
 			height:250px;
+			position: relative;
 		}
 		ul li a{
 			height: 250px;
@@ -43,6 +44,8 @@
 			font-size: 128px;
 			-webkit-font-smoothing: antialiased;
 			-moz-osx-font-smoothing: grayscale;
+
+			display: block;
 		}
 
 		@font-face{
@@ -62,23 +65,116 @@
 		.icon-spinner:before {
 			content: "\e600";
 		}
-		.icon-heart:after {
-			content: "\e602";
-		}
-		.icon-heart:before {
-			content: "\e601";
-		}
+
 		.shadow{
 			color: #fff;
 			text-shadow: 5px 5px 0px #b13947, 10px 10px 0px rgba(0, 0, 0, 0.15);
+		}
+
+		.spinner{
+			/* -webkit-animation: spinner 2s infinite linear;
+			animation: spinner 2s infinite linear; */
+
+			animation:snipper 1s infinite linear;
+			-webkit-animation:snipper 1s infinite linear;
+			display: block;  /*!!!!!!*/
+		}
+
+		@keyframes snipper{
+			0%{
+				transform:rotate(0deg);
+				-webkit-transform:rotate(0deg);
+			}
+			100%{
+				transform:rotate(360deg);
+				-webkit-transform:rotate(360deg);
+			}
+		}
+
+		.icon-heart{
+			position: relative;
+			width: 100%;
+			height: 100%;
+			display: block;
+			vertical-align: middle;
+			text-align: center;
+			cursor: pointer;
+		}
+		.icon-heart:before,.icon-heart:after{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+		.icon-heart:after {
+			content: "\e602";
+			color:#ccc;
+		}
+		 .icon-heart:before {
+			content: "\e601";
+			transform:scale(0);
+			opacity: 0; 
+			color:#ea515e;
+			z-index: 1;
+		} 
+
+		.icon-heart:before{
+			animation:omg 0.5s forwards ;
+			-webkit-animation:omg 0.5s forwards ;
+		}
+		.actived{
+			animation:omg 0.5s forwards;
+			-webkit-animation:omg 0.5s forwards ;
+		}
+
+		@keyframes omg{
+			50%{
+				transform:scale(1);
+				opacity: 1;
+			}
+			to{
+				opacity: 0;
+				transform:scale(2.5);
+			}
+		}
+		@-webkit-keyframes omg{
+			50%{
+				transform:scale(1);
+				opacity: 1;
+			}
+			to{
+				opacity: 0;
+				transform:scale(2.5);
+			}
 		}
 	</style>
 </head>
 <body>
 	<ul>
 		<li><a href=""><i class="icon-like shadow"></i></a></li>
-		<li><a href=""><i class="icon-spinner"></i></a></li>
+		<li><a href=""><i class="icon-spinner spinner"></i></a></li>
 		<li><a href=""><i class="icon-heart"></i></a></li>
 	</ul>
+
+	
+	<script src="jquery.js"></script>
+	<script>
+		$(function(){
+			$(".icon-heart").on("click",function(){
+
+				
+				/*$(this).addClass("actived");*/
+
+				var $this = $(this);
+				$this.addClass("actived");
+				setTimeout(function(){
+					console.log(12);
+					alert(111);
+					$this.removeClass("actived");
+				},500)
+			});
+		});
+	</script>
 </body>
 </html>

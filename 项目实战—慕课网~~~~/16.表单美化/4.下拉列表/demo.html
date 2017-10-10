@@ -24,6 +24,7 @@
 			left:50%;
 			transform:translate(-50%,-50%);
 			border:3px solid #333;
+			
 		}
 		.province{
 			width: 320px;
@@ -53,12 +54,19 @@
 			cursor: pointer;
 		}
 		.province #list{
+			position: absolute;
+
 			clear: both;
 			background: #FFF;
 		    border: 1px solid #dfdfdf;
 		    border-bottom: none;
 		    padding-left: 15px;
-		    display: none;
+		    display: none;  
+			
+			width: 302px;
+   			margin-top: 42px;
+
+		    z-index: 100; 
 		}
 		.province #list li{
 			border-bottom:1px solid #ccc;
@@ -75,9 +83,24 @@
 		.province #list li a:hover{
 			color:#c00;
 		}
+
+		.layer2{
+			position: absolute;
+			top:0;
+			left:0;
+			width: 100%;
+			height: 100%;
+			/* background: blue; */
+			opacity: 0.5;
+			display: none;
+			
+			z-index: 1;
+		}
 	</style>
 </head>
 <body>
+	<!-- <div class="layer2" id="layer2"></div> -->
+
 	<div class="layer">
 		<div class="province">
 			<span class="title">送货至</span>
@@ -103,16 +126,45 @@
 			</ul>
 		</div>
 	</div>
+
+	
 	
 	<script src="../jquery-1.4.4.min.js"></script>
 	<script>
 		$(function(){
 			var oSelect = document.getElementById("select");
 			var oList = document.getElementById("list");
+			//var oLayer = document.getElementById("layer2");
 			oSelect.onclick = function(){
 				//alert($("#list"));
 				oList.style.display = "block";
+				oList.style.zIndex = "100";
+				oList.style.position = "absolute";
+
+			/*	oLayer.style.display = "block";
+				oLayer.style.zIndex = "1";*/
+
+				oSelect.style.color = "#ccc";
+				oSelect.style.backgroundPosition = "100% -17px";
+
 			};
+
+		/*	oLayer.onclick = function(){
+				oList.style.display = "none";
+				oSelect.style.color = "#000";
+			};*/
+
+			
+
+			var $as = $("#list a");
+			//console.log($as);
+			for(var i=0;i<$as.length;i++){
+				$as[i].onclick = function(){
+					oSelect.innerHTML = $(this).html();
+					oList.style.display = "none";
+					oSelect.style.color = "#000";
+				};
+			}
 		});
 	</script>
 </body>
