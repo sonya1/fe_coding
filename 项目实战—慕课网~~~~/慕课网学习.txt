@@ -195,3 +195,18 @@ font图标：icomoon官网
 
 
 获取当前滚动的高度：document.documentElement.scrollTop || document.body.scrollTop;
+
+
+如果 input 元素中输入的值为合法的，设置其为黄色:
+input:valid
+{ 
+background-color: yellow;
+}
+
+如果 input 元素中的值是非法的，设置样式为红色：
+input:invalid
+{ 
+border:2px solid red;
+}
+
+font:14px/20px 等于 font-size:14px;line-height:20px;
