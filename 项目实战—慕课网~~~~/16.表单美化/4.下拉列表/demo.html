@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		ul{
+			list-style: none;
+		}
+		body{
+			background: #666;
+			font: 13px/26px "微软雅黑";
+		}
+		.layer{
+			width: 500px;
+			height: 326px;
+			background: #fff;
+			position: absolute;
+			top:50%;
+			left:50%;
+			transform:translate(-50%,-50%);
+			border:3px solid #333;
+		}
+		.province{
+			width: 320px;
+			height: 42px;
+			background: #c00;
+			margin:80px auto;
+		}
+		.province .title{
+			padding-left: 15px;
+			color:#fff;
+			font-weight: 600;
+			display: block;
+			float:left;
+			line-height: 42px;
+			margin-right: 3px;
+		}
+		.province .area{
+			width: 200px;
+			height: 24px;
+			line-height: 24px;
+			display: block;
+			float:left;
+			border:1px solid #999;
+			margin-top: 8px; 
+			padding-left:4px;
+			background:#fff url(arrow.png) no-repeat 100% -2px;
+			cursor: pointer;
+		}
+		.province #list{
+			clear: both;
+			background: #FFF;
+		    border: 1px solid #dfdfdf;
+		    border-bottom: none;
+		    padding-left: 15px;
+		    display: none;
+		}
+		.province #list li{
+			border-bottom:1px solid #ccc;
+		}
+		.province #list li b{
+			margin-right: 10px;
+		}
+		.province #list li a{
+			text-decoration: none;
+			color:#000;
+			display: inline-block;
+			margin-right: 15px;
+		}
+		.province #list li a:hover{
+			color:#c00;
+		}
+	</style>
+</head>
+<body>
+	<div class="layer">
+		<div class="province">
+			<span class="title">送货至</span>
+			<div class="area" id="select">
+				北京
+			</div>
+			<ul id="list">
+				<li><b>A</b><a href="javascript:">安徽</a></li>
+				<li><b>B</b><a href="javascript:">北京</a></li>
+				<li><b>C</b><a href="javascript:">重庆</a></li>
+				<li><b>F</b><a href="javascript:">福建</a></li>
+				<li><b>G</b><a href="javascript:">广东</a><a href="javascript:">广西</a></li>
+				<li><b>H</b><a href="javascript:">河北</a><a href="javascript:">河南</a><a href="javascript:">黑龙江</a></li>
+				<li><b>J</b><a href="javascript:">吉林</a><a href="javascript:">江苏</a></li>
+				<li><b>L</b><a href="javascript:">辽宁</a></li>
+				<li><b>N</b><a href="javascript:">内蒙古</a></li>
+				<li><b>Q</b><a href="javascript:">青海</a></li>
+				<li><b>S</b><a href="javascript:">上海</a><a href="javascript:">山东</a></li>
+				<li><b>T</b><a href="javascript:">天津</a></li>
+				<li><b>X</b><a href="javascript:">新疆</a></li>
+				<li><b>Y</b><a href="javascript:">云南</a></li>
+				<li><b>Z</b><a href="javascript:">浙江</a></li>
+			</ul>
+		</div>
+	</div>
+	
+	<script src="../jquery-1.4.4.min.js"></script>
+	<script>
+		$(function(){
+			var oSelect = document.getElementById("select");
+			var oList = document.getElementById("list");
+			oSelect.onclick = function(){
+				//alert($("#list"));
+				oList.style.display = "block";
+			};
+		});
+	</script>
+</body>
+</html>

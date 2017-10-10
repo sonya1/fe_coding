@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		a{
+			text-decoration: none;
+		}
+
+		.type{
+			width: 400px;
+			height: 32px;
+			margin:30px auto;
+			border:1px solid #ccc;
+			padding-left: 15px;
+		}
+		.type li{
+			float: left;
+			margin-right: 18px;
+			font-size: 14px;
+			line-height: 32px;
+		}
+		.type li a{
+			color:#000;
+		}
+		.type li a:hover{
+			color:red;
+			text-decoration: underline;
+		}
+		.type li a:hover i{
+			background-position: -12px -116px;
+		}
+		.type li a i{
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+			background: url(radiobutton.gif) no-repeat -12px -16px;
+			margin-right: 5px;
+			vertical-align: text-bottom;
+		}
+		.type li.selected a i{
+			background-position: -12px -217px;
+		}
+	</style>
+</head>
+<body>
+	<ul class="type" id="type">
+		<li>配送类型：</li>
+		<li class="selected"><a href="javascript:"><i></i>全部</a></li>
+		<li><a href="javascript:"><i></i>京东配送</a></li>
+		<li><a href="javascript:"><i></i>第三方配送</a></li>
+	</ul>
+	
+	<script src="../jquery-1.4.4.min.js"></script>
+	<script>
+		window.onload = function(){
+			var oUl = document.getElementById("type");
+			var aLi = oUl.getElementsByTagName("li");
+			for(var i=1;i<aLi.length;i++){
+				aLi[i].onclick = function(){
+					//alert($(this));
+					$(this).addClass("selected").
+							siblings().removeClass("selected");
+				};
+			}
+		};
+	</script>
+</body>
+</html>
