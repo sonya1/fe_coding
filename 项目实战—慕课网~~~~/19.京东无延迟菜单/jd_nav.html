@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin:0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		a{
+			text-decoration: none;
+			color:#000;
+		}
+		body{
+			font: 14px/28px "微软雅黑";
+		}
+
+		.wrap{
+			width: 190px;
+			background: red;
+			position: relative;
+		}
+		.wrap ul{
+			background: #6e6568;
+			padding: 20px 0;
+		}
+		.wrap ul li{
+			padding-left: 14px;
+			height: 28px;
+			line-height: 28px;
+			color:#fff;
+		}
+		.wrap ul li:hover{
+			background: #999395;
+		}
+		.wrap ul li a{
+			color:#fff;
+		}
+		.wrap ul li a:hover{
+			color:#c81623;
+		}
+
+		/*-----sub---------------*/
+		.sub{
+			width: 1000px;
+			min-height: 510px;
+			position: absolute;
+			top:0;
+			left:190px;
+			background: rgb(247,247,247);
+			display: none;
+		}
+		.sub dl{
+			margin:10px 20px;
+			color:#666;
+		}
+		.sub dl:after{
+			content:"";
+			clear:both;
+			border-bottom: 1px solid #ccc;
+			display: block;
+			margin-left:11%;
+		}
+		.sub dl dt{
+			font-weight: 700;
+			cursor: pointer;
+			margin-top: 6px;
+			float: left;
+			width: 90px;
+			text-align: right;
+		}
+		.sub dl dt i{
+			font-style: normal;
+			margin-left: 10px;
+		}
+		.sub dl dd{
+			float: left;
+			cursor: pointer;
+			margin:10px 20px;
+			border-left:1px solid #ccc;
+			padding: 0 8px;
+			height: 16px;
+			line-height: 16px;
+		}
+		.sub dl dt:hover{
+			color:#c81623;
+			
+		}
+		.sub dl dd:hover{
+			color:#c81623;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<ul>
+			<li><a href="#">家用电器</a></li>
+
+			<li><a href="#">手机</a> / <a href="#">运营商</a> / <a href="#">数码</a></li>
+			
+			<li><a href="#">电脑</a> / <a href="#">办公</a></li>
+			
+			<li><a href="#">家居</a> / <a href="#">家具</a> / <a href="#">家装</a> / <a href="#">厨具</a></li>
+			
+			<li><a href="#">男装</a> / <a href="#">女装</a> / <a href="#">童装</a> / <a href="#">内衣</a></li>
+			
+			<li><a href="#">美妆个护</a> / <a href="#">宠物</a></li>
+			
+			<li><a href="#">女鞋</a> / <a href="#">箱包</a> / <a href="#">钟表</a> / <a href="#">珠宝</a></li>
+			
+			<li><a href="#">男鞋</a> / <a href="#">运动</a> / <a href="#">户外</a></li>
+			
+			<li><a href="#">汽车</a> / <a href="#">汽车用品</a></li>
+			
+			<li><a href="#">母婴</a> / <a href="#">玩具乐器</a></li>
+			
+			<li><a href="#">食品</a> / <a href="#">酒类</a> / <a href="#">生鲜</a> / <a href="#">特产</a></li>
+			
+			<li><a href="#">礼品鲜花</a> / <a href="#">农资绿植</a></li>
+			
+			<li><a href="#">医药保健</a> / <a href="#">计生情趣</a></li>
+			
+			<li><a href="#">图书</a> / <a href="#">音像</a> / <a href="#">电子书</a> </li>
+			
+			<li><a href="#">机票</a> / <a href="#">酒店</a> / <a href="#">旅游</a> / <a href="#">生活</a></li>
+			
+			<li><a href="#">理财</a> / <a href="#">众筹</a> / <a href="#">白条</a> / <a href="#">保险</a></li>
+
+		</ul>
+
+		<div class="sub" data-index="0">
+						<dl>
+				<dt>电视<i>&gt;</i></dt>
+				<dd>曲面电视</dd>
+				<dd>超薄电视</dd>
+				<dd>HDR电视</dd>
+				<dd>OLED电视</dd>
+				<dd>4K超清电视</dd>
+				<dd>65英寸</dd>
+				<dd>电视配件</dd>
+			</dl>
+
+			<dl>
+				<dt>空调<i>&gt;</i></dt>
+				<dd>壁挂式空调</dd>
+				<dd>柜式空调</dd>
+				<dd>中央空调</dd>
+				<dd>以旧换新0元安装</dd>
+				<dd>空调配件</dd>
+			</dl>
+
+			<dl>
+				<dt>洗衣机<i>&gt;</i></dt>
+				<dd>曲面电视</dd>
+				<dd>超薄电视</dd>
+				<dd>HDR电视</dd>
+				<dd>OLED电视</dd>
+				<dd>4K超清电视</dd>
+				<dd>65英寸</dd>
+				<dd>电视配件</dd>
+			</dl>
+
+			<dl>
+				<dt>冰箱<i>&gt;</i></dt>
+				<dd>壁挂式空调</dd>
+				<dd>柜式空调</dd>
+				<dd>中央空调</dd>
+				<dd>以旧换新0元安装</dd>
+				<dd>空调配件</dd>
+			</dl>
+
+			<dl>
+				<dt>厨卫大点<i>&gt;</i></dt>
+				<dd>曲面电视</dd>
+				<dd>超薄电视</dd>
+				<dd>HDR电视</dd>
+				<dd>OLED电视</dd>
+				<dd>4K超清电视</dd>
+				<dd>65英寸</dd>
+				<dd>电视配件</dd>
+			</dl>
+
+			<dl>
+				<dt>厨卫小店<i>&gt;</i></dt>
+				<dd>壁挂式空调</dd>
+				<dd>柜式空调</dd>
+				<dd>中央空调</dd>
+				<dd>以旧换新0元安装</dd>
+				<dd>空调配件</dd>
+			</dl>
+
+			<dl>
+				<dt>生活电器<i>&gt;</i></dt>
+				<dd>曲面电视</dd>
+				<dd>超薄电视</dd>
+				<dd>HDR电视</dd>
+				<dd>OLED电视</dd>
+				<dd>4K超清电视</dd>
+				<dd>65英寸</dd>
+				<dd>电视配件</dd>
+			</dl>
+
+			<dl>
+				<dt>个护健康<i>&gt;</i></dt>
+				<dd>壁挂式空调</dd>
+				<dd>柜式空调</dd>
+				<dd>中央空调</dd>
+				<dd>以旧换新0元安装</dd>
+				<dd>空调配件</dd>
+			</dl>
+
+			<dl>
+				<dt>家庭影音<i>&gt;</i></dt>
+				<dd>曲面电视</dd>
+				<dd>超薄电视</dd>
+				<dd>HDR电视</dd>
+				<dd>OLED电视</dd>
+				<dd>4K超清电视</dd>
+				<dd>65英寸</dd>
+				<dd>电视配件</dd>
+			</dl>
+
+			<dl>
+				<dt>进口电器<i>&gt;</i></dt>
+				<dd>壁挂式空调</dd>
+				<dd>柜式空调</dd>
+				<dd>中央空调</dd>
+				<dd>以旧换新0元安装</dd>
+				<dd>空调配件</dd>
+			</dl>
+		</div>
+
+		<div class="sub" data-index="1">
+			<dl>
+				<dt>电视111<i>&gt;</i></dt>
+				<dd>曲面电视</dd>
+				<dd>超薄电视</dd>
+				<dd>HDR电视</dd>
+				<dd>OLED电视</dd>
+				<dd>4K超清电视</dd>
+				<dd>65英寸</dd>
+				<dd>电视配件</dd>
+			</dl>
+
+			<dl>
+				<dt>空调111<i>&gt;</i></dt>
+				<dd>壁挂式空调</dd>
+				<dd>柜式空调</dd>
+				<dd>中央空调</dd>
+				<dd>以旧换新0元安装</dd>
+				<dd>空调配件</dd>
+			</dl>
+
+			<dl>
+				<dt>洗衣机111<i>&gt;</i></dt>
+				<dd>曲面电视</dd>
+				<dd>超薄电视</dd>
+				<dd>HDR电视</dd>
+				<dd>OLED电视</dd>
+				<dd>4K超清电视</dd>
+				<dd>65英寸</dd>
+				<dd>电视配件</dd>
+			</dl>
+
+			<dl>
+				<dt>冰箱111<i>&gt;</i></dt>
+				<dd>壁挂式空调</dd>
+				<dd>柜式空调</dd>
+				<dd>中央空调</dd>
+				<dd>以旧换新0元安装</dd>
+				<dd>空调配件</dd>
+			</dl>
+
+			<dl>
+				<dt>厨卫大点1111<i>&gt;</i></dt>
+				<dd>曲面电视</dd>
+				<dd>超薄电视</dd>
+				<dd>HDR电视</dd>
+				<dd>OLED电视</dd>
+				<dd>4K超清电视</dd>
+				<dd>65英寸</dd>
+				<dd>电视配件</dd>
+			</dl>
+
+			<dl>
+				<dt>厨卫小店111<i>&gt;</i></dt>
+				<dd>壁挂式空调</dd>
+				<dd>柜式空调</dd>
+				<dd>中央空调</dd>
+				<dd>以旧换新0元安装</dd>
+				<dd>空调配件</dd>
+			</dl>
+
+			<dl>
+				<dt>生活电器111<i>&gt;</i></dt>
+				<dd>曲面电视</dd>
+				<dd>超薄电视</dd>
+				<dd>HDR电视</dd>
+				<dd>OLED电视</dd>
+				<dd>4K超清电视</dd>
+				<dd>65英寸</dd>
+				<dd>电视配件</dd>
+			</dl>
+
+			<dl>
+				<dt>个护健康1111<i>&gt;</i></dt>
+				<dd>壁挂式空调</dd>
+				<dd>柜式空调</dd>
+				<dd>中央空调</dd>
+				<dd>以旧换新0元安装</dd>
+				<dd>空调配件</dd>
+			</dl>
+
+			<dl>
+				<dt>家庭影音11111<i>&gt;</i></dt>
+				<dd>曲面电视</dd>
+				<dd>超薄电视</dd>
+				<dd>HDR电视</dd>
+				<dd>OLED电视</dd>
+				<dd>4K超清电视</dd>
+				<dd>65英寸</dd>
+				<dd>电视配件</dd>
+			</dl>
+
+			<dl>
+				<dt>进口电器1111111<i>&gt;</i></dt>
+				<dd>壁挂式空调</dd>
+				<dd>柜式空调</dd>
+				<dd>中央空调</dd>
+				<dd>以旧换新0元安装</dd>
+				<dd>空调配件</dd>
+			</dl>
+		</div>
+
+		<div class="sub" data-index="2">
+			<dl>
+				<dt>电视222222<i>&gt;</i></dt>
+				<dd>曲面电视</dd>
+				<dd>超薄电视</dd>
+				<dd>HDR电视</dd>
+				<dd>OLED电视</dd>
+				<dd>4K超清电视</dd>
+				<dd>65英寸</dd>
+				<dd>电视配件</dd>
+			</dl>
+
+			<dl>
+				<dt>空调222222<i>&gt;</i></dt>
+				<dd>壁挂式空调</dd>
+				<dd>柜式空调</dd>
+				<dd>中央空调</dd>
+				<dd>以旧换新0元安装</dd>
+				<dd>空调配件</dd>
+			</dl>
+
+			<dl>
+				<dt>洗衣机2222222<i>&gt;</i></dt>
+				<dd>曲面电视</dd>
+				<dd>超薄电视</dd>
+				<dd>HDR电视</dd>
+				<dd>OLED电视</dd>
+				<dd>4K超清电视</dd>
+				<dd>65英寸</dd>
+				<dd>电视配件</dd>
+			</dl>
+
+			<dl>
+				<dt>冰箱<i>&gt;</i></dt>
+				<dd>壁挂式空调</dd>
+				<dd>柜式空调</dd>
+				<dd>中央空调</dd>
+				<dd>以旧换新0元安装</dd>
+				<dd>空调配件</dd>
+			</dl>
+
+			<dl>
+				<dt>厨卫大点<i>&gt;</i></dt>
+				<dd>曲面电视</dd>
+				<dd>超薄电视</dd>
+				<dd>HDR电视</dd>
+				<dd>OLED电视</dd>
+				<dd>4K超清电视</dd>
+				<dd>65英寸</dd>
+				<dd>电视配件</dd>
+			</dl>
+
+			<dl>
+				<dt>厨卫小店<i>&gt;</i></dt>
+				<dd>壁挂式空调</dd>
+				<dd>柜式空调</dd>
+				<dd>中央空调</dd>
+				<dd>以旧换新0元安装</dd>
+				<dd>空调配件</dd>
+			</dl>
+
+			<dl>
+				<dt>生活电器<i>&gt;</i></dt>
+				<dd>曲面电视</dd>
+				<dd>超薄电视</dd>
+				<dd>HDR电视</dd>
+				<dd>OLED电视</dd>
+				<dd>4K超清电视</dd>
+				<dd>65英寸</dd>
+				<dd>电视配件</dd>
+			</dl>
+
+			<dl>
+				<dt>个护健康<i>&gt;</i></dt>
+				<dd>壁挂式空调</dd>
+				<dd>柜式空调</dd>
+				<dd>中央空调</dd>
+				<dd>以旧换新0元安装</dd>
+				<dd>空调配件</dd>
+			</dl>
+
+			<dl>
+				<dt>家庭影音<i>&gt;</i></dt>
+				<dd>曲面电视</dd>
+				<dd>超薄电视</dd>
+				<dd>HDR电视</dd>
+				<dd>OLED电视</dd>
+				<dd>4K超清电视</dd>
+				<dd>65英寸</dd>
+				<dd>电视配件</dd>
+			</dl>
+
+			<dl>
+				<dt>进口电器<i>&gt;</i></dt>
+				<dd>壁挂式空调</dd>
+				<dd>柜式空调</dd>
+				<dd>中央空调</dd>
+				<dd>以旧换新0元安装</dd>
+				<dd>空调配件</dd>
+			</dl>
+		</div>
+
+	</div>
+
+	<script src="jquery.js"></script>
+	<script>
+		$(function(){
+
+			var timer;
+
+			$(".wrap li").hover(function(){
+				//console.log($(this).index());
+				var idx = $(this).index();
+				var aSubs = $(".sub");
+				
+				timer = setTimeout(function(){
+					for(var i=0;i<aSubs.length;i++){
+						var $showSub =  $(aSubs[i]);
+						if($(aSubs[i]).data("index") == idx){
+							$showSub.css("display","block").siblings(".sub").css("display","none");
+							//$showSub.css("display","block");
+							break;
+						}else{
+							$showSub.css("display","none");
+						}
+					}
+
+				}, 300);
+
+			});
+		});
+	</script>
+</body>
+</html>

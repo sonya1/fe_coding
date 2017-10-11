@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.ok{
+			background: yellow;
+		}
+		.ok:hover{
+			background: #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div class="ok" data-index="1">1</div>
+	<div class="ok" data-index="2">2</div>
+	<div class="ok" data-index="3">3</div>
+	<div class="ok" data-index="4">4</div>
+
+	<script src="jquery.js"></script>
+	<script>
+		$(function(){
+			$(".ok").hover(function(){
+				alert($(this));
+				console.log($(this));
+				console.log($(this).data("index"));
+			});
+
+			for(var $i=0;$i<$aSubs.length;$i++){
+				console.log($aSubs[$i]);
+				alert($aSubs[$i]);
+				console.log($aSubs[$i].data("index"));
+				
+				if($aSubs[$i].data("myindex") == $idx){
+					var $showSub =  $aSubs[$i];
+					$showSub.css("display","block");
+					break;
+				}
+		});
+	</script>
+</body>
+</html>
