@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin:0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+			width: 940px;
+			height: 128px;
+			border:1px solid #ccc;
+			margin-top: 12px;
+		}
+		a{
+			text-decoration: none;
+			color:#000;
+		}
+		
+		ul *{
+			transition:all linear 0.1s;
+		}
+		ul li{
+			width: 73px;
+			height: 128px;
+			 background: red; 
+			float: left;
+			border-right:1px dotted #ccc;
+			position: relative;
+			overflow: hidden;
+			/* transition:all 0.1s linear; */
+		}
+		
+		ul li:last-child{
+			border:0;
+		}			
+		ul li img{
+			width: 73px;
+			height: 128px;
+			margin-right: -15px;
+		}
+		
+		ul li.big{
+			width: 200px;
+		}
+		ul li.big img{
+			width: 200px;
+			height: 128px;
+			margin-right: 0;
+		}
+		
+	</style>
+</head>
+<body>
+	<ul>
+		<li>
+			<a href="#">
+				<img src="1.jpg" alt="">				
+			</a>
+		</li>
+
+		<li class="big">
+			<a href="#">
+				<img src="2.jpg" alt="">			
+			</a>
+		</li>
+
+		<li>
+			<a href="#">
+				<img src="3.jpg" alt="">
+			</a>
+		</li>
+
+		<li>
+			<a href="#">
+				<img src="4.jpg" alt="">
+			</a>
+		</li>
+
+		<li>
+			<a href="#">
+				<img src="5.jpg" alt="">
+			</a>
+		</li>
+	</ul>
+	
+	<script src="jquery-1.9.1.js"></script>
+	<script>
+		$(function(){
+			$("li").hover(function(){
+				$(this).addClass("big").siblings().removeClass("big")
+						.find(".mask").css("opacity","0.15");
+
+			},function(){
+				$(this).siblings().find(".mask").css("opacity","0");
+			});
+		});
+	</script>
+</body>
+</html>

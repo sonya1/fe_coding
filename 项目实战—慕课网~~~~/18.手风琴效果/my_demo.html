@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin:0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+			width: 940px;
+			height: 128px;
+			border:1px solid #ccc;
+			margin-top: 12px;
+		}
+		a{
+			text-decoration: none;
+			color:#000;
+		}
+		
+		ul *{
+			transition:all linear 0.1s;
+		}
+		ul li{
+			width: 156px;
+			height: 128px;
+			/* background: red; */
+			float: left;
+			border-right:1px dotted #ccc;
+			position: relative;
+			overflow: hidden;
+			/* transition:all 0.1s linear; */
+		}
+		ul li .mask{
+			width: 100%;
+			height: 100%;
+			background: #000;
+			opacity: 0;
+			/* transition:opacity 0.2s ease-in; */
+		}
+
+		ul li:last-child{
+			border:0;
+		}			
+		ul li img{
+			position: absolute;
+			right:0;
+			bottom:0;
+			width: 117px;
+			height: 72px;
+			margin-right: -15px;
+		}
+		.info{
+			padding:4px 10px;
+			width: 136;
+			/* background: yellow; */
+			position: absolute;
+			top:0;
+			left:0;
+		}
+		.info h2{
+			font-size: 14px;
+			font-weight: 700;
+			padding: 10px 0;
+		}
+		.info p{
+			width: 136px;
+			height: 22px;
+			overflow: hidden;
+			color:#868686;
+			font-size: 12px;
+		}
+		.info span{
+			color:#f62368;
+			font-style: italic;
+		}
+		.info span b{
+			font-size: 22px;
+		}
+		.info span i{
+			font-size: 14px;
+		}
+
+		ul li.big{
+			width: 312px;
+		}
+		ul li.big img{
+			width: 195px;
+			height: 120px;
+			margin-right: 0;
+		}
+		.big .info{
+			width: 294px;
+		}
+		.big .info h2{
+			font-size: 18px;
+		}
+		.big .info p{
+			width: 166px;
+			font-size: 14px;
+		}
+		.big .info span b{
+			font-size: 28px;
+		}
+		.big .info span i{
+			font-size: 16px;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li>
+			<a href="#">
+				<img src="1.jpg" alt="">
+				<div class="info">
+					<h2 style="color:#f62368">聚美妆</h2>
+					<p>聚美妆1/2周年庆</p>
+					<span><b>1</b><i>折起</i></span>
+				</div>
+
+				<div class="mask"></div>
+			</a>
+		</li>
+
+		<li class="big">
+			<a href="#">
+				<img src="2.jpg" alt="">
+				<div class="info">
+					<h2 style="color:#ff578a">Baby购</h2>
+					<p>宝宝该换装了，新品抢购</p>
+					<span><b>2.5</b><i>折起</i></span>
+				</div>
+				<div class="mask"></div>
+
+			</a>
+		</li>
+
+		<li>
+			<a href="#">
+				<img src="3.jpg" alt="">
+				<div class="info">
+					<h2 style="color:#6d3fa7">时装团</h2>
+					<p>时尚春装，清新小潮搭配</p>
+					<span><b>1</b><i>折起</i></span>
+				</div>
+				<div class="mask"></div>
+
+			</a>
+		</li>
+
+		<li>
+			<a href="#">
+				<img src="4.jpg" alt="">
+				<div class="info">
+					<h2 style="color:#d61939">TV购</h2>
+					<p>补血养颜 就这么简单</p>
+					<span><b>2.6</b><i>折起</i></span>
+				</div>
+				<div class="mask"></div>
+
+			</a>
+		</li>
+
+		<li>
+			<a href="#">
+				<img src="5.jpg" alt="">
+				<div class="info">
+					<h2 style="color:#6f9400">聚新鲜</h2>
+					<p>最纯正的泰国香米</p>
+					<span><b>5</b><i>折起</i></span>
+				</div>
+				<div class="mask"></div>
+
+			</a>
+		</li>
+	</ul>
+	
+	<script src="jquery-1.9.1.js"></script>
+	<script>
+		$(function(){
+			$("li").hover(function(){
+				$(this).addClass("big").siblings().removeClass("big")
+						.find(".mask").css("opacity","0.15");
+
+			},function(){
+				$(this).siblings().find(".mask").css("opacity","0");
+			});
+		});
+	</script>
+</body>
+</html>
