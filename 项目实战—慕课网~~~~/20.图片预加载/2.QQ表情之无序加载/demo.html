@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		
+
+		.wrap{
+			width: 400px;
+			margin:100px auto;
+		}
+		a{
+			background:orange;
+			display: block;
+			padding:5px 8px;
+			color:#fff;
+			width: 50px;
+			height: 20px;
+			text-align: center;
+			border-radius: 4px;
+			margin-bottom: 5px;
+		}
+		.panel{
+			width: 360px;
+			border:1px solid #ccc;
+			background: #fff;
+			display: none;
+		}
+		.loading{
+			text-align: center;
+		}
+
+		ul{
+			list-style: none;
+			width: 360px;
+			/* padding: 5px; */
+		}
+
+		ul li{
+			/* float: left; */
+			display: inline-block;
+			width: 24px;
+			height: 24px;
+			padding:3px;
+		}
+		ul li:hover{
+			background: #eee;
+			cursor: pointer;
+		}
+		
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<a href="#" class="btn">表情</a>
+		<div class="panel">
+			<p class="loading">表情加载中，请稍后...</p>
+		<!--	
+		<ul class="list">
+			<li><img src="qqImg/1.gif" alt=""></li>
+			<li><img src="qqImg/2.gif" alt=""></li>
+			<li><img src="qqImg/3.gif" alt=""></li>
+			<li><img src="qqImg/4.gif" alt=""></li>
+			<li><img src="qqImg/5.gif" alt=""></li>
+			<li><img src="qqImg/6.gif" alt=""></li>
+			<li><img src="qqImg/7.gif" alt=""></li>
+			<li><img src="qqImg/8.gif" alt=""></li>
+			<li><img src="qqImg/9.gif" alt=""></li>
+			<li><img src="qqImg/10.gif" alt=""></li>
+			<li><img src="qqImg/11.gif" alt=""></li>
+			<li><img src="qqImg/12.gif" alt=""></li>
+			<li><img src="qqImg/13.gif" alt=""></li>
+			<li><img src="qqImg/14.gif" alt=""></li>
+			<li><img src="qqImg/15.gif" alt=""></li>
+			<li><img src="qqImg/16.gif" alt=""></li>
+			<li><img src="qqImg/17.gif" alt=""></li>
+			<li><img src="qqImg/18.gif" alt=""></li>
+			<li><img src="qqImg/19.gif" alt=""></li>
+			<li><img src="qqImg/20.gif" alt=""></li>
+			<li><img src="qqImg/21.gif" alt=""></li>
+			<li><img src="qqImg/22.gif" alt=""></li>
+			<li><img src="qqImg/23.gif" alt=""></li>
+			<li><img src="qqImg/24.gif" alt=""></li>
+			<li><img src="qqImg/25.gif" alt=""></li>
+			<li><img src="qqImg/26.gif" alt=""></li>
+			<li><img src="qqImg/27.gif" alt=""></li>
+			<li><img src="qqImg/28.gif" alt=""></li>
+			<li><img src="qqImg/29.gif" alt=""></li>
+			<li><img src="qqImg/30.gif" alt=""></li>
+			<li><img src="qqImg/31.gif" alt=""></li>
+			<li><img src="qqImg/32.gif" alt=""></li>
+			<li><img src="qqImg/33.gif" alt=""></li>
+			<li><img src="qqImg/34.gif" alt=""></li>
+			<li><img src="qqImg/35.gif" alt=""></li>
+			<li><img src="qqImg/36.gif" alt=""></li>
+			<li><img src="qqImg/37.gif" alt=""></li>
+			<li><img src="qqImg/38.gif" alt=""></li>
+			<li><img src="qqImg/39.gif" alt=""></li>
+			<li><img src="qqImg/40.gif" alt=""></li>
+			<li><img src="qqImg/41.gif" alt=""></li>
+			<li><img src="qqImg/42.gif" alt=""></li>
+			<li><img src="qqImg/43.gif" alt=""></li>
+			<li><img src="qqImg/44.gif" alt=""></li>
+			<li><img src="qqImg/45.gif" alt=""></li>
+			<li><img src="qqImg/46.gif" alt=""></li>
+			<li><img src="qqImg/47.gif" alt=""></li>
+			<li><img src="qqImg/48.gif" alt=""></li>
+			<li><img src="qqImg/49.gif" alt=""></li>
+			<li><img src="qqImg/50.gif" alt=""></li>
+			<li><img src="qqImg/51.gif" alt=""></li>
+			<li><img src="qqImg/52.gif" alt=""></li>
+			<li><img src="qqImg/53.gif" alt=""></li>
+			<li><img src="qqImg/54.gif" alt=""></li>
+			<li><img src="qqImg/55.gif" alt=""></li>
+			<li><img src="qqImg/56.gif" alt=""></li>
+			<li><img src="qqImg/57.gif" alt=""></li>
+			<li><img src="qqImg/58.gif" alt=""></li>
+			<li><img src="qqImg/59.gif" alt=""></li>
+			<li><img src="qqImg/60.gif" alt=""></li>
+			<li><img src="qqImg/61.gif" alt=""></li>
+			<li><img src="qqImg/62.gif" alt=""></li>
+			<li><img src="qqImg/63.gif" alt=""></li>
+			<li><img src="qqImg/64.gif" alt=""></li>
+			<li><img src="qqImg/65.gif" alt=""></li>
+			<li><img src="qqImg/66.gif" alt=""></li>
+			<li><img src="qqImg/67.gif" alt=""></li>
+			<li><img src="qqImg/68.gif" alt=""></li>
+			<li><img src="qqImg/69.gif" alt=""></li>
+			<li><img src="qqImg/70.gif" alt=""></li>
+			<li><img src="qqImg/71.gif" alt=""></li>
+			<li><img src="qqImg/72.gif" alt=""></li>
+			<li><img src="qqImg/73.gif" alt=""></li>
+			<li><img src="qqImg/74.gif" alt=""></li>
+			<li><img src="qqImg/75.gif" alt=""></li> 
+			</ul>
+		-->
+		</div>
+	</div>
+
+
+	<script src="../jquery.js"></script>
+	
+	<script src="../preload-2.0.js"></script>
+	<script>
+		$(function(){
+			var $loading = $(".loading"),
+				$btn = $(".btn"),
+				$panel = $(".panel"),
+				imgs = [];
+
+				for(var i=1;i<76;i++){
+					var path = "qqImg/"+i+".gif";
+					imgs.push(path);
+				} 
+				var len = imgs.length;
+
+				
+				$btn.on("click",function(e){
+					e.stopPropagation();  //阻止事件冒泡，冒不到document上了
+					$panel.show();
+
+					$.preload(imgs,{
+						all:function(){
+							var html = '<ul class="list">';
+
+							for(var i=0;i<75;i++){
+								html +='<li><img src="'+ imgs[i] +'" alt=""></li>';
+							}
+							html += "</ul>";
+
+							setTimeout(function(){
+								$panel.html(html);
+							},2000)
+
+						}
+					});
+				});
+
+
+				$(document).on("click",function(){
+					$panel.hide();
+				});
+
+
+
+		});
+		
+	</script>
+</body>
+</html>

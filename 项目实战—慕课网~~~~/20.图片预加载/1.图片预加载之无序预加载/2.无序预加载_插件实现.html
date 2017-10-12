@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin:0;
+			padding: 0;
+		}
+		.box{
+			text-align: center;
+		}
+		.btn{
+			display: inline-block;
+			background: #fff;
+			color:#333;
+			padding:0 10px;
+			height: 30px;
+			line-height: 30px;
+			text-decoration: none;
+			border:1px solid #ccc;
+			margin-right: 50px;
+		}
+		.btn:hover{
+			background: #eee;
+		}
+
+		.loading{
+			position: absolute;
+			top:0;
+			left:0;
+			right: 0;
+			bottom: 0;
+			background: #eee;
+			text-align: center;
+			font-size:18px;
+			padding-top: 300px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<img src="http://i2.hoopchina.com.cn/user/308/15960308/13383588090.jpg" alt="pic" id="img" width="1200">
+		<p>
+			<a href="javascript:;" data-control="prev" class="btn">上一页</a>
+			<a href="javascript:;" data-control="next" class="btn">下一页</a>
+		</p>
+	</div>
+	<div class="loading">0%</div>
+	
+	<script src="../jquery.js"></script>
+	<script src="../preload-2.0.js"></script>
+	<script>
+
+	//无序预加载
+	$(function(){
+		var imgs = [
+			"http://i2.hoopchina.com.cn/user/308/15960308/13383588090.jpg",
+			"http://img.article.pchome.net/00/44/23/20/pic_lib/wm/2.jpg",
+			"http://lcd.yesky.com/imagelist/2009/044/404q4y8g4m0p.jpg",
+			"http://lcd.yesky.com/imagelist/2009/044/cgro54wt2t2x.jpg"
+		];
+		
+		var index=0,len = imgs.length;
+		
+		//预加载部分
+		var $loading = $(".loading");
+		
+
+
+		//预加载部分
+		/*$.each(imgs,function(i,src){
+			var imgObj = new Image();
+			$(imgObj).on("load error",function(i,src){
+				count++;
+				if(count>len-1){
+					$loading.hide();
+					document.title = (index+1) +"/" + len;
+				}
+				$loading.html(Math.round(count / len *100) + "%");
+
+			});
+			imgObj.src = src;
+		});*/
+
+		$.preload(imgs,{
+			each:function(count){
+				$loading.html(Math.round(count / len *100) + "%");
+			},
+			all:function(){
+				$loading.hide();
+				document.title = (index+1) +"/" + len;
+			}
+		});
+
+
+
+
+		$(".btn").on("click",function(){
+			if("prev" === $(this).data("control")){
+				index--;
+				if(index<0){
+					index = len-1;
+				}
+
+				//index = Math.max(0,--index);
+			}else{
+				index++;
+				if(index>len-1){
+					index = 0;
+				}
+				//index = Math.min(len-1,++index);
+			}
+			console.log(imgs[index]);
+			$("#img").attr("src",imgs[index]);
+			document.title = (index+1) +"/" + len;
+		});
+
+
+	});
+
+
+	</script>
+</body>
+</html>
