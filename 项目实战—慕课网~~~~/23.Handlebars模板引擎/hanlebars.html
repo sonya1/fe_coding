@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.card{
+			padding: 20px;
+			background: pink;
+			float: left;
+			margin-right: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div id="cards">
+		<!-- <div>姓名:sonya</div>
+		<div>性别：女</div>
+		<div>年龄：23</div>
+		<div>职业：Web前端</div> -->
+	</div>
+
+	<script src="jquery.js"></script>
+	<script src="handlebars-v4.0.10.js"></script>
+
+	<script id="cards-template" type="text/x-handlebars-template">
+		{{#each this}}
+		<div class="card">
+		{{@index}}  {{chinese @index}} 
+		<div>姓名:{{name}}</div>
+		<div>性别：{{sex}}</div>
+		<div>年龄：{{age}}</div>
+		{{#if work}}
+		<div>职业：{{work}}</div>
+		{{/if}}
+		<ul>
+			{{#each books}}
+				<li {{#isfirst @index}}style="color:red"{{/isfirst}}  {{#isblue @index}}style="color:blue"{{/isblue}}>
+						{{addone @../index}}-{{addone @index}}{{this}}
+				</li>
+			{{/each}}
+		</ul>
+		{{!-- 
+			<ul>
+				{{#with books}}
+					{{#each this}}
+					<li>{{this}}</li>
+					{{/each}}
+				{{/with}}
+			</ul>
+		--}}
+
+		</div>
+		{{/each}}
+	</script>
+	
+	<script>
+		var data = [{
+					name:"sonya",
+					sex:"女",
+					age:23,
+					work:"Web前端工程师",
+					books:["《JS语言精粹》","《JS高级程序设计》","《JS面向对象编程》"]
+				},
+				{
+					name:"zhan",
+					sex:"男",
+					age:46,
+					work:"C++研发工程师",
+					books:["《C++ Plus》","《C++程序实践》"]
+				},
+				{
+					name:"suchang",
+					sex:"女",
+					age:25,
+					books:["《oracle数据库》","《MySql数据库》"]
+				}
+				];
+			Handlebars.registerHelper("chinese",function(value){
+				var arr = ["一","二","三"];
+				return arr[value];
+			});
+
+			Handlebars.registerHelper("addone",function(value){
+				return value+1;
+			});
+
+			Handlebars.registerHelper("isfirst",function(value,options){
+				if(value==0){
+					return options.fn(this);
+				}
+			});
+
+			Handlebars.registerHelper("isblue",function(value,options){
+				if(value>0){
+					return options.fn(this);
+				}
+			});
+
+		/*var html = "";
+		html += "<div>姓名:"+data.name +"</div>";
+		html += "<div>性别:"+data.sex +"</div>";
+		html += "<div>年龄:"+data.age +"</div>";
+		html += "<div>职业:"+data.work +"</div>";*/
+
+		var t = $("#cards-template").html();
+		var f = Handlebars.compile(t);  //f是一个函数，为编译过的模板
+	console.log(f);
+	/*function ret(context, execOptions) {
+	    if (!compiled) {
+	      compiled = compileInput();
+	    }
+	    return compiled.call(this, context, execOptions);
+	  }*/
+		var h = f(data);  
+	console.log(h);
+	/*<div>姓名:sonya</div>
+	<div>性别：女</div>
+	<div>年龄：23</div>
+	<div>职业：Web前端</div>*/
+		$("#cards").html(h);
+
+		
+	</script>
+</body>
+</html>
