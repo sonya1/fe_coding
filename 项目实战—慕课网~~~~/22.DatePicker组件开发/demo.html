@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		a{
+			text-decoration: none;
+		}
+		.ui-datepicker-wrapper{
+			width: 230px;
+			height: 262px;
+			border: 1px solid #ccc;
+			box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+		}
+		.ui-datepicker-wrapper .ui-datepicker-header{
+			height: 40px;
+			background: rgb(242,240,242);
+			line-height: 40px;
+			padding:0 20px;
+			border-bottom: 2px solid #ddd;
+
+		}
+		.ui-datepicker-header .ui-datepicker-btn{
+			color:rgb(187,186,188);
+			font-weight: 900;
+		    width: 20px;
+		    height: 20px;
+		}
+		.ui-datepicker-header .prev{
+			float: left;
+		}
+		.ui-datepicker-header .next{
+			float: right;
+			text-align: right;
+		}
+		.ui-datepicker-header .ui-datepicker-curr-month{
+			color:rgb(142,141,142);
+			margin-left: 25px;
+		}
+		.ui-datepicker-wrapper .ui-datepicker-body table{
+			text-align: center;
+			color:rgb(142,141,142);
+		}
+		.ui-datepicker-wrapper .ui-datepicker-body thead th{
+			font-weight: 900;
+
+		}
+		.ui-datepicker-wrapper .ui-datepicker-body tbody td{
+			width: 30px;
+			text-align: center;
+			line-height: 30px;
+			border:1px solid #eee;
+			border-bottom:0;
+			border-right:0;
+			cursor: pointer;
+		}
+		
+
+	</style>
+</head>
+<body>
+	<div class="ui-datepicker-wrapper">
+		<div class="ui-datepicker-header">
+			<a href="javascript:;" class="ui-datepicker-btn prev">&lt;</a>
+			<a href="javascript:;" class="ui-datepicker-btn next">&gt;</a>
+			<span class="ui-datepicker-curr-month">2016-12</span>
+		</div>
+		<div class="ui-datepicker-body">
+			<table>
+				<thead>
+					<tr>
+						<th>日</th>
+						<th>一</th>
+						<th>二</th>
+						<th>三</th>
+						<th>四</th>
+						<th>五</th>
+						<th>六</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td>24</td>
+						<td>25</td>
+						<td>26</td>
+						<td>27</td>
+						<td>28</td>
+						<td>29</td>
+						<td>30</td>
+					</tr>
+
+					<tr>
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+						<td>4</td>
+						<td>5</td>
+						<td>6</td>
+						<td>7</td>
+					</tr>
+					
+					<tr>
+						<td>8</td>
+						<td>9</td>
+						<td>10</td>
+						<td>11</td>
+						<td>12</td>
+						<td>13</td>
+						<td>14</td>
+					</tr>
+					<tr>
+						<td>15</td>
+						<td>16</td>
+						<td>17</td>
+						<td>18</td>
+						<td>19</td>
+						<td>20</td>
+						<td>21</td>
+					</tr>
+					<tr>
+						<td>22</td>
+						<td>23</td>
+						<td>24</td>
+						<td>25</td>
+						<td>26</td>
+						<td>27</td>
+						<td>28</td>
+					</tr>
+					<tr>
+						<td>29</td>
+						<td>30</td>
+						<td>31</td>
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+						<td>4</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+
+
+
+	<script src="jquery.js"></script>
+	<script src="mydata.js"></script>
+	<script>
+		$(function(){
+			var monthData = datepicker.getMonthData(2017,10);
+			console.log(monthData);
+		});
+	</script>
+</body>
+</html>
