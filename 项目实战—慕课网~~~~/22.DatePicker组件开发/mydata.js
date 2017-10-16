@@ -2,14 +2,18 @@
 	var datepicker = {};
 
 	datepicker.getMonthData = function(year,month){
-		var ret = [];
+		var ret = [],finl = [];
 		if(!year || !month){
 			var now = new Date();
 			year = now.getFullYear();
-			month = now.getUTCMonth() + 1;
+			month = now.getMonth() + 1;
 		}
 
 		var firstDay = new Date(year,month-1,1);  //本月第一天
+
+		year = firstDay.getFullYear();  //防止用户输入的不合法，所以重新赋值
+		month = firstDay.getMonth() + 1;
+
 		var firstDayWeekDay = firstDay.getDay();  //本月第一天的星期
 		if(firstDayWeekDay === 0){
 			firstDayWeekDay = 7;
@@ -49,13 +53,30 @@
 			if(thisMonth === 13){
 				thisMonth = 1;
 			}
+
 			ret.push({
+				i:i+1,
 				month:thisMonth,
 				date:date,
-				showDate:showDate
+				showDate:showDate,
 			});
 		}
-		return ret;
+		varfinl = [];
+		for(var i=0;i<6;i++){
+			var  week = [],obj = {};
+			for(var j=0;j<7;j++){
+				week.push(ret[7*i+j]["showDate"]);
+			}
+			console.log(week);
+			obj["week"] = week;
+			finl.push(obj);
+		}
+
+		return {
+			year:year,
+			month:month,
+			date:finl
+		};
 
 	};
 
