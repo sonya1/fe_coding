@@ -63,19 +63,24 @@
 		}
 		varfinl = [];
 		for(var i=0;i<6;i++){
-			var  week = [],obj = {};
+			var  week = {},obj = {};
 			for(var j=0;j<7;j++){
-				week.push(ret[7*i+j]["showDate"]);
+				//week.push(ret[7*i+j]["showDate"]);
+				var tmp_date = "show-" + (j);
+				var tmp_ori = "ori-" + (j);
+				week[tmp_date] = ret[7*i+j]["showDate"];
+				week[tmp_ori] = ret[7*i+j]["date"];
 			}
-			console.log(week);
 			obj["week"] = week;
+			/*obj["ori_date"] = ori_date;*/
 			finl.push(obj);
 		}
+			console.log(finl);
 
 		return {
 			year:year,
 			month:month,
-			date:finl
+			table:finl
 		};
 
 	};

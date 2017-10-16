@@ -183,16 +183,16 @@
 				</thead>
 
 				<tbody>
-				{{#each this.date}}
+				{{#each this.table}}
 					<tr>
-						{{#each this}}
-						<td>{{0}}</td>
-						<td>{{1}}</td>
-						<td>{{2}}</td>
-						<td>{{3}}</td>
-						<td>{{4}}</td>
-						<td>{{5}}</td>
-						<td>{{6}}</td>
+						{{#each this}}			
+						<td data-ori={{ori-0}}>{{show-0}}</td>
+						<td data-ori={{ori-1}}>{{show-1}}</td>
+						<td data-ori={{ori-2}}>{{show-2}}</td>
+						<td data-ori={{ori-3}}>{{show-3}}</td>
+						<td data-ori={{ori-4}}>{{show-4}}</td>
+						<td data-ori={{ori-5}}>{{show-5}}</td>
+						<td data-ori={{ori-6}}>{{show-6}}</td>
 						{{/each}}
 					</tr>
 				{{/each}}
@@ -220,42 +220,132 @@
 			var now = new Date();
 			year = now.getFullYear();
 			month = now.getMonth() + 1;
+			var $prev,$next;
 
 			$(".datepicker").click(function(){
 
-				var monthData = datepicker.getMonthData(year,month);
-					year = monthData.year;
-					month = monthData.month;
-				renderTemplate("#date-wrapper-template",monthData,".ui-datepicker-wrapper");
-								
+				renderPage();
+
 				if(!isOpen){
 					$wrapper.addClass("ui-datepicker-wrapper-show");
 					var left = $input[0].offsetLeft;
 					var	top = $input[0].offsetTop;
 					var	height = $input[0].offsetHeight;
-				
-					console.log(left);
 
 					$wrapper[0].style.left = left + "px";
 					$wrapper[0].style.top = top + height + 2 + "px";
 					isOpen = true;
+
+					$prev = $(".prev");
+					$next = $(".next");
+					console.log($prev);
+					console.log($next);
+
+					/*$wrapper.delegate($prev,"click",function(e){
+						console.log(e.target);
+						month--;
+						if(month===0){
+                			month=12;
+                			year--;
+            			}
+						renderPage();
+					}).delegate($next,"click",function(e1){
+						console.log(e1.target);
+						month++;
+						renderPage();
+					});*/
+/*
+					$wrapper.on("click",$prev,function(e){
+						console.log("--->prev"+e.target);
+						console.log("1:"+month);
+						month--;
+						if(month===0){
+                			month=12;
+                			year--;
+            			}
+						console.log("1:"+month);
+						renderPage();
+						console.log("--------------");
+					}).on("click",$next,function(e1){
+						console.log("--->next"+e1.target);
+						console.log("2:"+month);
+						month++;
+						console.log("2:"+month);
+						renderPage();
+					});*/
+
+
+					$wrapper[0].addEventListener("click", function(e){
+						var $target = e.target;
+						if(!$target.classList.contains("ui-datepicker-btn")){
+							return;
+						}else{
+							if($target.classList.contains("prev")){
+								month--;
+								if(month===0){
+		                			month=12;
+		                			year--;
+		            			}
+								console.log("after:"+month);
+								renderPage();
+							}else if($target.classList.contains("next")){
+								console.log("before:"+month);
+								month++;
+								console.log("after:"+month);
+								renderPage();
+							}
+						}
+
+					});
+
+					$wrapper[0].addEventListener("click", function(e){
+						var target = e.target;
+						var targetName = (target.tagName).toLowerCase();
+						//console.log($(target).data("ori"));
+						var ori = $(target).data("ori");
+						if("td" === targetName){
+							var date = new Date(year,month-1,ori);
+							
+							$input.val(format(date));
+							
+						}else{
+							return ;
+						}
+					});
+
 				}else{
 					$wrapper.removeClass("ui-datepicker-wrapper-show");
 					isOpen = false;
 				}
 
+				
+
+
+			});
+	
+			function format(date){
+				var year = date.getFullYear();
+				var month = date.getMonth()+1;
+				var date = date.getDate();
+				
+				month = month<10?("0"+month):month;
+				date = date<10?("0"+date):date;
+				var html = year + "-" + month + "-" + date;
+				return html;
+			}
+
+			function renderPage(){
+				var monthData = datepicker.getMonthData(year,month);
+					year = monthData.year;
+					month = monthData.month;
+				renderTemplate("#date-wrapper-template",monthData,".ui-datepicker-wrapper");
+
 				renderTemplate("#date-header-template",monthData,".ui-datepicker-header");
 				renderTemplate("#date-body-template",monthData,".ui-datepicker-body");
+			}
 
+			
 
-			});
-
-
-			var $prev = $(".ui-datepicker-header .prev"),
-				$next = $(".ui-datepicker-header .next");
-			$prev.on("click",function(){
-				month--;
-			});
 
 			/*console.log(monthData);
 			var h = $("#date-body-template").html();
