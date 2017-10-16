@@ -1,0 +1,185 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+ul{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+	color:#000;
+}
+
+.header{
+	height: 90px;
+	background: #F0F0F0;
+	padding: 20px 10px;
+}
+.header h3{
+	margin-top: 10px;
+	color:#666;
+}
+.container{
+	background: yellow;
+	margin-bottom: 50px;
+}
+.container ul{
+	margin-top:30px;
+}
+.container ul li{
+	/* background: pink; */
+	float: left;
+	margin: 20px;
+	width: 240px;
+	padding: 20px;
+	border:1px solid #ccc;
+}
+.container ul li:hover{
+	box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+}
+li .title-div{
+	height: 35px;
+	line-height: 35px;
+}
+.title-div .title{
+	max-width: 70%;
+    overflow: hidden;  /*多余的文字隐藏*/
+    text-overflow: ellipsis; /*变成...*/
+    display: inline-block;
+    white-space: nowrap;  /*文字不换行*/
+}
+.title-div .note{
+	/* float: right; */
+	color:#666;
+	font-size: 14px;
+	vertical-align: text-bottom;
+}
+li .subtitle{
+	color:#666;
+	font-size: 14px;
+	white-space: nowrap;
+	width: 100%;
+	overflow: hidden;
+	text-overflow:ellipsis;
+}
+.time{
+	color:#666;
+	font-size: 14px;
+	margin-top: 5px;
+}
+.long{
+	color:orange;
+}
+.short{
+	color:red;
+}
+.clear{
+	clear: both;
+}
+/*------page-----*/
+ .page{
+	margin-top: 20px;
+	margin-top: 60px;
+}
+
+
+ .page ul{
+	margin-bottom: 60px;
+	clear: both;
+	text-align: center;
+}
+
+.page li{
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	display: inline-block;
+	border-radius: 50%;
+	background-color: #F0F0F0;
+}
+.page li.cur{
+	background-color: #FFEDB2;
+}
+.page li.clickable{
+	background-color: #D6F2FF;
+}
+.page li.clickable:hover{
+	cursor: pointer;
+	background-color: #B9CBF7;
+} 
+
+/*---------overlay---------*/
+.overlay{
+	position: fixed;
+	top:0;
+	left:0;
+	right: 0;
+	bottom:0;
+	background: #000;
+	opacity: 0.5;
+	display: none;
+	filter:alpha(opacity=50);
+	cursor: pointer;
+}
+.note{
+	width: 850px;
+	height: 500px;
+	background: red;
+	position: fixed;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+	display: none;
+}
+.note .left{
+	width: 340px;
+	height: 100%;
+	background: yellow;
+	float: left;
+	overflow: auto;
+}
+.note .middle{
+	height: 100%;
+	width: 10px;
+	float: left;
+	background: #ccc;
+}
+.note .right{
+	float: left;
+	height: 100%;
+	width: 500px;
+	background: pink;
+	overflow: auto;
+}
+
+/*--------note-------------*/
+.left .main-nav{
+	margin:20px 40px;
+}
+.left .main-nav li{
+	color:#000;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 25px;
+}
+.left .sub-nav li,.sub-nav li a{
+	font-size: 14px;
+	color:#666;
+	font-weight: 0;
+	line-height: 30px;
+}
+.left .time,.left .type{
+	font-size: 12px;
+}
+
+/***right**/
+.right .time{
+	color:#666;
+}
+.right .content{
+	border: 1px solid #ccc;
+	color:#000;
+	background: #fff;
+	margin:5px;
+	line-height: 20px;
+}

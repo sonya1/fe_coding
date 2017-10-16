@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.range{
+			width: 80px;
+			height: 16px;
+			margin:100px auto;
+			background: url(star-matrix.gif);
+			position: relative;
+		}
+		.star{
+			position: absolute;
+			top:0;
+			width: 16px;
+			height: 16px;
+			z-index: 3;
+		}
+		.star1{
+			left:0;
+		}
+		.star2{
+			left:16px;
+		}
+		.star3{
+			left:32px;
+		}
+		.star4{
+			left:48px;
+		}
+		.star5{
+			left:64px;
+		}
+
+		.star:hover{
+			left:0;
+			z-index: 2; 
+			width: 80px;
+			background: url(star-matrix.gif) no-repeat;
+		}
+		.star1:hover{
+			background-position: 0 -16px;
+		}
+		.star2:hover{
+			background-position: 0 -32px;
+		}
+		.star3:hover{
+			background-position: 0 -48px;
+		}
+		.star4:hover{
+			background-position: 0 -64px;
+		}
+		.star5:hover{
+			background-position: 0 -80px;
+		}
+	</style>
+</head>
+<body>
+	<div class="range">
+		<a href="javascript:;" class="star star1"></a>
+		<a href="javascript:;" class="star star2"></a>
+		<a href="javascript:;" class="star star3"></a>
+		<a href="javascript:;" class="star star4"></a>
+		<a href="javascript:;" class="star star5"></a>
+	</div>
+</body>
+</html>

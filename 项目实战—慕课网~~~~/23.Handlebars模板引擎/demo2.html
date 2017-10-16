@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="demo2.css">
+</head>
+<body>
+	<div class="header">
+		<h1>我的笔记本</h1>
+		<h3>你的指尖，有改变世界的力量</h3>
+	</div>
+	<div class="container" id="classes">
+		<!-- <ul>
+			<li>
+				<a href="#">
+					<img src="course.jpg" alt="">
+					<div class="title-div">
+						<span class="title">Strust2拦截器解析Strust2拦截器解析</span>
+						<span class="note">{有笔记}</span>
+					</div>
+					<div class="subtitle">Strust2拦截器的工作原理及配置</div>
+					<div class="time">59分钟</div>
+				</a>
+			</li>
+		</ul> -->
+	</div>
+	<div class="clear"></div>
+	<div class="page">
+
+		<!-- <ul>
+			<li>
+				<a href="#">&lt;</a>
+				<a href="#">1</a>
+				<a href="#">2</a>
+				<a href="#">3</a>
+				<a href="#">4</a>
+				<a href="#">5</a>
+				<a href="#">6</a>
+				<a href="#">7</a>
+				<a href="#">8</a>
+				<a href="#">&gt;</a>
+			</li>
+		</ul> -->
+	</div>
+	<div class="overlay"></div>
+	<div class="note">
+		<div class="left">	<!-- <ul class="main-nav">
+				<li>
+					1、课程介绍
+					<ul class="sub-nav">
+						<li>1-1
+							<a href="">课程介绍</a>
+							<span class="time">(02:53)</span>
+						</li>
+					</ul>
+				</li>
+			</ul> --> </div>
+		<div class="middle"></div>
+		<div class="right">
+			<!-- <ul>
+				<li>
+					<div class="time">2017-06-21 05:23:23</div>
+					<div class="content">2017-06-21 05:23:23的建瓯盘金粉世家佛挡杀佛六点十分了</div>
+				</li>
+			</ul> -->
+		</div>
+	</div>
+
+	<script src="jquery.js"></script>
+	<script src="handlebars-v4.0.10.js"></script>
+	<script src="demo2.js"></script>
+	<script id="class-template" type="text/x-handlebars-template">
+			<ul>
+			{{#each this}}
+			<li data-id={{id}}>
+				<a href="#">
+					<img src="{{image}}" alt="{{image}}">
+					<div class="title-div">
+						<span class="title">{{title}}</span>
+						<span class="note">
+							{{#equal hasnote 1}}{有笔记}{{/equal}}
+							{{#equal hasnote 0}}{无笔记}{{/equal}}
+						</span>
+					</div>
+					<div class="subtitle">{{subtitle}}</div>
+					<div class="time {{#long timespan}} long {{else}} short{{/long}}">时间：{{timespan}}</div>
+				</a>
+			</li>
+			{{/each}}
+			</ul>
+	</script>
+
+	<script id="page-template" type="text/x-handlebars-template">
+			<ul>
+				{{#each this}}
+				<li {{#if cur}} class="cur"{{/if}}  
+					{{#if clickable}} class="clickable"{{/if}} 
+					data-id={{index}}>
+					{{{text}}}
+				</li>
+				{{/each}}
+			</ul>
+	</script>
+
+	<script id="chapter-template" type="text/x-handlebars-template">
+			<ul class="main-nav">
+			{{#each this}}
+				<li>
+					{{addone @index}}、{{title}}
+					<ul class="sub-nav">
+						{{#each subTitle}}
+						<li>{{addone @../index}}-{{addone @index}}
+							<a href="http://www.imooc.com/{{titletype}}/{{mid}}" target="_blank">{{title}}</a>
+							{{#if timespan}}<span class="time">({{timespan}})</span>{{/if}}
+
+							{{#equal titletype 'code'}}
+								<span class="type">(编程)</span>
+							{{else}}
+								{{#equal titletype 'ceping'}}
+									<span class="type">(练习)</span>
+								{{/equal}}
+							{{/equal}}
+						</li>
+						{{/each}}
+					</ul>
+				</li>
+			{{/each}}
+			</ul>
+	</script>
+
+	<script id="note-template" type="text/x-handlebars-template">
+			<ul>
+				{{#each this}}
+				<li>
+					<div class="time">{{formatDate notetime}}</div>
+					<div class="content">{{{content}}}</div>
+				</li>
+				{{/each}}
+			</ul>
+	</script>
+
+</body>
+</html>
