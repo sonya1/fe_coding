@@ -222,6 +222,18 @@
 			month = now.getMonth() + 1;
 			var $prev,$next;
 
+
+			function renderPage(){
+				var monthData = datepicker.getMonthData(year,month);
+					year = monthData.year;
+					month = monthData.month;
+				renderTemplate("#date-wrapper-template",monthData,".ui-datepicker-wrapper");
+
+				renderTemplate("#date-header-template",monthData,".ui-datepicker-header");
+				renderTemplate("#date-body-template",monthData,".ui-datepicker-body");
+			}
+
+		
 			$(".datepicker").click(function(){
 
 				renderPage();
@@ -254,8 +266,8 @@
 						month++;
 						renderPage();
 					});*/
-/*
-					$wrapper.on("click",$prev,function(e){
+
+					$wrapper.on("click",".prev",function(e){
 						console.log("--->prev"+e.target);
 						console.log("1:"+month);
 						month--;
@@ -266,16 +278,16 @@
 						console.log("1:"+month);
 						renderPage();
 						console.log("--------------");
-					}).on("click",$next,function(e1){
+					}).on("click",".next",function(e1){
 						console.log("--->next"+e1.target);
 						console.log("2:"+month);
 						month++;
 						console.log("2:"+month);
 						renderPage();
-					});*/
+					});
 
 
-					$wrapper[0].addEventListener("click", function(e){
+					/*$wrapper[0].addEventListener("click", function(e){
 						var $target = e.target;
 						if(!$target.classList.contains("ui-datepicker-btn")){
 							return;
@@ -296,7 +308,7 @@
 							}
 						}
 
-					});
+					});*/
 
 					$wrapper[0].addEventListener("click", function(e){
 						var target = e.target;
@@ -318,46 +330,23 @@
 					isOpen = false;
 				}
 
-				
-
-
 			});
 	
-			function format(date){
-				var year = date.getFullYear();
-				var month = date.getMonth()+1;
-				var date = date.getDate();
-				
-				month = month<10?("0"+month):month;
-				date = date<10?("0"+date):date;
-				var html = year + "-" + month + "-" + date;
-				return html;
-			}
-
-			function renderPage(){
-				var monthData = datepicker.getMonthData(year,month);
-					year = monthData.year;
-					month = monthData.month;
-				renderTemplate("#date-wrapper-template",monthData,".ui-datepicker-wrapper");
-
-				renderTemplate("#date-header-template",monthData,".ui-datepicker-header");
-				renderTemplate("#date-body-template",monthData,".ui-datepicker-body");
-			}
-
-			
-
-
-			/*console.log(monthData);
-			var h = $("#date-body-template").html();
-			var f = Handlebars.compile(h);
-			var t =f(monthData);
-			$(".ui-datepicker-body").html(t);
-
-			var h = $("#date-header-template").html();
-			var f = Handlebars.compile(h);
-			var t =f(monthData);
-			$(".ui-datepicker-header").html(t);*/
+		
 		});
+	
+		function format(date){
+			var year = date.getFullYear();
+			var month = date.getMonth()+1;
+			var date = date.getDate();
+			
+			month = month<10?("0"+month):month;
+			date = date<10?("0"+date):date;
+			var html = year + "-" + month + "-" + date;
+			return html;
+		}
+
+		
 
 		function renderTemplate(templateSelector,data,htmlSelector){
 			var t = $(templateSelector).html();
@@ -366,13 +355,6 @@
 			$(htmlSelector).html(h);
 		}
 
-		/*Handlebars.registerHelper("equal",function(v1,v2,options){
-			if(parseInt(v1%8) === parseInt(v2)){
-				return options.fn(this);
-			}else{
-				return options.inverse(this);
-			}
-		});*/
 	</script>
 </body>
 </html>

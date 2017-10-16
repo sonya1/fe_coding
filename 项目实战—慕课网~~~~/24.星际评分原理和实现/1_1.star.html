@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>星级评分--第一种实现方式1.1</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		.rating{
+			width: 125px;
+			height: 25px;
+			margin:100px auto;
+			/* background: url(star-matrix.gif);
+			position: relative; */
+		}
+		.rating-item{
+			float:left;
+			width: 25px;
+			height: 25px;
+			background: url(star0.png) no-repeat;/*-26px -50px*/
+			background-position:-26px -50px; 
+			cursor:pointer;
+		}
+	</style>
+</head>
+<body>
+	<ul class="rating" id="rating">
+		<li class="rating-item" title="很不好"></li>
+		<li class="rating-item" title="不好"></li>
+		<li class="rating-item" title="一般"></li>
+		<li class="rating-item" title="好"></li>
+		<li class="rating-item" title="很好"></li>
+	</ul>
+
+<!-- 	<div class="rating" id="rating">
+	<a href="javascript:;" class="rating-item rating-item1"></a>
+	<a href="javascript:;" class="rating-item rating-item2"></a>
+	<a href="javascript:;" class="rating-item rating-item3"></a>
+	<a href="javascript:;" class="rating-item rating-item4"></a>
+	<a href="javascript:;" class="rating-item rating-item5"></a>
+</div> -->
+	<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+	<script>
+
+	/*
+		不足之处：
+		1：全部变量太多。（1.暴露一个命名空间对象，剩下的为其属性或方法。
+							2.用函数作用域。函数立即执行）
+		2.为每颗星星都绑定了事件（1.事件委托或事件代理。在父容器上绑定一次事件，利用冒泡）
+		3.代码复用的问题
+
+	 */
+		var num = 2;
+		$rating = $("#rating");
+		$items = $rating.find(".rating-item");
+
+		function lightOn(num){
+			$items.each(function(index){
+				if($(this).index()<num){
+					$(this).css("background-position","-26px -200px");
+				}else{
+					$(this).css("background-position","-26px -50px");
+				}
+			});
+		}
+
+		$items.on("mouseover",function(){
+			lightOn($(this).index() + 1);
+		}).on("click",function(){
+			//$(this).css("background-position","-26px -348px");
+			num = $(this).index() + 1;
+		});
+
+		$rating.on("mouseout",function(){
+			lightOn(num);
+		});
+
+
+
+		lightOn(num);
+	</script>
+</body>
+</html>
