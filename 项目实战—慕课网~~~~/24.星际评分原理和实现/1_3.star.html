@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>星级评分--第一种实现方式1.2</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		.rating{
+			width: 125px;
+			height: 25px;
+			margin:100px auto;
+			/* background: url(star-matrix.gif);
+			position: relative; */
+		}
+		.rating-item{
+			float:left;
+			width: 25px;
+			height: 25px;
+			background: url(star0.png) no-repeat;/*-26px -50px*/
+			background-position:-26px -50px; 
+			cursor:pointer;
+		}
+	</style>
+</head>
+<body>
+	<ul class="rating" id="rating">
+		<li class="rating-item" title="很不好"></li>
+		<li class="rating-item" title="不好"></li>
+		<li class="rating-item" title="一般"></li>
+		<li class="rating-item" title="好"></li>
+		<li class="rating-item" title="很好"></li>
+	</ul>
+
+	<ul class="rating" id="rating2">
+		<li class="rating-item" title="很不好"></li>
+		<li class="rating-item" title="不好"></li>
+		<li class="rating-item" title="一般"></li>
+		<li class="rating-item" title="好"></li>
+		<li class="rating-item" title="很好"></li>
+	</ul>
+
+<!-- 	<div class="rating" id="rating">
+	<a href="javascript:;" class="rating-item rating-item1"></a>
+	<a href="javascript:;" class="rating-item rating-item2"></a>
+	<a href="javascript:;" class="rating-item rating-item3"></a>
+	<a href="javascript:;" class="rating-item rating-item4"></a>
+	<a href="javascript:;" class="rating-item rating-item5"></a>
+</div> -->
+	<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+	<script>
+		var rating = (function(){
+			//点亮整颗
+			var LightEntire = function(el,options){
+				this.$el = $(el);
+				this.$item = this.$el.find(".rating-item");
+				this.opts = options;
+			};
+			//初始化
+			LightEntire.prototype.init = function(){
+				this.lightOn(this.opts.num);
+				if(!this.readOnly){
+					this.bindEvent();
+				}
+			};
+
+			//点亮
+			LightEntire.prototype.lightOn = function(num){
+				num = parseInt(num);
+				this.$item.each(function(index){
+					if(index<num){
+						$(this).css("background-position","-26px -200px");
+					}else{
+						$(this).css("background-position","-26px -50px");
+					}
+				});
+			};
+
+			//绑定事件
+			LightEntire.prototype.bindEvent = function(){
+				var that = this;
+				var itemLength = that.$item.length;
+
+				that.$el.on("mouseover",".rating-item",function(){
+					var num = $(this).index() + 1;
+					that.lightOn(num);
+					(typeof that.opts.select === "function") && that.opts.select.call(this,num,itemLength);
+
+					that.$el.trigger("select",[num,itemLength]);
+
+				}).on("click",".rating-item",function(){
+					//$(that).css("background-position","-26px -348px");
+					var num = $(this).index() + 1;
+					that.opts.num = $(this).index() + 1;
+					(typeof that.opts.chosen === "function") && that.opts.chosen.call(this,num,itemLength);
+
+					that.$el.trigger("chosen",[num,itemLength]);
+
+
+				}).on("mouseout",function(){
+					that.lightOn(that.opts.num);
+				});
+			};
+
+			//默认参数
+			var defaults = {
+				num:0,
+				readOnly:false,
+				select:function(){},
+				chosen:function(){}
+			};
+
+			//初始化
+			var init = function(el,options){
+				options = $.extend({},defaults,options);
+				new LightEntire(el,options).init();
+			};
+
+			return {
+				init:init
+			};
+		})();
+	 
+	 	rating.init("#rating",{
+	 		num:4,
+	 		/*select:function(num,total){
+	 			console.log(num+"/"+total);
+	 		},
+	 		chosen:function(num,total){
+	 			console.log("chosen:"+num+"/"+total);
+	 		}*/
+	 	});
+	 	$("#rating").on("select",function(e,num,total){
+	 		console.log(num+"/"+total);
+
+	 	}).on("chosen",function(e,num,total){
+	 		console.log("chosen:"+num+"/"+total);
+	 	});
+	</script>
+</body>
+</html>

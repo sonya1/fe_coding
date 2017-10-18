@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>星级评分——第四种实现方式</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.rating{
+			position: relative;
+			width: 135px;  /*27*5*/
+			height: 27px;
+			background: url(img/rating2.png) repeat-x;
+			margin: 100px auto;
+		}
+		.rating-item{
+			position: absolute;
+			top:0;
+			z-index: 3;
+			width: 27px;
+			height: 27px;
+		}
+		.rating-item-1{
+			left:0;
+		}
+		.rating-item-2{
+			left:27px;			
+		}
+		.rating-item-3{
+			left:54px;	
+		}
+		.rating-item-4{
+			left:81px;	
+		}
+		.rating-item-5{
+			left:108px;	
+		}
+
+		.rating-item:hover{
+			z-index: 2;
+			left:0;
+			background: url(img/rating2.png) repeat-x 0 -26px;
+		}
+		.rating-item-1:hover{
+			width:27px;
+		}
+		.rating-item-2:hover{
+			width:54px;			
+		}
+		.rating-item-3:hover{
+			width:81px;	
+		}
+		.rating-item-4:hover{
+			width:108px;	
+		}
+		.rating-item-5:hover{
+			width:135px;	
+		}
+	</style>
+</head>
+<body>
+	<div class="rating">
+		<a href="javascript:;" class="rating-item rating-item-1" title="很不好"></a>
+		<a href="javascript:;" class="rating-item rating-item-2" title="不好"></a>
+		<a href="javascript:;" class="rating-item rating-item-3" title="一般"></a>
+		<a href="javascript:;" class="rating-item rating-item-4" title="好"></a>
+		<a href="javascript:;" class="rating-item rating-item-5" title="很好"></a>
+	</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>星级评分——第五种</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		.rating{
+			width: 135px;
+			height: 27px;
+			position: relative;
+			background: url(img/rating2.png) repeat-x;
+			margin:100px auto;
+		}
+		.rating-display{
+			width: 0;
+			height: 27px;
+			background: url(img/rating2.png) repeat-x 0 -26px;
+		}
+		.rating-mask{
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+		}
+		.rating-item{
+			width: 27px;
+			height: 27px;
+			cursor: pointer;
+			float: left;
+		}
+	</style>
+</head>
+<body>
+	<div id="rating" class="rating">
+		<div class="rating-display"></div>
+		<ul class="rating-mask">
+			<li class="rating-item"></li>
+			<li class="rating-item"></li>
+			<li class="rating-item"></li>
+			<li class="rating-item"></li>
+			<li class="rating-item"></li>
+		</ul>
+	</div>
+</body>
+</html>

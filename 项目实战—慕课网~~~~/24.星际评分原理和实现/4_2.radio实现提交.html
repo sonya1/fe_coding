@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>星级评分——第四种实现方式4.2</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.rating{
+			position: relative;
+			width: 135px;  /*27*5*/
+			height: 27px;
+			background: url(img/rating2.png) repeat-x;
+			margin: 100px auto;
+			overflow: hidden;
+		}
+		.rating-item{
+			position: absolute;
+			top:0;
+			z-index: 3;
+			width: 27px;
+			height: 27px;
+		}
+		.rating-item-1{
+			left:0;
+		}
+		.rating-item-2{
+			left:27px;			
+		}
+		.rating-item-3{
+			left:54px;	
+		}
+		.rating-item-4{
+			left:81px;	
+		}
+		.rating-item-5{
+			left:108px;	
+		}
+
+		.rating-item:hover{
+			z-index: 2;
+			left:0;
+			background: url(img/rating2.png) repeat-x 0 -26px;
+		}
+		.rating-item-1:hover,#rating-1:checked + .rating-item{
+			width:27px;
+		}
+		.rating-item-2:hover,#rating-2:checked + .rating-item{
+			width:54px;			
+		}
+		.rating-item-3:hover,#rating-3:checked + .rating-item{
+			width:81px;	
+		}
+		.rating-item-4:hover,#rating-4:checked + .rating-item{
+			width:108px;	
+		}
+		.rating-item-5:hover,#rating-5:checked + .rating-item{
+			width:135px;	
+		}
+		.rating:hover .rating-item{
+			background-image: none;
+		}
+		.rating-item:hover{
+			background: url(img/rating2.png) repeat-x 0 -26px !important;
+
+		}
+		.rating-item label{
+			display: inline-block;
+			width: 100%;
+			height: 100%;
+			cursor: pointer;
+		}
+		.rating input{
+			position: absolute;
+			left: 0;
+			top:-20px;
+		}
+		input:checked + .rating-item{
+			left: 0;
+			z-index: 1;
+			background: url(img/rating2.png) repeat-x 0 -26px;
+		}
+		
+									/*被选中的a后面所有的a*/
+		input:checked + .rating-item ~ .rating-item:hover{
+			z-index: 0;
+		}
+	</style>
+</head>
+<body>
+	<form action="">
+		<div class="rating">
+			<input type="radio" name="rating" id="rating-1" value="1">
+			<a href="javascript:;" class="rating-item rating-item-1" title="很不好"><label for="rating-1"></label></a>
+			
+			<input type="radio" name="rating" id="rating-2" value="2" checked>
+			<a href="javascript:;" class="rating-item rating-item-2" title="不好"><label for="rating-2"></label></a>
+
+			<input type="radio" name="rating" id="rating-3" value="3">
+			<a href="javascript:;" class="rating-item rating-item-3" title="一般"><label for="rating-3"></label></a>
+
+			<input type="radio" name="rating" id="rating-4" value="4">
+			<a href="javascript:;" class="rating-item rating-item-4" title="好"><label for="rating-4"></label></a>
+			
+			<input type="radio" name="rating" id="rating-5" value="5">
+			<a href="javascript:;" class="rating-item rating-item-5" title="很好"><label for="rating-5"></label></a>
+		</div>
+	
+		<input type="submit" value="提交">
+	</form>
+</body>
+</html>
