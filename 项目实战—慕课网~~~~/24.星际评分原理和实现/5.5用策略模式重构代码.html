@@ -52,18 +52,41 @@
 
 <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
 	<script>
+	/*缺点：1.标签li会随着半颗 1/4颗而变多
+		2.结构不容易想
+		优点：1.不用遍历每颗星星，性能好
+		2.可扩展性好，随时切换半颗、1/4颗*/
 		var rating = (function(){
+			//策略
+			var strategies = {
+				entire:function(){
+					return 1;
+				},
+				half:function(){
+					return 2;
+				},
+				quarter:function(){
+					return 4;
+				}
+			};
+
 			//评分		
 			var Rating = function(el,options){
 				this.$el = $(el);
 				this.opts = $.extend({},Rating.DEFAULTS,options);  //？？？
-				this.opts.total *=2;
-				this.opts.num *=2;
+				//策略
+				if(!strategies[this.opts.mode]){
+					this.opts.mode = "entire";
+				}
+				this.radio = strategies[this.opts.mode]();
 
-				this.itemWidth = 26/2;
+				this.opts.total *=this.radio;
+				this.opts.num *=this.radio;
+				this.itemWidth = 26/this.radio;
 				this.displayWidth = this.opts.num * this.itemWidth;
 			};
 			Rating.DEFAULTS = {
+				mode:"entire",
 				total:5,
 				num:2,
 				readOnly:false,
@@ -163,6 +186,7 @@
 	
 
 	$("#rating").rating({
+		mode:"half",
 		total:7,
 		num:4,
 		//readOnly:true,
