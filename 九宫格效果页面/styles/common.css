@@ -1,0 +1,210 @@
+/*----------reset---------*/
+*{
+	margin:0;
+	padding:0;
+}
+ul{
+	list-style:none;
+}
+img{
+	border:0;
+}
+a{
+	text-decoration: none;
+}
+/*body{
+	width:100%;
+}*/
+/*------content------*/
+.wrapper{
+	background: url(../images/bg_center1.jpg);
+	padding:40px ;
+}
+
+.content{
+	width: 1120px;
+    height: 507px;
+    margin: 0px auto;
+}
+.content ul{
+	float: left;
+	margin-right: 10px;
+}
+.content ul li{
+	width:362px;
+	height:159px;
+	margin-bottom: 10px;
+	cursor: pointer;
+	animation:ani all 1s linear;
+}
+.content ul li .btn{
+	position: absolute;
+	/*margin-left:317px;*/
+	margin-left:310px;
+}
+
+.content ul li span{
+	display: block;
+	width:20px;
+	height:20px;
+	float: left;
+	color:#666;
+	background:rgb(152,231,232);
+	line-height:20px;
+	text-align: center;
+	
+}
+.content ul li span.big{
+	margin-right: 5px;
+}
+
+.content li.over{
+	height:372px;
+	background-color:#fff;
+	animation:mymove 0.3s linear;
+}
+@keyframes mymove
+{
+	from {height:159px;}
+	to {height:372px;}
+}
+.content li.fold{
+	height:53px;
+	animation:myfold 0.3s linear;
+}
+@keyframes myfold
+{
+	from {height:159px;}
+	to {height:53px;}
+}
+.content li.all{
+	height:500px;
+	background-color:red: 
+	animation:myall 0.3s linear;
+}
+@keyframes myall
+{
+	from {height:500px;}
+	to {height:53px;}
+}
+/**------------init----------------*/
+.content .col0_0.init{
+	background: url(../images/Metro_0_0.png) no-repeat;
+}
+.content .col0_1.init{
+	background: url(../images/Metro_1_0.png) no-repeat;
+}
+.content .col0_2.init{
+	background: url(../images/Metro_2_0.png) no-repeat;
+}
+
+.content .col1_0.init{
+	background: url(../images/Metro_0_1.png) no-repeat;
+}
+.content .col1_1.init{
+	background: url(../images/Metro_1_1.png) no-repeat;
+}
+.content .col1_2.init{
+	background: url(../images/Metro_2_1.png) no-repeat;
+}
+
+.content .col2_0.init{
+	background: url(../images/Metro_0_2.png) no-repeat;
+}
+.content .col2_1.init{
+	background: url(../images/Metro_1_2.png) no-repeat;
+}
+.content .col2_2.init{
+	background: url(../images/Metro_2_2.png) no-repeat;
+}
+/*------------mouseover--------*/
+.content .col0_0.over{
+	background: url(../images/Metro_top_0_0.png) no-repeat #fff;
+}
+.content .col0_1.over{
+	background: url(../images/Metro_top_1_0.png) no-repeat #fff;
+}
+.content .col0_2.over{
+	background: url(../images/Metro_top_2_0.png) no-repeat #fff;
+}
+
+.content .col1_0.over{
+	background: url(../images/Metro_top_0_1.png) no-repeat #fff;
+}
+.content .col1_1.over{
+	background: url(../images/Metro_top_1_1.png) no-repeat #fff;
+}
+.content .col1_2.over{
+	background: url(../images/Metro_top_2_1.png) no-repeat #fff;
+}
+
+.content .col2_0.over{
+	background: url(../images/Metro_top_0_2.png) no-repeat #fff;
+}
+.content .col2_1.over{
+	background: url(../images/Metro_top_1_2.png) no-repeat #fff;
+}
+.content .col2_2.over{
+	background: url(../images/Metro_top_2_2.png) no-repeat #fff;
+}
+/*------------------fold------------------*/
+.content .col0_0.fold{
+	background: url(../images/fold_0_0.png) no-repeat;
+}
+.content .col0_1.fold{
+	background: url(../images/fold_1_0.png) no-repeat;
+}
+.content .col0_2.fold{
+	background: url(../images/fold_2_0.png) no-repeat;
+}
+
+.content .col1_0.fold{
+	background: url(../images/fold_0_1.png) no-repeat;
+}
+.content .col1_1.fold{
+	background: url(../images/fold_1_1.png) no-repeat;
+}
+.content .col1_2.fold{
+	background: url(../images/fold_2_1.png) no-repeat;
+}
+
+.content .col2_0.fold{
+	background: url(../images/fold_0_2.png) no-repeat;
+}
+.content .col2_1.fold{
+	background: url(../images/fold_1_2.png) no-repeat;
+}
+.content .col2_2.fold{
+	background: url(../images/fold_2_2.png) no-repeat;
+}
+
+/*------------all--------*/
+.content .col0_0.all{
+	background: url(../images/Metro_top_0_0.png) no-repeat #fff;
+}
+.content .col0_1.all{
+	background: url(../images/Metro_top_1_0.png) no-repeat #fff;
+}
+.content .col0_2.all{
+	background: url(../images/Metro_top_2_0.png) no-repeat #fff;
+}
+
+.content .col1_0.all{
+	background: url(../images/Metro_top_0_1.png) no-repeat #fff;
+}
+.content .col1_1.all{
+	background: url(../images/Metro_top_1_1.png) no-repeat #fff;
+}
+.content .col1_2.all{
+	background: url(../images/Metro_top_2_1.png) no-repeat #fff;
+}
+
+.content .col2_0.all{
+	background: url(../images/Metro_top_0_2.png) no-repeat #fff;
+}
+.content .col2_1.all{
+	background: url(../images/Metro_top_1_2.png) no-repeat #fff;
+}
+.content .col2_2.all{
+	background: url(../images/Metro_top_2_2.png) no-repeat #fff;
+}
