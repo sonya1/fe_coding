@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	
+</head>
+<body>
+	
+	<input type="text" id="txt">
+	<input type="submit" id="btn">
+	<br>
+	+20%:<div id="res"></div>
+	+25%:<div id="res2"></div>
+	
+	<script>
+		var txt = document.getElementById("txt");
+		var O20 = document.getElementById("res");
+		var O25 = document.getElementById("res2");
+		var submit = document.getElementById("btn");
+
+		submit.onclick = function(){
+			var value = txt.value;
+			var res1 = value * 0.06 * 1.2;
+			var res2 = value * 0.06 * 1.25;
+			O20.innerHTML = res1;
+			O25.innerHTML = res2;
+
+		
+		};
+	</script>
+</body>
+</html>
