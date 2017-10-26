@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+ 
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('.lv1 li').click(function() {
+                $('.lv2').css('border', '1px solid #FFAA00');
+                $('.lv2').css('border-top', 'none');
+                $('.lv1 li').css('border', '1px solid #dcdcdc');
+                $('.lv1 li').css('border-bottom', '1px solid #FFAA00');
+                $(this).css('border', '1px solid #ffAA00');
+                $(this).css('border-bottom', 'none');
+            })
+        })
+    </script>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+         
+        li {
+            list-style: none;
+        }
+         
+        .demo {
+            width: 280px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+         
+        .lv1 {
+            clear: both;
+            overflow: hidden;
+        }
+         
+        .lv1 li {
+            float: left;
+            border: 1px solid #DCDCDC;
+            padding: 24px 10px 24px 10px;
+            box-sizing: border-box;
+            border-bottom: none;
+        }
+         
+        .lv2 {
+            border: 1px solid #DCDCDC;
+            margin: -1px 0 0 0;
+        }
+         
+        .inli {
+            clear: both;
+            overflow: hidden;
+        }
+         
+        .inli li {
+            float: left;
+            padding: 5px 10px 5px 10px;
+        }
+         
+        .selbox {
+            margin: 10px 0 0 10px;
+        }
+    </style>
+ 
+    <body>
+        <div class="demo">
+            <ul class="lv1">
+                <li>选项一</li>
+                <li>选项二</li>
+                <li>选项三</li>
+                <li>选项四</li>
+            </ul>
+            <div class="lv2">
+                <ul class="inli">
+                    <li>点卡</li>
+                    <li>QQ</li>
+                </ul>
+                <div class="selbox">
+                    <div>
+                        游戏：<input type="text" name="" id="" value="" />
+                    </div>
+                    <div>
+                        面值：<input type="text" name="" id="" value="" />
+                    </div>
+                    <button>确定</button>
+                </div>
+            </div>
+            
+        </div>
+ 
+    </body>
+ 
+</html>
