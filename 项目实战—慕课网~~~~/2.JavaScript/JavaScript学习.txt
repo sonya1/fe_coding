@@ -1,0 +1,4 @@
+1.string类型与number类型转换:
+string->number:-0
+number->string:+""
+
