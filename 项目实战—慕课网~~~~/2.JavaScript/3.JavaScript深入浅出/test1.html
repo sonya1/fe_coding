@@ -12,7 +12,7 @@
          * param2 Array
          * return true or false
          */
-        function arraysSimilar(arr1, arr2){
+        /*function arraysSimilar(arr1, arr2){
             if(Object.prototype.toString.call(arr1) != "[object Array]" || 
                Object.prototype.toString.call(arr2) != "[object Array]"){
                 return false;
@@ -36,6 +36,31 @@
                 return false;
            }
            return true;
+        }*/
+
+
+          function arraysSimilar(arr1, arr2){
+            if(Object.prototype.toString.call(arr1) != "[object Array]" || Object.prototype.toString.call(arr2) != "[object Array]" ){
+                return false;
+            }
+            if(arr1.length != arr2.length){
+                return false;
+            }
+            var res1 = [],res2 = [];
+            for(var i=0;i<arr1.length;i++){
+                var r1 = Object.prototype.toString.call(arr1[i]);
+                var r2 = Object.prototype.toString.call(arr2[i]);
+                res1.push(r1);
+                res2.push(r2);
+            }
+            
+            var r1 = JSON.stringify(res1.sort());
+            var r2 = JSON.stringify(res2.sort());
+           
+            if(r1!=r2){
+                return false;
+            }
+            return true;
         }
     </script>
     <script src="test1.js"></script>

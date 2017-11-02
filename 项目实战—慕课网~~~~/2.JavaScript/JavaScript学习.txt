@@ -2,3 +2,9 @@
 string->number:-0
 number->string:+""
 
+2.JS动画 缓冲运动时：
+var speed = (iTarget - oDiv1.offsetLeft)/20;
+speed = speed<0?Math.floor(speed):Math.ceil(speed);
+
+JS多物体运动：每一个要有各自的timer
+

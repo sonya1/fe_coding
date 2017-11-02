@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		ul li{
+			width: 200px;
+			height: 100px;
+			background: yellow;
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li data-idx="1"></li>
+		<li data-idx="2"></li>
+		<li data-idx="3"></li>
+	</ul>
+
+	<script>
+	window.onload = function(){
+		var oLis = document.getElementsByTagName("li");
+		for(var i=0;i<oLis.length;i++){
+			oLis[i].timer = null;  //!!!!
+			oLis[i].onmouseover = function(){
+				//this.style.width = "400px";
+				startMove(this,400);
+			};
+			oLis[i].onmouseout = function(){
+				//this.style.width = "200px";
+				startMove(this,200);
+
+			};
+		}
+		
+	}
+
+	//var timer = null;
+	function startMove(obj,iTarget){
+		//console.log(obj);
+		clearInterval(obj.timer);
+		obj.timer = setInterval(function(){
+			var speed = (iTarget - obj.offsetWidth)/5;
+			speed = speed>0?Math.ceil(speed):Math.floor(speed);
+			if(obj.offsetWidth == iTarget){
+				clearInterval(obj.timer);
+			}else{
+				obj.style.width = obj.offsetWidth + speed + 'px';
+			}
+
+		}, 30);
+	}
+	</script>
+</body>
+</html>

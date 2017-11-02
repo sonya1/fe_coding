@@ -1,0 +1,9 @@
+1.JS入门篇
+2.JS进阶篇
+3.JS深入浅出（待看）
+4.AJAX全接触 （jsonP只支持get请求，jsonp有问题？？）
+5.JS正则表达式 （ 在线工具：https://regexper.com/ ）
+6.JS动画效果
+
+如何使用高德地图在线制作属于你的地图 （没看完）
+UI框架foundation6入门（上） (安装完看不懂了)

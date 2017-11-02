@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<h3>匹配is单词</h3>
+	Display is a word;
+	This is a good girl;
+
+	\bis\b --> IS   (边界\b)
+
+	<h3>将http://img.com/12345.jpg 协议去掉</h3>
+	http:\/\/.+\.jpg
+	分组，获取其中间内容：http:(\/\/.+\.jpg)
+
+	<h3>匹配日期 2017-03-25或者2017/12/14</h3>
+	^\d{4}[-/]\d{2}[-/]\d{2}$  开头^结尾$
+	
+	<h3>量词</h3>
+	\d{20}:20个数字
+	\d{2,5}:2-5个数字
+	\d{2,}:至少2个数字
+	\d{0,10}:至多10个数字
+
+	\d? :0或1次
+	\d+ :1或多次
+	\d* :任意次
+
+	<h3>贪婪模式：尽可能多的匹配</h3>
+	"123456".replace(/\d{3,5}/g,"-"); 
+
+	<h3>非贪婪模式：尽可能少的匹配 在量词后面加问号</h3>
+	"123456".replace(/\d{3,5}?/g,"-"); 
+
+	<script>
+		var reg = /\bis\b/g;
+		var str = "He is a boy,This is a dog.";
+
+		//var t1 = str.replace(reg,"IS");
+		console.log(str.replace(reg,"IS"));
+
+		var str="Visit Microsoft!"
+		console.log(str.replace(/Microsoft/, "W3School"))
+
+		console.log("a1b2c3d4".replace(/[abc]/g,"Q"));
+		console.log("a1b2c3d4".replace(/[^abc]/g,"Q"));
+
+		console.log("a1b2c3d4z0".replace(/[a-z]/g,"-"));
+		console.log("a1b2c3d4z0QESFGG".replace(/[a-zA-Z]/g,"-"));
+
+		var mulStr = "@123\r\n@456\r\n@789";
+
+		var t = mulStr.replace(/^@\d/g,"*");
+		var t1 = mulStr.replace(/^@\d/gm,"*");
+		console.log(t);
+		console.log(t1);
+
+		"123456".replace(/\d{3,5}/g,"-");  //"-6"
+		"123456".replace(/\d{3,5}?/g,"-");  //"--"
+		"12345678".replace(/\d{3,5}?/g,"-");  //"--78"
+
+		"2017-02-15".replace(/(\d{4})-(\d{2})-(\d{2})/,"$2/$3/$1");  //"02/15/2017"
+
+		"210".replace(/\w/g,"*");  //***
+
+		"a1s2d3vv".replace(/\w(?=\d)/g,"*");
+	</script>
+</body>
+</html>
