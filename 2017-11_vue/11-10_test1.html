@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>指令</title>
+</head>
+<body>
+	<div id="app">
+		{{message}}
+	</div>
+
+	<div id="app-2">
+		<span v-bind:title="message">
+				鼠标悬停几秒钟查看此处动态绑定的提示信息！	
+		</span>
+	</div>
+	
+	<div id="app-3">
+		<p v-if="seen">hello 孙莹！</p>
+	</div>
+
+	<div id="app-4">
+		<ol>
+			<li v-for="todo in todos">
+				{{todo.text}}
+			</li>
+		</ol>
+	</div>
+
+
+	<div id="app-5">
+		{{message}}	
+		<button v-on:click="clickFunc">逆转消息</button>
+	</div>
+
+	<div id="app-6">
+		{{message}}
+		<input type="text" v-model="message">
+	</div>
+	<script src="https://unpkg.com/vue"></script>
+	
+	<script>
+		var app = new Vue({
+			el:"#app",
+			data:{
+				message:"Hello Vue!"
+			}
+		});
+
+		var app2 = new Vue({
+		  el: '#app-2',
+		  data: {
+		    message: '页面加载于 ' + new Date().toLocaleString()
+		  }
+		})
+
+		var app3 = new Vue({
+			el:"#app-3",
+			data:{
+				seen:true
+			}
+		});
+
+		var app4 = new Vue({
+			el:"#app-4",
+			data:{
+				todos:[
+					{text:"Vue 1.0"},{text:"Vue2.0"},{text:"Vue3.0"}
+				]
+			}
+		});
+
+		var app5 = new Vue({
+			el:"#app-5",
+			data:{
+				message:"Hello Vue.js i am sonya!"
+			},
+			methods:{
+				clickFunc:function(){
+					this.message = this.message.split("").reverse().join("");
+				}
+			}
+		});
+
+		var app6 = new Vue({
+			el:"#app-6",
+			data:{
+				message:"hahaha 111"
+			}
+		});
+	</script>
+</body>
+</html>
