@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>条件渲染</title>
+</head>
+<body>
+
+	<!-- 要有一个包裹的父元素 -->
+	<div id="no-1">
+		<h1 v-if="ok">YES</h1>
+		<h1 v-else>No</h1>
+	</div>
+
+<div id="no-3">
+	<template v-if="ok">
+	  <h1>Title</h1>
+	  <p>Paragraph 1</p>
+	  <p>Paragraph 2</p>
+	</template>
+</div>
+
+<div id="no-2">
+	<div v-if="Math.random() > 0.5">
+	  Now you see me
+	</div>
+	<div v-else>
+	  Now you don't
+	</div>
+</div>
+
+<div id="no-4">
+	<div v-if="type === 'A' ">A</div>
+	<div v-else-if="type === 'B' ">B</div>
+	<div v-else-if="type === 'C' ">C</div>
+	<div v-else>D</div>
+</div>
+
+	<script src="https://unpkg.com/vue"></script>
+	<script>
+		var app1 = new Vue({
+			el:"#no-1",
+			data:{
+				ok:true
+			}
+		});
+
+		var app2 = new Vue({
+			el:"#no-2",
+			/*data:{
+				ok:false
+			}*/
+		});
+
+		var app3 = new Vue({
+			el:"#no-3",
+			data:{
+				ok:false
+			}
+		});
+
+	</script>
+</body>
+</html>

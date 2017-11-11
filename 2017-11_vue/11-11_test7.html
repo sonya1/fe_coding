@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Class与Style绑定</title>
+</head>
+<body>
+
+	<div v-bind:class="{active:isActive}"></div>
+
+	<!-- text-danger要加单引号 -->
+	<div id="div1" class="static" v-bind:class="{active:isActive,'text-danger':hasError}"></div>  
+
+	<div v-bind:class="classObject" id="div2"></div>
+	
+	<!-- 们也可以在这里绑定一个返回对象的计算属性。这是一个常用且强大的模式： -->
+	<div v-bind:class="classObject" id="div3"></div>
+
+	<!-- 我们可以把一个数组传给 v-bind:class，以应用一个 class 列表： -->
+	<div id="div4" v-bind:class="[activeClass,errorClass]"></div>
+	
+<!-- 如果你也想根据条件切换列表中的 class，可以用三元表达式： -->
+	<div id="div5" v-bind:class="[isActive?activeClass:"",errorClass]"></div>
+
+<!-- 不过，当有多个条件 class 时这样写有些繁琐。所以在数组语法中也可以使用对象语法： -->
+	<div id="div6" v-bind:class="[{active:isActive},errorClass]"></div>
+
+<!-- 用在组件上 -->
+<my-component class="baz boo"></my-component>
+
+<!-- 带数据绑定的 -->
+<my-component v-bind:class="{active:isActive}"></my-component>
+
+
+
+
+<!-- 绑定内联样式 -->
+<div id="div7" v-bind:style="{color:activeColor,fontSize:fontSize+'px'}">内联样式</div>
+
+<div id="app">
+    <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px',background:'red' }">内联样式</div>
+</div>
+
+<div id="div8" v-bind:style="styleObject">内联样式2</div>
+
+<div id="div9" v-bind:style="[baseStyles,overridingStyles]">内联样式3</div>
+
+
+	<script src="https://unpkg.com/vue"></script>
+	<script>
+
+		var app = new Vue({
+			el:"#div1",
+			data:{
+				isActive:true,
+				hasError:false
+			}
+		});
+
+		var app2 = new Vue({
+			el:"#div2",
+			data:{
+				classObject:{
+					active:true,  //active类 有
+					"text-danger":false  //text-danger类 没有
+				}
+			}
+		});
+
+		var app3 = new Vue({
+			el:"#div3",
+			data:{
+				isActive:true,
+				error:null
+			},
+			computed:{
+				classObject:function(){
+					return {
+						active:this.isActive && !this.error,
+						"text-danger":this.error && this.error.type ==="fatal"
+					};
+				}
+			}
+		});
+
+
+		var app4 = new Vue({
+			el:"#div4",
+			data:{
+				activeClass:"active",
+				errorClass:"text-danger"
+			}
+		});
+
+		Vue.component("my-component",{
+			template:'<p class="foo bar">Hi</p>'
+		});
+
+
+
+		/* --------------------------------*/
+		var app7 = new Vue({
+			el:"#div7",
+			data:{
+				activeColor:"red",
+				fontSize:30
+			}
+		});
+
+
+		new Vue({
+		  el: '#app',
+		  data: {
+		    activeColor: 'green',
+		    fontSize: 30
+		  }
+		})
+
+		var app8 = new Vue({
+			el:"#div8",
+			data:{
+				styleObject:{
+					fontSize:"30px",
+					color:"green",
+					background:"pink"
+				}
+			}
+		});
+
+		var app9 = new Vue({
+			el:"#div9",
+			data:{
+				baseStyles:{
+					fontSize:"30px",
+					color:"green",
+					background:"pink"
+				},
+				overridingStyles:{
+					padding:"20px",
+					//marginTop:"30px"
+					"margin-top":"30px"
+				}
+			}
+		});
+	</script>	
+	<script>
+</body>
+</html>

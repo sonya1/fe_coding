@@ -34,16 +34,22 @@
 				now:function(){
 					return Date.now();
 				}
-			},
-			/*methods:{
-				reversedMessage:function(){
-					return this.message.split("").reverse().join("");
-				},
-				now:function(){
-					return Date.now();
-				}
-			}*/
+			}
 
+		});
+
+		//计算属性
+		var vm2 = new Vue({
+			el:"#demo",
+			data:{
+				firstName:"Foo",
+				lastName:"Bar",
+			},
+			computed:{
+				fullName:function(){
+					return this.firstName + " " + this.lastName;
+				}
+			}
 		});
 
 /*		我们可以将同一函数定义为一个方法而不是一个计算属性。两种方式的最终结果确实是完全相同的。
@@ -80,19 +86,7 @@
 			}
 		});*/
 
-		//计算属性
-		var vm2 = new Vue({
-			el:"#demo",
-			data:{
-				firstName:"Foo",
-				lastName:"Bar"
-			},
-			computed:{
-				fullName:function(){
-					return this.firstName + " " + this.lastName;
-				}
-			}
-		});
+		
 
 
 		//计算属性的setter
