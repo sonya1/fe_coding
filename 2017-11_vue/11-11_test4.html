@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>插值</title>
+</head>
+<body>
+	<!-- 文本 -->
+	<span>Message:{{msg}}</span>
+	<span id="once" v-once>这个将不会改变：{{msg}}</span>
+	
+	<!-- 原始HTML -->
+	<div id="html" v-html="rawHtml"></div>
+
+	
+	<!-- 缩写 -->
+	<a v-bind:href="url"  id="href1">www.baidu.com.</a>
+	<br>
+	<a :href="url" id="href2">QQ</a>
+	<br>
+
+	<a v-on:click="dosome"  id="href3">baidu</a>
+	<br>
+	<a @click="dosome" id="href4">QQ</a>
+
+
+	<script src="https://unpkg.com/vue"></script>
+
+	<script>
+		var app1 = new Vue({
+			el:"span",
+			data:{
+				msg:"hello 1"
+				//msg:"<h1>djksaldsda</h1>"  //不会H1显示
+			}
+		});
+
+		var app2 = new Vue({
+			el:"#once",
+			data:{
+				msg:"hello 1"
+			}
+		});
+
+		var app3 = new Vue({
+			el:"#html",
+			data:{
+				rawHtml:"hello 3",
+				rawHtml:"<h1>djksaldsda</h1>"  //会显示html，H1显示
+			}
+		});
+
+
+		//使用JS表达式，语句不可以
+	/*	{{ number + 1 }}
+		{{ ok?"YES":"NO" }}
+		{{ message.split("").reverse().join("") }}
+
+		{{ var a=1}}  //No !
+		{{ if(ok) {return message}}}  //使用三元表达式
+*/
+
+		
+		var app4 = new Vue({
+			el:"#href1",
+			data:{
+				url:"http://www.baidu.com"
+			}
+		});
+
+		var app5 = new Vue({
+			el:"#href2",
+			data:{
+				url:"http://www.qq.com"
+			}
+		});
+
+		var app6 = new Vue({
+			el:"#href3",
+			data:{
+				dosome:function(){
+					alert("click href3...");
+				}
+			}
+		});
+
+		var app7 = new Vue({
+			el:"#href4",
+			data:{
+				dosome:function(){
+					alert("click href4...");
+				}
+			}
+		});
+
+	</script>
+
+
+</body>
+</html>
