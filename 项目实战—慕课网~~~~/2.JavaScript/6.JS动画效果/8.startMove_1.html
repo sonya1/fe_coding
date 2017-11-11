@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		ul li{
+			width: 200px;
+			height: 100px;
+			background: yellow;
+			margin-bottom: 20px;
+			border:4px solid #000;
+			padding:10px;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li id="li1">111</li>
+		<li id="li2">222</li>
+	</ul>
+
+	<script>
+
+	//加border之后会有问题，所以改用getStyle函数
+	function getStyle(obj,attr){
+		if(obj.currentStyle){
+			return obj.currentStyle[attr];
+		}else{
+			return getComputedStyle(obj,false)[attr];
+		}
+	}
+
+	window.onload = function(){
+		var Li1 = document.getElementById("li1");
+		var Li2 = document.getElementById("li2");
+
+		Li1.onmouseover = function(){
+			//this.timer = null;
+			startMove(this,"height",200);
+		};
+		Li1.onmouseout = function(){
+			//this.timer = null;
+			startMove(this,"height",100);
+		}; 
+
+		Li2.onmouseover = function(){
+			//this.timer = null;
+			startMove(this,"width",400);
+		};
+		Li2.onmouseout = function(){
+			//this.timer = null;
+			startMove(this,"width",200);
+		}; 
+		
+	}
+
+	function startMove(obj,attr,iTarget){
+		//console.log(obj);
+		clearInterval(obj.timer);
+		obj.timer = setInterval(function(){
+			//var speed = (iTarget - obj.offsetWidth)/5;
+			var iCur = parseInt(getStyle(obj,attr));
+			//var width = obj.clientWidth;
+			var speed = (iTarget - iCur)/5;
+			speed = speed>0?Math.ceil(speed):Math.floor(speed);
+			if(iCur == iTarget){
+				clearInterval(obj.timer);
+			}else{
+				obj.style[attr] = iCur + speed + 'px';
+			}
+
+		}, 30);
+	}
+	</script>
+</body>
+</html>
