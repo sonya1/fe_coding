@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>列表渲染</title>
+</head>
+<body>
+	<ul id="example-1">
+		<li v-for="item in items">
+			{{item.message}}
+		</li>
+	</ul>
+
+	<ul id="example-2">
+		<li v-for="(item,index) in items">
+			{{parentMessage}} - {{index}} - {{item.message}}
+		</li>
+	</ul>
+	
+	<div v-for="item of items"></div>
+
+	<ul id="v-for-object" class="demo">
+		<li v-for="value of object">
+			{{value}}
+		</li>
+	</ul>
+
+	<ul id="v-for-object2" class="demo">
+		<li v-for="(value,key) of object">
+			{{key}} : {{value}}
+		</li>
+	</ul>
+
+	<ul id="v-for-object3" class="demo">
+		<li v-for="(value,key,index) of object">
+			{{index}} . {{key}} : {{value}}
+		</li>
+	</ul>
+	
+
+<!-- 显示过滤排序结果 -->
+<div id="showRes">
+	<div v-for="n in evenNumbers">{{n}}</div>
+</div>
+<ul id="showRes2">
+	<li v-for="n in evenNumbers">{{n}}</li>
+</ul>
+
+<ul id="showRes3">
+	<li v-for="n in even(numbers)">{{n}}</li>
+</ul>
+
+<div id="forin">
+	<span v-for="n in 10">{{n}}</span>
+</div>
+
+
+
+
+	<li v-for="todo in todos" v-if="!todo.isComplete">
+		{{todo}}
+	</li>
+
+	<ul v-if="todo.length">
+		<li v-for="todo in todos">{{todo}}</li>
+	</ul>
+	<p v-else>No todos left</p>
+
+
+
+<!-- 响应式列表 -->
+	<div id="todo-list-example">
+	  <input
+	    v-model="newTodoText"
+	    v-on:keyup.enter="addNewTodo"
+	    placeholder="Add a todo"
+	  >
+	  <ul>
+	    <li
+	      is="todo-item"
+	      v-for="(todo, index) in todos"
+	      v-bind:key="todo.id"
+	      v-bind:title="todo.title"
+	      v-on:remove="todos.splice(index, 1)"
+	    ></li>
+	  </ul>
+	</div>
+
+	
+	<script src="https://unpkg.com/vue"></script>
+	<script>
+		var example1 = new Vue({
+			el:"#example-1",
+			data:{
+				items:[
+					{message:"Foo"},
+					{message:"Bar"}
+				]
+			}
+		});
+
+		var example2 = new Vue({
+			el:"#example-2",
+			data:{
+				parentMessage:"Parent",
+				items:[
+					{message:"Foo"},
+					{message:"Bar"}
+				]
+			}
+		});
+
+		new Vue({
+			el:"#v-for-object",
+			data:{
+				object:{
+					firstName:"john",
+					lastname:"Doe",
+					age:30
+				}
+			}
+		});
+
+		new Vue({
+			el:"#v-for-object2",
+			data:{
+				object:{
+					firstName:"john",
+					lastname:"Doe",
+					age:30
+				}
+			}
+		});
+
+		new Vue({
+			el:"#v-for-object3",
+			data:{
+				object:{
+					firstName:"john",
+					lastname:"Doe",
+					age:30
+				}
+			}
+		});
+
+/*
+		Vue.set(example1.items,indexOfItem,newValue);
+		example1.items.splice(indexOfItem,1,newValue);
+
+		example1.items.splice(newLength);
+
+		var vm = new Vue({
+			data:{
+				a:1
+			}
+		});
+
+		vm.b = 2;  //不是响应式的
+
+		var vm = new Vue({
+			data:{
+				userProfile:{
+					name:"sonya"
+				}
+			}
+		});
+
+		Vue.set(vm.userProfile,"age",27);  //添加一个age属性到vm userProfile
+		//或者
+		this.$set(this.userProfile,"age",27);
+
+		//设置多个属性
+		this.userProfile = Object.assign({},this.userProfile,{
+			age:27,
+			favoriteColor:"Vue Green"
+		});
+*/
+
+//show Res
+new Vue({
+	el:"#showRes",
+	data:{
+		numbers:[1,2,3,4,5]
+	},
+	computed:{
+		evenNumbers:function(){
+			return this.numbers.filter(function(number){
+				return number %2 === 0;
+			});
+		}
+	}
+});
+
+new Vue({
+	el:"#showRes2",
+	data:{
+		numbers:[1,2,3,4,5]
+	},
+	computed:{
+		evenNumbers:function(){
+			return this.numbers.filter(function(number){
+				return number %2 === 0;
+			});
+		}
+	}
+});
+
+new Vue({
+	el:"#showRes3",
+	data:{
+		numbers:[1,2,3,4,5]
+	},
+	methods:{
+		even:function(numbers){
+			return this.numbers.filter(function(number){
+				return number %2 === 0;
+			});
+		}
+	}
+});
+
+new Vue({
+	el:"#forin"
+});
+
+
+
+
+
+
+
+
+
+//to do list
+		Vue.component("todo-item",{
+			 template: '\
+				    <li>\
+				      {{ title }}\
+				      <button v-on:click="$emit(\'remove\')">X</button>\
+				    </li>\
+				  ',
+				  props:["title"]
+		});
+
+
+		new Vue({
+			el:"#todo-list-example",
+			data:{
+				newTodoText:"",
+				todos:[
+					{id:1,title:"Do the dishes"},
+					{id:2,title:"Take out the trach"},
+					{id:3,title:"Now the lawn"}
+				],
+				nextTodoId:4
+			},
+			methods:{
+				addNewTodo:function(){
+					this.todos.push({
+						id:this.nextTodoId++,
+						title:this.newTodoText
+					});
+					this.newTodoText = "";
+				}
+			}
+		});
+	</script>
+</body>
+</html>

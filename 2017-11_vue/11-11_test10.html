@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>一个简单的todolist例子</title>
+</head>
+<body>
+	<div id="todo-list-example">
+		<input type="text" v-model="newTodoText" v-on:keyup.enter="addNewTodo" placeholder="Add a todo">
+
+		<ul>
+			<li is="todo-item" v-for="(todo,index) in todos" v-bind:key="todo.id" v-bind:title="todo.title" v-on:remove="todos.splice(index,1)"></li>
+		</ul>
+	</div>
+
+<!-- <li>\
+	{{title}}\
+	<button v-on:click="$emit(\'remove\')">X</button>\
+</li>\ -->
+	<script src="https://unpkg.com/vue"></script>
+	<script>
+		Vue.component("todo-item",{
+			template:'<li>\
+					{{title}}\
+					<button v-on:click="$emit(\'remove\')">X</button>\
+				</li>\
+				',
+				props:["title"]
+		});
+
+		new Vue({
+			el:"#todo-list-example",
+			data:{
+				newTodoText:"",
+				todos:[
+					{id:1,title:"Do the dishes"},
+					{id:2,title:"Do the dishes222"},
+					{id:3,title:"Do the dishes333"},
+				],
+				nextTodoId:4
+			},
+			methods:{
+				addNewTodo:function(){
+					this.todos.push({
+						id:this.nextTodoId++,
+						title:this.newTodoText
+					});
+					this.newTodoText = "";
+				}
+			}
+		});
+	</script>
+</body>
+</html>
