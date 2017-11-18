@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
-<!-- 加入背景音乐
- -->
+<!-- 转身与慕课logo-->
  <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title>慕课七夕主题</title>
@@ -23,14 +22,14 @@
                     <div class="a_background_top"></div>
                     <div class="a_background_middle"></div>
                     <div class="a_background_botton"></div>
-                    </adiv>
-                    <!-- 云 -->
-                    <div class="cloudArea">
-                        <div class="cloud"></div>
-                        <div class="cloud"></div>
-                    </div>
-                    <!-- 太阳 -->
-                    <div id="sun"></div>
+                </div>
+                <!-- 云 -->
+                <div class="cloudArea">
+                    <div class="cloud"></div>
+                    <div class="cloud"></div>
+                </div>
+                <!-- 太阳 -->
+                <div id="sun"></div>
             </li>
             <!-- 第二副画面 -->
             <li>
@@ -81,53 +80,93 @@
             </li>
         </ul>
         <div id="boy" class="charector"></div>
-        </div>
-        <div class="button">
-            <button>播放音乐</button>
-        </div>
+    </div>
+    <div class="button">
+        <button>开始</button>
+    </div>
 </body>
 <script type="text/javascript">
 $(function() {
+    ////////
+    //小女孩 //
+    ////////
+    var girl = {
+        elem: $('.girl'),
+        getHeight: function() {
+            return this.elem.height();
+        },
+        // 转身动作
+        rotate: function() {
+            this.elem.addClass('girl-rotate');
+        },
+        setPosition: function() {
+            this.elem.css({
+                left: visualWidth / 2,
+                top: bridgeY - this.getHeight()
+            });
+        },
+        getPosition: function() {
+            return this.elem.position();
+        },
+        getWidth: function() {
+            return this.elem.width()
+        }
+    };
+    // 修正小女孩位置
+    girl.setPosition();
+
+
+    ///////////
+    //loge动画 //
+    ///////////
+    var logo = {
+        elem: $('.logo'),
+        run: function() {
+            this.elem.addClass('logolightSpeedIn')
+                .on(animationEnd, function() {
+                    $(this).addClass('logoshake').off();
+                });
+        }
+    };
+
 
     //////////
     // 小孩走路 //
     //////////
-    
     var boy = BoyWalk();
 
     boy.talkFlower();
 
-    // 音乐配置
-    var audioConfig = {
-        enable: true, // 是否开启音乐
-        playURl: 'music/happy.wav', // 正常播放地址
-        cycleURL: 'music/circulation.wav' // 正常循环播放地址
-    };
-
-    /////////
-    //背景音乐 //
-    /////////
-    function Hmlt5Audio(url, isloop) {
-        var audio = new Audio(url);
-        audio.autoPlay = true;
-        audio.loop = isloop || false;
-        audio.play();
-        return {
-            end: function(callback) {
-                audio.addEventListener('ended', function() {
-                    callback();
-                }, false);
-            }
-        };
-    }
-
     // 开始
-    $("button").click(function() {
-        var audio1 = Hmlt5Audio(audioConfig.playURl);
-        audio1.end(function() {
-           Hmlt5Audio(audioConfig.cycleURL, true);
-        });
-    });
+    $("button:first").click(function() {
+
+        // 第一次走路到桥底边left,top
+        boy.walkTo(2000, 0.15)
+            .then(function() {
+                // 第二次走路到桥上left,top
+                return boy.walkTo(1500, 0.25, girl.getPosition().top / visualHeight);
+            })
+            .then(function() {
+                // 实际走路的比例
+                var proportionX = (girl.getPosition().left - boy.getWidth() + girl.getWidth() / 5) / visualWidth;
+                // 第三次桥上直走到小女孩面前
+                return boy.walkTo(1500, proportionX);
+            }).then(function() {
+                // 图片还原原地停止状态
+                boy.resetOriginal();
+            }).then(function() {
+                // 增加转身动作 
+                setTimeout(function() {
+                    girl.rotate();
+                    boy.rotate(function() {
+                        // 开始logo动画
+                        logo.run();
+                    });
+                }, 1000);
+            });
+    })
+
+
 })
 </script>
 <script type="text/javascript" src="Swipe.js"></script>

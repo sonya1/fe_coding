@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
-<!-- 加入背景音乐
- -->
- <head>
+<!-- 场景三 水波和星星动画-->
+<head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title>慕课七夕主题</title>
     <link rel='stylesheet' href='styles/style.css' />
@@ -23,14 +22,14 @@
                     <div class="a_background_top"></div>
                     <div class="a_background_middle"></div>
                     <div class="a_background_botton"></div>
-                    </adiv>
-                    <!-- 云 -->
-                    <div class="cloudArea">
-                        <div class="cloud"></div>
-                        <div class="cloud"></div>
-                    </div>
-                    <!-- 太阳 -->
-                    <div id="sun"></div>
+                </div>
+                <!-- 云 -->
+                <div class="cloudArea">
+                    <div class="cloud"></div>
+                    <div class="cloud"></div>
+                </div>
+                <!-- 太阳 -->
+                <div id="sun"></div>
             </li>
             <!-- 第二副画面 -->
             <li>
@@ -59,6 +58,7 @@
                 </div>
                 <!-- 小女孩 -->
                 <div class="girl"></div>
+                <!-- 水波 -->
                 <div class="bridge-bottom">
                     <div class="water">
                         <div id="water1" class="water_1"></div>
@@ -71,63 +71,69 @@
                 <ul class="stars">
                     <li class="stars1"></li>
                     <li class="stars2"></li>
-                    <li class="stars3"></li>
-                    <li class="stars4"></li>
-                    <li class="stars5"></li>
-                    <li class="stars6"></li>
+                   <li class="stars3"></li>
+                   <li class="stars4"></li>
+                   <li class="stars5"></li>
+                   <li class="stars6"></li>
                 </ul>
-                <!-- 慕课网logo图 -->
-                <div class="logo"></div>
             </li>
         </ul>
-        <div id="boy" class="charector"></div>
-        </div>
-        <div class="button">
-            <button>播放音乐</button>
-        </div>
+    </div>
 </body>
 <script type="text/javascript">
 $(function() {
 
-    //////////
-    // 小孩走路 //
-    //////////
-    
-    var boy = BoyWalk();
-
-    boy.talkFlower();
-
-    // 音乐配置
-    var audioConfig = {
-        enable: true, // 是否开启音乐
-        playURl: 'music/happy.wav', // 正常播放地址
-        cycleURL: 'music/circulation.wav' // 正常循环播放地址
-    };
-
-    /////////
-    //背景音乐 //
-    /////////
-    function Hmlt5Audio(url, isloop) {
-        var audio = new Audio(url);
-        audio.autoPlay = true;
-        audio.loop = isloop || false;
-        audio.play();
-        return {
-            end: function(callback) {
-                audio.addEventListener('ended', function() {
-                    callback();
-                }, false);
-            }
-        };
+    var container = $("#content");
+    var swipe = Swipe(container);
+    var visualWidth = container.width();
+    // 页面滚动到指定的位置
+    function scrollTo(time, proportionX) {
+        var distX = visualWidth * proportionX;
+        swipe.scrollTo(distX, time);
     }
 
-    // 开始
-    $("button").click(function() {
-        var audio1 = Hmlt5Audio(audioConfig.playURl);
-        audio1.end(function() {
-           Hmlt5Audio(audioConfig.cycleURL, true);
-        });
-    });
+    // 获取数据
+    var getValue = function(className) {
+        var $elem = $('' + className + '');
+            // 走路的路线坐标
+        return {
+            height: $elem.height(),
+            top: $elem.position().top
+        };
+    };
+
+    // 桥的Y轴
+    var bridgeY = function() {
+        var data = getValue('.c_background_middle');
+        return data.top;
+    }();
+
+    ////////////////////////////////////////////////////////
+    // ================= 动画处理 ======================= //
+    ////////////////////////////////////////////////////////
+
+    // 用来临时调整页面
+    swipe.scrollTo(visualWidth * 2, 0);
+
+    ////////
+    //小女孩 //
+    ////////
+    var girl = {
+        elem: $('.girl'),
+        getHeight: function() {
+            return this.elem.height()
+        },
+        setOffset: function() {
+            this.elem.css({
+                left: visualWidth / 2,
+                top: bridgeY - this.getHeight()
+            });
+        }
+    };
+
+    //修正小女孩位置
+    girl.setOffset();
+
 })
 </script>
 <script type="text/javascript" src="Swipe.js"></script>
