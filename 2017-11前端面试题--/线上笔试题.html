@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	#ipt1{
+		width: 0;
+		height: 0;
+		opacity: 0;
+	}
+	</style>
+</head>
+<body>
+	<input type="text" id="ipt">
+	<div id="ipt1">hello</div>
+	<script>
+		
+	/*	
+		console.log(1 + '2' + '2');  //122
+		console.log(1 + +'2' + '2');  //32
+		console.log(1 -'1' + '2');  //02
+		console.log(+1 + '1' + '2');  //112
+		console.log('A' - 'B' + '2'); //NaN2
+		console.log('A' - 'B' + 2);  //NaN
+
+
+
+
+
+		var a={};
+		b = {key:'b'};
+		c={
+			key:'c'
+		}
+		a[b] = 456;
+		console.log(a[b]);  //456
+*/
+
+
+/*
+var ipt = document.getElementById('ipt');   //mousedown.onfocus.mouseup.click顺序
+
+ipt.onmousedown = function(){
+	console.log("mousedown");
+};
+ipt.onmouseup = function(){
+	console.log("onmouseup");
+};
+ipt.onclick = function(){
+	console.log("onclick");
+};
+ipt.onfocus = function(){
+	console.log("onfocus");
+};
+/*
+
+console.log(a2);  //undefined
+console.log(a3);  //ERROR！！
+var a2 = 5;  
+a3 = 6;
+*/
+
+//？？？？？？？？？？？？？？？？？？？？？？
+var i=1;
+(function(){
+	var start = new Date().getTime();
+	var si = setInterval(function(){
+		var now = new Date().getTime();
+		if(now < (start+100)){
+			i++;
+		}else{
+			console.log(i);
+			clearInterval(si);
+		}
+	}, 10);
+})();
+
+var ipt = document.getElementById('ipt');
+
+/*
+var s1 = new String('sonya');
+var s2 = new String('sonya');
+console.log(s1==s2);   //false
+console.log(s1===s2);   //false
+
+var a = document.createElement("p");
+*/
+
+var A = [-1,0,1,2,-1,4];
+var n = A.length;
+
+for(var i=0;i<n;i++){
+	for(var j=1;j<n;j++){
+		for(var k=2;k<n;k++){
+			if(A[i]==A[j] || A[j]==A[k] || A[i]!=A[k]) {
+				continue;
+			}else if(A[i]+A[j]+A[k]==0){
+				console.log("["+A[i]+","+A[j]+","+A[k]+"]");
+
+			}
+
+		}
+	}
+}
+
+
+/*for(var i=0;i<n;i++){
+	j=i+1;
+
+	if(a0+){
+
+	}
+}*/
+/*
+function mul(){
+var n = arguments.length;
+var s = 1;
+for(var i=0;i<n;i++){
+    s *= arguments[i];
+
+}   
+return s;
+
+}
+
+console.log(mul(2,3,4));
+console.log(mul(4,3,4,2));
+
+*/
+function mul(x) {
+	const result = (y) => mul(x * y); 
+	result.valueOf = () => x;
+	return result;
+}
+console.log(mul(2)(3)(4));
+
+
+	//const能修改对象的属性值么
+	const obj = {
+		a:"aa",
+		b:"bb"
+	};
+	console.log(obj.a);  //aa
+	obj.a = "cc";
+	console.log(obj.a);  //cc
+
+	const test = "test str";
+	console.log(test);  //test str
+	test = "change test";  //报错
+	console.log(test);  
+
+
+
+	</script>
+</body>
+</html>
