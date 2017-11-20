@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>手写一个类的继承</title>
+</head>
+<body>
+	<script>
+		function Person(){
+			this.name = "ming";
+			this.age = 0;
+		}
+		Person.prototype.sayName = function(){
+			alert("hi " + this.name);
+		}
+
+		function Student(num,sex){
+			this.num = num;
+			this.sex = sex;
+		}
+		Student.prototype = new Person();
+		Student.prototype.constructor = Student;
+		Student.prototype.show = function(){
+			alert("Stu:" + this.num);
+		}
+
+
+		var p1 = new Person();
+		p1.sayName();
+
+		var s1 = new Student("0008","male");
+		s1.sayName();
+		s1.show();
+
+
+
+	</script>
+</body>
+</html>

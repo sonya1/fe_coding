@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>triangle</title>
+	<style>
+		.div1{
+			width: 0px;
+			height: 0px;
+/*			background: pink;
+*/			margin-bottom: 20px;/*margin塌陷*/
+			border-top:50px solid red;
+			border-left:50px solid transparent;
+			border-right:50px solid transparent;
+			border-bottom:50px solid pink;
+			border-top: 0;
+		}
+		.div1:hover{
+			transform:rotate(180deg);/*该属性允许我们对元素进行旋转、缩放、移动或倾斜。*/
+			-o-transform:rotate(180deg);
+			-ms-transform:rotate(180deg);
+			-moz-transform:rotate(180deg);
+			-webkit-transform:rotate(180deg);
+			transition:transform 0.2s ease-in;/*过渡属性*/
+			-o-transition:transform 0.2s ease-in;
+			-ms-transition:transform 0.2s ease-in;
+			-moz-transition:transform 0.2s ease-in;
+			-webkit-transition:transform 0.2s ease-in;
+		}
+		.div2{
+			width: 0px;
+			height: 0px;
+			margin-top: 30px;
+			border-top:50px solid red;
+			border-left:50px solid transparent;
+			border-right:50px solid transparent;
+			border-bottom:50px solid pink;
+			border-top: 0;
+			border-left: 0;
+		}
+
+		.div3{
+			width: 0px;
+			height: 0px;
+			margin-bottom: 20px;/*margin塌陷*/
+			border-top:50px solid red;
+			border-left:50px solid transparent;
+			border-right:50px solid transparent;
+			border-bottom:50px solid pink;
+			border-top: 0;
+			border-right: 0;
+		}
+
+		#triangle-up {
+		    width: 0;
+		    height: 0;
+		    border-left: 50px solid transparent;
+		    border-right: 50px solid transparent;
+		    border-bottom: 100px solid red;
+		}
+		#triangle-down {
+		    width: 0;
+		    height: 0;
+		    border-left: 50px solid transparent;
+		    border-right: 50px solid transparent;
+		    border-top: 100px solid red;
+		}
+		#triangle-left {
+		    width: 0;
+		    height: 0;
+		    border-top: 50px solid transparent;
+		    border-right: 100px solid red;
+		    border-bottom: 50px solid transparent;
+		}
+		#triangle-right {
+		    width: 0;
+		    height: 0;
+		    border-top: 50px solid transparent;
+		    border-left: 100px solid red;
+		    border-bottom: 50px solid transparent;
+		}
+		#triangle-topleft {
+		    width: 0;
+		    height: 0;
+		    border-top: 100px solid red;
+		    border-right: 100px solid transparent;
+		}
+		#triangle-topright {
+		    width: 0;
+		    height: 0;
+		    border-top: 100px solid red;
+		    border-left: 100px solid transparent; 
+		}
+		#triangle-bottomleft {
+		    width: 0;
+		    height: 0;
+		    border-bottom: 100px solid red;
+		    border-right: 100px solid transparent;
+		}
+		#triangle-bottomright {
+		    width: 0;
+		    height: 0;
+		    border-bottom: 100px solid red;
+		    border-left: 100px solid transparent;
+		}
+
+		.triangle {  
+		        width:0;  
+		        height:0;  
+		        overflow:hidden;  
+		        /*朝下的三角形*/  
+		        border-left:60px solid transparent;  
+		        border-right:60px solid transparent;  
+		        border-top:60px solid #118a11;  
+		    }  
+	    .triangle:hover {  
+	        -ms-transform:rotate(180deg);   /* IE 9 */  
+	        -moz-transform:rotate(180deg);  /* Firefox */  
+	        -webkit-transform:rotate(180deg); /* Safari 和 Chrome */  
+	        -o-transform:rotate(180deg);    /* Opera */  
+	        transform:rotate(180deg);  
+	  
+	        -webkit-transition: -webkit-transform 0.2s ease-in; /* Safari 和 Chrome */  
+	        -moz-transition:-moz-transform 0.2s ease-in;    /* Firefox */  
+	        -o-transition:-o-transform 0.2s ease-in;    /* Opera */  
+	        transition:transform 0.2s ease-in;  
+	    }  
+	</style>
+</head>
+<body>
+	<div class="div1"></div>
+	<div class="div2"></div>
+	<div class="div3"></div>
+	<div id="triangle-up"></div>
+	<div id="triangle-down"></div>
+	<div id="triangle-left"></div>
+	<div id="triangle-right"></div>
+	<div id="triangle-topleft"></div>
+	<div id="triangle-topright"></div>
+	<div id="triangle-bottomleft"></div>
+	<div id="triangle-bottomright"></div>
+
+	<div class="triangle"></div>  
+</body>
+</html>
