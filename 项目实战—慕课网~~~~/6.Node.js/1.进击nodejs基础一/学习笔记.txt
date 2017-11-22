@@ -1,0 +1,120 @@
+1.windows下安装node
+
+安装git-bash，操作更方便
+
+去node.js官网下载安装，很简单
+
+配置环境变量。计算机-属性-高级设置-环境变量，添加node的安装路径。
+
+
+
+在git-bash中，输入命令
+
+node -v //查看node版本号
+
+npm -v  //查看npm版本号
+
+
+
+2.linux下安装node
+
+3.mac下安装
+
+
+
+4.node与npm升级
+
+npm -g install npm ( 最新稳定版 ) 或 npm -g install npm@2.9.1 ( 指定版本 )
+
+5.node.js API
+5.1url:
+url.parse("http://www.imooc.com/course/list?teacher=scoot&course=node#aaa");  //转成url对象
+url.parse("http://www.imooc.com/course/list?teacher=scoot&course=node#aaa",true);  //query的值也转成对象  queryString的方式（模块）
+url.parse("//imooc.com/course/list?teacher=scoot&course=node#aaa",true,true);  //当没有协议时，host值也能正确
+url.format({
+  protocol: null,
+  slashes: true,
+  auth: null,
+  host: 'www.imooc.com',
+  port: null,
+  hostname: 'www.imooc.com',
+  hash: '#aaa',
+  search: '?teacher=scoot&course=node',
+  query: { teacher: 'scoot', course: 'node' },
+  pathname: '/course/list',
+  path: '/course/list?teacher=scoot&course=node',
+  href: '//www.imooc.com/course/list?teacher=scoot&course=node#aaa' }
+);
+
+url.resolve("http://www.baidu.com/","course/list")；  //拼成完整url
+
+5.2 querystring  
+queryString.stringify()  //将对象序列化字符串
+querystring.stringify({name:'sonya',course:['js','jade'],from:""});
+querystring.stringify({name:'sonya',course:['js','jade'],from:""},",");  //参数二表示属性之间用什么符号分隔
+querystring.stringify({name:'sonya',course:['js','jade'],from:""},",",":");
+//参数三表示 属性名与属性值之间用什么符号分隔
+
+querystring.parse();  //将字符串反序列化为对象,stringify的逆操作，参数也一样
+
+querystring.escape()  //转义
+querystring.unescape()  //反转义
+
+6.HTTP
+从输入www.imooc.com到页面显示，经过的步骤？
+Chrome搜索自身的DNS缓存
+搜索操作系统自身的DNS缓存（浏览器没有找到缓存或缓存已经失效）
+读取本地的Host文件
+浏览器发起一个DNS的系统调用
+		宽带运营商服务器查看本身缓存
+		运营商服务器发起一个迭代DNS解析的请求
+		运营商服务器把结果返回操作系统内核同时缓存起来
+		操作系统内核把结果返回浏览器
+		最终浏览器拿到了www.imooc.com对应的IP地址
+浏览器获得域名对应的IP地址后，发起TCP“三次握手”。
+TCP/IP连接建立起来之后，浏览器就可以向服务器发送HTTP请求了。
+服务器收到请求，根据路径参数，经过后端的一些处理之后，把处理后的一个结果的数据返回给浏览器。（把慕课网页面的完整HTML代码发给浏览器）
+浏览器拿到了慕课网的完整的HTML页面代码，在解析和渲染这个页面的时候，里面的JS、CSS、图片静态资源，他们同样是一个个HTTP请求，都需要上面的主要的七个步骤。
+浏览器根据拿到的资源对页面进行渲染，最终把一个完整的页面呈献给了用户。
+
+http请求方法：GET（获取数据）,POST（提交数据）,PUT（更新数据）,DELETE（删除某资源）,HEAD（获取）,TRACE,OPTIONS。
+http状态码：200（成功）,400（请求有语法错误，服务器不能理解）,401（请求未经过授权）,403（收到请求，但服务器拒绝提供服务）,404（请求资源不存在，未找到）,500（服务器端发生了一个不可预知的错误）,503（服务器当前不能处理此请求，过段时间才能恢复）
+
+7.http进阶
+回调
+同步/异步
+I/O
+单线程/多线程
+阻塞/非阻塞
+事件
+事件驱动
+基于事件驱动的回调
+事件循环
+
+非阻塞，单线程，事件驱动的node.js
+适合高并发，IO密集操作等等
+
+node全局环境下，this指向的是global。
+this指向函数的所有者，只能在函数内部使用。
+
+call、apply改变this、实现继承、
+
+Apache下的压力测试工具ab。
+性能测试：ab -n1000 -c10 http://localhost:2015/
+-n1000 并发1000个请求，默认为1
+-c10 并发数是10 默认为1
+web地址 最后加'/'
+
+-t:测试进行的总时间
+-p:post的数据
+-w：以html 表格的形式输出结果
+
+结果说明：
+Request per second:服务器的吞吐率，每秒处理的事务数
+
+npm install -g cheerio  //cheerio是一个类似jquery的解析html代码的工具模块,-g表示以管理员身份运行
+
+
+数组.forEach()方法  //原生js
+数组.each()方法  //Jquery中的
+
