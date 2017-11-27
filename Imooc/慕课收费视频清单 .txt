@@ -1,6 +1,6 @@
 ﻿02.BAT大牛面试之谈解密Android
 11 双剑合璧Laravel，AngularJS全栈开发知乎
-*2016年学会Git玩转Git-video
+*2016年学会Git玩转Git-video	ok.1
 *6小时jquery开发小应用    01
 *7天搞定Node.js微信公众号开发
 *Angular 4.0从入门到实战 打造股票管理网站02
