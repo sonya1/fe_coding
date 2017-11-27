@@ -1,0 +1,41 @@
+node.js + Express + mongleDB
+
+Express:帮助快速搭建web应用
+mongoose：对mongleDB快速建模的工具
+
+客户端的模板引擎：Jade
+
+时间和日期的格式化：Moment.js模块
+
+前端：Jquery、bootstrap、Bower、Less、Grunt
+
+实战开始：（流程）
+1.需求分析
+2.项目依赖初始化
+3.入口文件编码
+4.创建视图
+5.测试前端流程
+6.样式开发，伪造模板数据
+7.设计数据库模型
+8.开发后端逻辑
+9.配置依赖文件，网站开发结束
+
+
+开始搭建：
+1.新建imooc文件夹，为项目根目录，在里面新建app.js，作为入口文件，接着新建views文件夹，作为视图文件夹。
+接着安装依赖的模块
+cd imooc
+npm -g install express pug moment mongoose （出问题！！！！）
+解决：其中，jade改名为pug。。。（安装了好几次pug）
+
+问题二:首页报错
+解决：pug文件 格式错误
+
+建立pages文件夹，includes文件夹，将页面文件放到pages文件夹中，includes中放模板。
+
+includes中包括：head，header
+head：引入的style和script（要bower安装）
+安装bower(专门为前端表现设计的包管理器)：npm install -g bower
+安装bootstrap：bower install bootstrap
+header：页面的公共头
+
