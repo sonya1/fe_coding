@@ -213,7 +213,7 @@
 	
 	<script>
 		$(function(){
-			var isOpen = false;
+			//var isOpen = false;
 			var $wrapper = $(".ui-datepicker-wrapper"),
 				$input = $(".datepicker");
 			var year,month;
@@ -238,7 +238,7 @@
 
 				renderPage();
 
-				if(!isOpen){
+				//if(!isOpen){
 					$wrapper.addClass("ui-datepicker-wrapper-show");
 					var left = $input[0].offsetLeft;
 					var	top = $input[0].offsetTop;
@@ -323,12 +323,13 @@
 						}else{
 							return ;
 						}
+						
+						$wrapper.removeClass("ui-datepicker-wrapper-show");
 					});
 
-				}else{
-					$wrapper.removeClass("ui-datepicker-wrapper-show");
-					isOpen = false;
-				}
+				//}else{
+					//isOpen = false;
+				//}
 
 			});
 	
