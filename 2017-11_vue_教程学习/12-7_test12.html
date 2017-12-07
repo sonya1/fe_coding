@@ -75,6 +75,19 @@
 		</select>
 		<span>Selected: {{ selected }}</span>
 	</div>
+
+	<div id="app9">
+		<!-- 当选中时，`picked` 为字符串 "a" -->
+		<input type="radio" v-model="picked" value="a">
+
+		<!-- `toggle` 为 true 或 false -->
+		<input type="checkbox" v-model="toggle">
+
+		<!-- 当选中时，`selected` 为字符串 "abc" -->
+		<select v-model="selected">
+		  <option value="abc">ABC</option>
+		</select>
+	</div>
 		
 <script src="vue.js"></script>
 <script>
@@ -128,7 +141,7 @@
 		}
 	});
 
-	new Vue({
+	var s = new Vue({
 		el:"#app8",
 		data:{
 			selected:'A',
@@ -139,4 +152,16 @@
 			]
 		}
 	});
+
+	new Vue({
+	  el: "#app8",
+	  data: {
+	    selected: 'A',
+	    options: [
+	      { text: 'One', value: 'A' },
+	      { text: 'Two', value: 'B' },
+	      { text: 'Three', value: 'C' }
+	    ]
+	  }
+	})
 </script>
