@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>组件</title>
+</head>
+<body>
+
+	<div id="example">
+		<my-component></my-component>	
+	</div>
+
+	<div id="example2">
+		<my-component></my-component>	
+	</div>
+
+
+	<div id="example3">
+		<simple-counter></simple-counter>
+		<simple-counter></simple-counter>
+		<simple-counter></simple-counter>
+	</div>
+
+	<div id="example4">
+		<simple-counter></simple-counter>
+		<simple-counter></simple-counter>
+		<simple-counter></simple-counter>
+	</div>
+
+	<div id="example5">
+		<input v-model="parentMsg" type="text">
+		<br>
+		<child v-bind:my-message="parentMsg"></child>
+	</div>
+
+
+
+
+
+
+	<div id="app1">
+		<child message="hello"></child>
+	</div>
+	
+
+	<div id="counter-event-example">
+		<p>{{total}}</p>
+		<button-counter v-on:increment="incrementTotal"></button-counter>
+		<button-counter v-on:increment="incrementTotal"></button-counter>
+	</div>
+
+
+
+	<script src="vue.js"></script>
+	<script>
+		Vue.component("my-component",{
+			template:'<div>A Custom component!</div>'
+		});
+		new Vue({
+			el:"#example"
+		});
+
+
+		var child = {
+			template:'<div>A Custom component222!</div>'
+		}
+		new Vue({
+			el:'#example2',
+			components:{
+				'my-component':child
+			}
+		});
+
+
+		Vue.component("child",{
+			props:['message'],
+			template:'<span>{{message}}</span>'
+		});
+		new Vue({
+			el:"#app1"
+		});
+
+
+		var data = {
+			counter:0
+		};
+		Vue.component('simple-counter',{
+			template:'<button v-on:click="counter +=1">{{counter}}</button>',
+			data:function(){
+				return data;
+			}
+		});
+
+		new Vue({
+			el:"#example3"
+		});
+
+
+		Vue.component('simple-counter',{
+			template:'<button v-on:click="counter +=1">{{counter}}</button>',
+			data:function(){
+				return {
+					counter:0
+				};
+			}
+		});
+
+		new Vue({
+			el:"#example4"
+		});
+
+		Vue.component('child',{
+			props:['myMessage'],
+			template:'<p>{{myMessage}}</p>'
+		})
+		new Vue({
+			el:"#example5",
+			data:{
+				parentMsg:"Message from parent"
+			}
+		});
+
+
+		Vue.component('button-counter',{
+			template:'<button v-on:click="incrementCounter">{{counter}}</button>',
+			data:function(){
+				return {
+					counter:0
+				};
+			},
+			methods:{
+				incrementCounter:function(){
+					this.counter ++;
+					this.$emit('increment');
+				}
+			}
+		});
+		new Vue({
+			el:"#counter-event-example",
+			data:{
+				total:0
+			},
+			methods:{
+				incrementTotal:function(){
+					this.total ++;
+				}
+			}
+		});
+
+
+
+		
+	</script>
+</body>
+</html>
