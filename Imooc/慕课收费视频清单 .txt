@@ -1,13 +1,13 @@
 ﻿02.BAT大牛面试之谈解密Android
 11 双剑合璧Laravel，AngularJS全栈开发知乎
-*2016年学会Git玩转Git-video	ok.1
+ok*2016年学会Git玩转Git-video	
 *6小时jquery开发小应用    01
 *7天搞定Node.js微信公众号开发
 *Angular 4.0从入门到实战 打造股票管理网站02
 *angular单页应用 仿拉钩03
 *BAT互联网公司校招面试题
 
-*ES6零基础教学解析彩票项目04
+ok*ES6零基础教学解析彩票项目04
 *HTMl5与CSS3实现动态网页05
 J-a-v-a S-S-M-开-发-大-众-点-评-后-端
 Java Spring技术栈构建完整前后台团购网站
@@ -29,7 +29,7 @@ Python高效编程技巧实战
 Yii 2.0高级组件优化京东电商平台
 Yii2.0全力出击打造完整电商平台
 *【打造扛得住的MySQL数据库架构】
-*带你入门vue2.0与实战开发
+ok*带你入门vue2.0与实战开发
 *飞速上手的跨平台App开发
 *高性能 高价值的PHP API(完整版)
 *高性能可扩展mysql
